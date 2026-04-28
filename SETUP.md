@@ -150,7 +150,8 @@ kojifumi-git push -u origin main
 
 ## Cursor MCP（`.cursor/mcp.json`）
 
-- ローカルに **`.cursor/mcp.json`** を置く（**Git には含めない** — `.gitignore` 済み）。
+- **ユーザー全体の設定**なら **`~/.cursor/mcp.json`** に書いてもよい（このリポを開いていなくても同じ MCP が使える）。
+- リポジトリ単位なら、ローカルに **`.cursor/mcp.json`** を置く（**Git には含めない** — `.gitignore` 済み）。
 - 雛形は **`.cursor/mcp.json.example`**。初回はコピーしてトークンを入れる:  
   `cp .cursor/mcp.json.example .cursor/mcp.json`
 - **AEM** の `url` 型サーバーは Cursor の MCP 画面で **Connect** し、**Adobe ID** でサインイン。
