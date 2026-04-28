@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nexara AI — Intelligence That Moves the World Forward</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       DRAFT PREVIEW STYLES — standalone, no dev server required
+       ============================================================ */
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --text:      #e6edf3;
+      --muted:     #8b949e;
+      --accent:    #22d3ee;
+      --accent-hi: #67e8f9;
+      --border:    #30363d;
+      --nav-h:     64px;
+      --max-w:     1200px;
+      --radius:    12px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- Nav ---- */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(13, 17, 23, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+    .site-nav .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .site-nav .logo span { color: var(--accent); }
+    .site-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 32px;
+    }
+    .site-nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .site-nav ul a:hover { color: var(--text); }
+    .site-nav .nav-cta {
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .site-nav .nav-cta:hover { background: var(--accent-hi); }
+
+    /* ---- Section layout ---- */
+    .section {
+      padding: 96px 24px;
+    }
+    .section-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .section.surface { background: var(--surface); }
+    .section-center { text-align: center; }
+    .section-center .section-subtitle {
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 56px;
+    }
+
+    /* ---- Typography ---- */
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+    }
+    h1 { font-size: clamp(44px, 7vw, 68px); }
+    h2 { font-size: clamp(32px, 5vw, 48px); margin-bottom: 0.5em; }
+    h3 { font-size: 22px; margin-bottom: 12px; }
+    p  { margin: 0 0 1em; }
+
+    /* ---- Buttons ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .btn-primary:hover { background: var(--accent-hi); }
+    .btn-outline {
+      background: transparent;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .btn-outline:hover { border-color: var(--accent-hi); color: var(--accent-hi); }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .section-hero {
+      padding: 0;
+      min-height: calc(100vh - var(--nav-h));
+      background:
+        radial-gradient(ellipse 60% 60% at 80% -10%, rgba(34,211,238,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at -5% 80%, rgba(34,211,238,0.07) 0%, transparent 60%),
+        linear-gradient(160deg, #0d1117 0%, #0f2044 60%, #0d1117 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 860px;
+      padding: 80px 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+      padding: 6px 16px;
+      border: 1px solid rgba(34,211,238,0.35);
+      border-radius: 999px;
+    }
+    .hero h1 {
+      margin-bottom: 28px;
+      color: var(--text);
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #22d3ee 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-lead {
+      font-size: 20px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 620px;
+      margin: 0 auto 44px;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       STATS
+       ============================================================ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .stat-item {
+      background: var(--surface);
+      padding: 48px 32px;
+      text-align: center;
+    }
+    .stat-number {
+      display: block;
+      font-size: clamp(40px, 6vw, 60px);
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .stat-label {
+      font-size: 15px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       FEATURE CARDS
+       ============================================================ */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 32px;
+      right: 32px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), #818cf8);
+      border-radius: 0 0 2px 2px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(34, 211, 238, 0.08);
+      border-color: rgba(34, 211, 238, 0.3);
+    }
+    .card:hover::before { opacity: 1; }
+    .card-category {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .card h3 { color: var(--text); margin-bottom: 14px; }
+    .card p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .card a {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .card a:hover { color: var(--accent-hi); }
+
+    /* ============================================================
+       HOW IT WORKS
+       ============================================================ */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 32px;
+      margin-top: 56px;
+    }
+    .step {
+      padding: 8px 0;
+    }
+    .step-num {
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--accent);
+      opacity: 0.25;
+      line-height: 1;
+      margin-bottom: 20px;
+      letter-spacing: -0.04em;
+    }
+    .step h3 { color: var(--text); margin-bottom: 12px; }
+    .step p { color: var(--muted); font-size: 16px; line-height: 1.7; margin: 0; }
+
+    /* ============================================================
+       TESTIMONIAL
+       ============================================================ */
+    .section-testimonial {
+      background:
+        radial-gradient(ellipse 50% 80% at 50% 0%, rgba(34,211,238,0.06) 0%, transparent 70%),
+        var(--bg);
+      padding: 96px 24px;
+    }
+    .testimonial-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .testimonial-quote {
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.65;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .testimonial-quote::before {
+      content: '\201C';
+      font-size: 80px;
+      font-style: normal;
+      color: var(--accent);
+      opacity: 0.3;
+      position: absolute;
+      top: -20px;
+      left: -10px;
+      line-height: 1;
+    }
+    .testimonial-attr {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .testimonial-name { font-weight: 600; color: var(--text); }
+    .testimonial-role { font-size: 15px; color: var(--muted); }
+
+    /* ============================================================
+       FAQ / ACCORDION
+       ============================================================ */
+    .faq-list {
+      max-width: 760px;
+      margin: 56px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    details.faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--surface);
+    }
+    summary.faq-q {
+      padding: 20px 24px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--text);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    summary.faq-q::-webkit-details-marker { display: none; }
+    summary.faq-q::after {
+      content: '+';
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--accent);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    details[open] summary.faq-q { background: rgba(34,211,238,0.05); }
+    details[open] summary.faq-q::after { transform: rotate(45deg); }
+    .faq-a {
+      padding: 0 24px 20px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    /* ============================================================
+       CTA BANNER
+       ============================================================ */
+    .section-cta {
+      background:
+        radial-gradient(ellipse 70% 80% at 50% 110%, rgba(34,211,238,0.1) 0%, transparent 60%),
+        var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 120px 24px;
+      text-align: center;
+    }
+    .cta-inner { max-width: 640px; margin: 0 auto; }
+    .cta-inner h2 { margin-bottom: 20px; }
+    .cta-inner p { color: var(--muted); margin-bottom: 40px; }
+    .cta-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 32px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 700px) {
+      .site-nav ul { display: none; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAV
+       ============================================================ -->
+  <nav class="site-nav">
+    <a href="/" class="logo">Nexara<span> AI</span></a>
+    <ul>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Solutions</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">Docs</a></li>
+    </ul>
+    <a href="/signup" class="nav-cta">Get Started Free</a>
+  </nav>
+
+  <main>
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <div class="section-hero">
+      <div class="hero-inner">
+        <span class="hero-eyebrow">Enterprise AI Platform</span>
+        <h1>Intelligence That<br><em>Moves the World</em><br>Forward</h1>
+        <p class="hero-lead">Nexara AI delivers enterprise-grade solutions that automate, predict, and transform how your business operates — at any scale.</p>
+        <div class="hero-ctas">
+          <a href="/signup" class="btn btn-primary">Start for Free</a>
+          <a href="/demo" class="btn btn-outline">See How It Works</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         STATS
+         ============================================================ -->
+    <div class="section surface">
+      <div class="section-inner">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-number">10M+</span>
+            <span class="stat-label">Active Users</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">99.9%</span>
+            <span class="stat-label">Uptime SLA</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">150+</span>
+            <span class="stat-label">Countries</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         PRODUCTS / FEATURE CARDS
+         ============================================================ -->
+    <div class="section section-center">
+      <div class="section-inner">
+        <h2>Built for Intelligence. Designed for Scale.</h2>
+        <p class="section-subtitle">Three flagship products covering the full AI lifecycle — from raw data to confident decisions.</p>
+        <div class="cards-grid">
+          <div class="card">
+            <p class="card-category">Prediction</p>
+            <h3>NexaPredict</h3>
+            <p>Forecast business trends with unmatched accuracy using our proprietary ML pipeline, trained on 500B+ data points across 40 industries.</p>
+            <a href="/products/predict">Explore NexaPredict →</a>
+          </div>
+          <div class="card">
+            <p class="card-category">Automation</p>
+            <h3>NexaAutomate</h3>
+            <p>Eliminate repetitive tasks with AI-powered workflow automation that adapts to your processes, not the other way around.</p>
+            <a href="/products/automate">Explore NexaAutomate →</a>
+          </div>
+          <div class="card">
+            <p class="card-category">Analytics</p>
+            <h3>NexaInsight</h3>
+            <p>Turn raw operational data into real-time actionable intelligence with dashboards your entire organization can trust and act on.</p>
+            <a href="/products/insight">Explore NexaInsight →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         HOW IT WORKS
+         ============================================================ -->
+    <div class="section surface section-center">
+      <div class="section-inner">
+        <h2>How Nexara AI Works</h2>
+        <p class="section-subtitle">From raw data to confident decisions — in three steps.</p>
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-num">01</div>
+            <h3>Connect Your Data</h3>
+            <p>Integrate with 200+ data sources in minutes. Our universal connector handles structured, unstructured, and real-time streaming data.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <h3>Train &amp; Configure</h3>
+            <p>Our no-code model studio lets your team fine-tune AI models without data science expertise. Deploy in hours, not months.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <h3>Act on Intelligence</h3>
+            <p>Trigger automated workflows, surface insights in existing tools, or build custom dashboards — all from one unified platform.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         TESTIMONIAL
+         ============================================================ -->
+    <div class="section-testimonial">
+      <div class="testimonial-inner">
+        <p class="testimonial-quote">Nexara AI reduced our operational costs by 40% in the first quarter. The predictive accuracy is unlike anything we have seen in the market — it felt like having a crystal ball for our supply chain.</p>
+        <div class="testimonial-attr">
+          <span class="testimonial-name">Sarah Chen</span>
+          <span class="testimonial-role">CTO, Meridian Finance Group</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         FAQ
+         ============================================================ -->
+    <div class="section section-center">
+      <div class="section-inner">
+        <h2>Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know before getting started.</p>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary class="faq-q">How quickly can we get started with Nexara AI?</summary>
+            <div class="faq-a">Most teams are fully onboarded within 2 weeks. Our implementation specialists guide you through data connection, model setup, and team training. No infrastructure changes required.</div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q">Is our data secure and private?</summary>
+            <div class="faq-a">Absolutely. Nexara AI is SOC 2 Type II certified and GDPR compliant. We support deployment in your own private cloud or on-premises. Your data is never used to train models for other customers.</div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q">Do I need a data science team to use Nexara AI?</summary>
+            <div class="faq-a">No. Nexara AI is designed for business teams, not just data scientists. Our no-code interface lets anyone build, train, and deploy AI models. We also offer fully managed AI services if you need additional support.</div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q">What integrations are available?</summary>
+            <div class="faq-a">Nexara AI integrates natively with Salesforce, HubSpot, Slack, Microsoft 365, Google Workspace, Snowflake, Databricks, and 200+ other platforms via REST API and pre-built connectors.</div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q">What pricing plans are available?</summary>
+            <div class="faq-a">We offer Starter ($0/month for up to 3 users), Growth ($299/month), and Enterprise (custom pricing) plans. All plans include a 14-day free trial with full feature access — no credit card required.</div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         CTA BANNER
+         ============================================================ -->
+    <div class="section-cta">
+      <div class="cta-inner">
+        <h2>Start Transforming Your Business Today</h2>
+        <p>Join 10M+ professionals who rely on Nexara AI to make better decisions, faster.</p>
+        <div class="cta-btns">
+          <a href="/signup" class="btn btn-primary">Get Started Free</a>
+          <a href="/contact" class="btn btn-outline">Talk to Sales</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Nexara AI, Inc. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

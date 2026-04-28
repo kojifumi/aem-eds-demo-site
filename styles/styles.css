@@ -11,17 +11,31 @@
  */
 
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  /* Nexara AI — Dark Navy Theme
+     Contrast ratios (WCAG 2.1):
+       --text-color on --background-color : ~15:1  (AAA)
+       --text-muted-color on --background-color : ~6.2:1 (AA)
+       --accent-color on --background-color : ~9.9:1  (AAA)
+       --accent-color as button bg, --background-color text : ~9.9:1 (AAA)
+  */
+
+  /* base colors */
+  --background-color: #0d1117;
+  --surface-color: #161b22;
+  --light-color: #161b22;
+  --dark-color: #c9d1d9;
+  --text-color: #e6edf3;
+  --text-muted-color: #8b949e;
+  --border-color: #30363d;
+
+  /* brand accent — electric cyan */
+  --accent-color: #22d3ee;
+  --link-color: #22d3ee;
+  --link-hover-color: #67e8f9;
 
   /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  --body-font-family: 'Inter', inter-fallback, system-ui, -apple-system, sans-serif;
+  --heading-font-family: 'Inter', inter-fallback, system-ui, -apple-system, sans-serif;
 
   /* body sizes */
   --body-font-size-m: 22px;
@@ -40,16 +54,11 @@
   --nav-height: 64px;
 }
 
-/* fallback fonts */
+/* Inter system-font fallback (prevents layout shift while Google Fonts loads) */
 @font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
-  src: local('Arial');
-}
-
-@font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
+  font-family: inter-fallback;
+  size-adjust: 100%;
+  ascent-override: 90%;
   src: local('Arial');
 }
 
@@ -205,9 +214,9 @@ button:disabled:hover {
 
 a.button.secondary,
 button.secondary {
-  background-color: unset;
-  border: 2px solid currentcolor;
-  color: var(--text-color);
+  background-color: transparent;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
 }
 
 main img {
@@ -251,7 +260,83 @@ main > .section:first-of-type {
 /* section metadata */
 main .section.light,
 main .section.highlight {
-  background-color: var(--light-color);
+  background-color: var(--surface-color);
   margin: 0;
   padding: 40px 0;
+}
+
+/* Stats section — large accent numbers */
+main .section.stats .columns > div {
+  text-align: center;
+  gap: 0;
+}
+
+main .section.stats .columns strong {
+  display: block;
+  font-size: var(--heading-font-size-xxl);
+  font-weight: 700;
+  color: var(--accent-color);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+main .section.stats .columns p {
+  margin: 0.25em 0 0;
+  color: var(--text-muted-color);
+  font-size: var(--body-font-size-s);
+}
+
+/* How It Works — step numbers */
+main .section.how-it-works .step-number,
+main .section.how-it-works .columns > div > div > p:first-child strong {
+  font-size: var(--heading-font-size-l);
+  font-weight: 700;
+  color: var(--accent-color);
+  opacity: 0.5;
+  margin: 0 0 0.25em;
+  line-height: 1;
+}
+
+main .section.how-it-works .columns > div > div {
+  padding: 8px 16px;
+}
+
+/* Products / How It Works / FAQ — centered heading + subtitle */
+main .section.products > div > h2,
+main .section.how-it-works > div > h2,
+main .section.highlight > div > h2 {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+main .section.products > div > p:not([class]),
+main .section.how-it-works > div > p:not([class]),
+main .section.highlight > div > p:not([class]) {
+  text-align: center;
+  color: var(--text-muted-color);
+  margin-bottom: 2em;
+}
+
+/* Testimonial section */
+main .section.testimonial {
+  background: linear-gradient(135deg, #0f1c33 0%, #0d1117 100%);
+  padding: 80px 0;
+  margin: 0;
+}
+
+/* CTA Banner */
+main .section.cta-banner {
+  background: linear-gradient(135deg, #0f2044 0%, #0d1117 60%);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  margin: 0;
+  padding: 80px 0;
+  text-align: center;
+}
+
+main .section.cta-banner > div > p {
+  color: var(--text-muted-color);
+  font-size: var(--body-font-size-s);
+  max-width: 600px;
+  margin: 0 auto 1.5em;
 }

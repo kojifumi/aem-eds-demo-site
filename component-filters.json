@@ -15,21 +15,25 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "accordion",
-      "carousel",
-      "embed",
-      "quote",
-      "search",
-      "table",
-      "tabs",
-      "video"
+      "fragment"
+    ]
+  },
+  {
+    "id": "accordion",
+    "components": [
+      "accordion-item"
     ]
   },
   {
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "carousel-slide"
     ]
   },
   {
@@ -45,18 +49,6 @@
       "image",
       "button",
       "title"
-    ]
-  },
-  {
-    "id": "accordion",
-    "components": [
-      "accordion-item"
-    ]
-  },
-  {
-    "id": "carousel",
-    "components": [
-      "carousel-slide"
     ]
   },
   {

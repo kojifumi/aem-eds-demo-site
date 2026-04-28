@@ -33,6 +33,26 @@
             {
               "name": "Highlight",
               "value": "highlight"
+            },
+            {
+              "name": "Products",
+              "value": "products"
+            },
+            {
+              "name": "Stats",
+              "value": "stats"
+            },
+            {
+              "name": "How It Works",
+              "value": "how-it-works"
+            },
+            {
+              "name": "Testimonial",
+              "value": "testimonial"
+            },
+            {
+              "name": "CTA Banner",
+              "value": "cta-banner"
             }
           ]
         }

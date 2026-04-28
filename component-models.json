@@ -136,8 +136,46 @@
           {
             "name": "Highlight",
             "value": "highlight"
+          },
+          {
+            "name": "Products",
+            "value": "products"
+          },
+          {
+            "name": "Stats",
+            "value": "stats"
+          },
+          {
+            "name": "How It Works",
+            "value": "how-it-works"
+          },
+          {
+            "name": "Testimonial",
+            "value": "testimonial"
+          },
+          {
+            "name": "CTA Banner",
+            "value": "cta-banner"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "richtext",
+        "name": "body",
+        "value": "",
+        "label": "Body",
+        "valueType": "string"
       }
     ]
   },
@@ -150,6 +188,32 @@
         "name": "image",
         "label": "Image",
         "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "carousel-slide",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
       },
       {
         "component": "richtext",
@@ -176,6 +240,16 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
+      }
+    ]
+  },
+  {
+    "id": "embed",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "URL to embed"
       }
     ]
   },
@@ -212,60 +286,6 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "accordion-item",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "label",
-        "label": "Label"
-      },
-      {
-        "component": "richtext",
-        "name": "body",
-        "value": "",
-        "label": "Body",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "carousel-slide",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "embed",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "URL to embed"
       }
     ]
   },
