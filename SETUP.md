@@ -136,8 +136,11 @@ https://main--aem-eds-demo-site--kojifumi.aem.page/
 ```bash
 cd /Users/fkojima/dev/eds/aem-eds-demo-site
 git remote set-url origin https://github.com/kojifumi/aem-eds-demo-site.git
-git push -u origin main
+# 普段の gh / git が別アカウント（例: EMU）のときは kojifumi 用ラッパーで push
+kojifumi-git push -u origin main
 ```
+
+`kojifumi-git` / `kojifumi` は **`~/.local/bin` にインストール済み**想定。初回だけ `gh auth login` で **kojifumi** を `gh` に登録。詳細は [docs/KOJIFUMI-CLI.md](./docs/KOJIFUMI-CLI.md) または `~/.local/share/doc/kojifumi-cli/README.md`。
 
 別アカウント（例: Enterprise Managed User）からは `kojifumi` 側にリポジトリを自動作成できない場合があります。そのときは上記の手動作成とプッシュで問題ありません。
 
