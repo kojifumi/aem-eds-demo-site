@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "aem-content": {
+      "url": "https://mcp.adobeaemcloud.com/adobe/mcp/content"
+    },
+    "aem-content-readonly": {
+      "url": "https://mcp.adobeaemcloud.com/adobe/mcp/content-readonly"
+    },
+    "aem-cloudmanager": {
+      "url": "https://mcp.adobeaemcloud.com/adobe/mcp/cloudmanager"
+    },
+    "helix-mcp-server": {
+      "command": "npx",
+      "args": [
+        "https://github.com/cloudadoption/helix-mcp"
+      ],
+      "env": {
+        "HELIX_ADMIN_API_TOKEN": "REPLACE_WITH_TOKEN_FROM_https://admin.hlx.page/login",
+        "RUM_DOMAIN_KEY": "REPLACE_WITH_RUM_KEY"
+      }
+    }
+  }
+}
