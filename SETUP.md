@@ -159,6 +159,32 @@ kojifumi-git push -u origin main
 
 ---
 
+## AEM MCP と権限（他環境を誤操作しないために）
+
+MCP 経由の操作は **OAuth した Adobe ID と同じ権限**で実行されます（[AEM as a Cloud Service での MCP の使用 — 認証と権限](https://experienceleague.adobe.com/ja/docs/experience-manager-cloud-service/content/ai-in-aem/mcp-support/using-mcp-with-aem-as-a-cloud-service?lang=ja)）。Cursor の「Connected」は認証の成功であり、**環境やサイトへの自動スコープはありません**。デモ以外を触りたくない場合は次を組み合わせる。
+
+### 1. Adobe / Cloud Manager（強い制御）
+
+- **組織管理者**: [MCP の利用ポリシー](https://experienceleague.adobe.com/ja/docs/experience-manager-cloud-service/content/ai-in-aem/mcp-support/using-mcp-with-aem-as-a-cloud-service?lang=ja)どおり、必要なら **MCP サーバー単位・クライアント単位の制限**を検討（管理者向け）。
+- **Cloud Manager**: [カスタム権限](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/implementing/using-cloud-manager/custom-permissions)で、このユーザー／グループを **デモ用プログラム・環境にだけ**紐づけると、**Cloud Manager MCP** で他プログラムを操作しにくくなる。
+
+### 2. AEM Author（コンテンツパス）
+
+- デモ用サイトルートは **`/content/aem-eds-demo-site/`**。MCP の Content ツールも **そのユーザーに許された ACL の範囲**でのみ成功する。本番ツリーへの権限を付けなければ、MCP からも更新できない。
+
+### 3. Cursor・運用（補助）
+
+- **書き込みを絞る**: 調査だけなら **`content-readonly`** の MCP だけにし、`aem-content` を外す方法がある（書き換え・削除の経路を減らす）。
+- **Cloud Manager を IDE から使わない**: `~/.cursor/mcp.json` から **`aem-cloudmanager` エントリを外す**と、パイプライン／環境系の誤操作経路がなくなる（必要なときだけ一時追加）。
+- **ツールの自動承認を絶対に頼らない**: 更新・削除・公開は都度確認する（公式も「人間の監視」を推奨）。
+- このリポジトリでは **`.cursor/rules/aem-mcp-demo-scope.mdc`** でエージェント向けにデモ Author とコンテンツパスのガードレールを置いている（法的・技術的強制ではなく補助）。
+
+### 4. さらに厳しくする場合
+
+- **デモ専用の Adobe ID** を別にし、その IMS ユーザーだけをサンドボックスプログラムとデモ AEM に招待する（他環境には参加させない）。
+
+---
+
 ## Available Blocks
 
 See [README.md](./README.md) for the full list of available blocks (Boilerplate + Block Collection).
