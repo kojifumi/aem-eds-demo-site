@@ -15,7 +15,15 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "accordion",
+      "carousel",
+      "embed",
+      "quote",
+      "search",
+      "table",
+      "tabs",
+      "video"
     ]
   },
   {
@@ -37,6 +45,24 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "accordion",
+    "components": [
+      "accordion-item"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "carousel-slide"
+    ]
+  },
+  {
+    "id": "tabs",
+    "components": [
+      "tab"
     ]
   }
 ]
