@@ -148,6 +148,16 @@ kojifumi-git push -u origin main
 
 ---
 
+## Cursor MCP（`.cursor/mcp.json`）
+
+- ローカルに **`.cursor/mcp.json`** を置く（**Git には含めない** — `.gitignore` 済み）。
+- 雛形は **`.cursor/mcp.json.example`**。初回はコピーしてトークンを入れる:  
+  `cp .cursor/mcp.json.example .cursor/mcp.json`
+- **AEM** の `url` 型サーバーは Cursor の MCP 画面で **Connect** し、**Adobe ID** でサインイン。
+- **Helix** は `HELIX_ADMIN_API_TOKEN` が必要。トークンは **リポジトリに push しない**。
+
+---
+
 ## Available Blocks
 
 See [README.md](./README.md) for the full list of available blocks (Boilerplate + Block Collection).
