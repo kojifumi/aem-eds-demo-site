@@ -1,0 +1,8 @@
+{
+  "mappings": [
+    "/content/aem-eds-demo-site/:/"
+  ],
+  "includes": [
+    "/content/aem-eds-demo-site/"
+  ]
+}
