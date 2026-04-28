@@ -4,7 +4,7 @@ AEM Edge Delivery Services demo site with Universal Editor authoring.
 
 ## Setup
 
-- **GitHub repo**: `fkojima_adobe/aem-eds-demo-site`
+- **GitHub repo**: `kojifumi/aem-eds-demo-site`
 - **AEM Author**: `https://author-p159404-e1696482.adobeaemcloud.com`
 - **Template**: `adobe-rnd/aem-boilerplate-xwalk`
 

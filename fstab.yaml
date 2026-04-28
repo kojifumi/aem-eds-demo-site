@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://author-p159404-e1696482.adobeaemcloud.com/bin/franklin.delivery/fkojima_adobe/aem-eds-demo-site/main"
+    url: "https://author-p159404-e1696482.adobeaemcloud.com/bin/franklin.delivery/kojifumi/aem-eds-demo-site/main"
     type: "markup"
     suffix: ".html"

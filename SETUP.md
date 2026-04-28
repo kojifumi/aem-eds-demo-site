@@ -12,12 +12,12 @@ The aem-code-sync GitHub App connects this repository to AEM's content delivery 
 >
 > 1. Open: <https://github.com/apps/aem-code-sync/installations/new>
 > 2. Under "Repository access", select **Only select repositories**
-> 3. Choose **fkojima_adobe/aem-eds-demo-site** from the list
+> 3. Choose **kojifumi/aem-eds-demo-site** from the list
 > 4. Click **Save**
 
 **Verify:** After installing, the following URL should return a valid JSON response (not 404):
 ```
-https://admin.hlx.page/status/fkojima_adobe/aem-eds-demo-site/main/
+https://admin.hlx.page/status/kojifumi/aem-eds-demo-site/main/
 ```
 
 ---
@@ -55,7 +55,7 @@ The repository's `fstab.yaml` is already configured to point to this Author envi
 ```yaml
 mountpoints:
   /:
-    url: "https://author-p159404-e1696482.adobeaemcloud.com/bin/franklin.delivery/fkojima_adobe/aem-eds-demo-site/main"
+    url: "https://author-p159404-e1696482.adobeaemcloud.com/bin/franklin.delivery/kojifumi/aem-eds-demo-site/main"
     type: "markup"
     suffix: ".html"
 ```
@@ -91,7 +91,7 @@ To enable the Universal Editor on this site:
    ```html
    <script>
      var ue = {
-       "editurl": "https://main--aem-eds-demo-site--fkojima_adobe.aem.page/",
+       "editurl": "https://main--aem-eds-demo-site--kojifumi.aem.page/",
      };
    </script>
    ```
@@ -112,7 +112,7 @@ The local dev server starts at `http://localhost:3000`. Content is proxied from 
 
 To target the specific preview URL:
 ```bash
-aem up --url https://main--aem-eds-demo-site--fkojima_adobe.aem.page
+aem up --url https://main--aem-eds-demo-site--kojifumi.aem.page
 ```
 
 ---
@@ -121,8 +121,27 @@ aem up --url https://main--aem-eds-demo-site--fkojima_adobe.aem.page
 
 After aem-code-sync is installed and the AEM site is created, the preview URL will be:
 ```
-https://main--aem-eds-demo-site--fkojima_adobe.aem.page/
+https://main--aem-eds-demo-site--kojifumi.aem.page/
 ```
+
+---
+
+## GitHub: `kojifumi` 名下にリポジトリを用意する
+
+コードと `fstab.yaml` は **`kojifumi/aem-eds-demo-site`** を前提にしています。
+
+1. [kojifumi](https://github.com/kojifumi/) でサインインし、**New repository** で `aem-eds-demo-site` を作成する（private 可）。
+2. ローカルでリモートを設定してプッシュする:
+
+```bash
+cd /Users/fkojima/dev/eds/aem-eds-demo-site
+git remote set-url origin https://github.com/kojifumi/aem-eds-demo-site.git
+git push -u origin main
+```
+
+別アカウント（例: Enterprise Managed User）からは `kojifumi` 側にリポジトリを自動作成できない場合があります。そのときは上記の手動作成とプッシュで問題ありません。
+
+以前 **`fkojima_adobe/aem-eds-demo-site`** にだけあった場合は、GitHub の **Transfer ownership** で `kojifumi` に移すか、移行後に旧リポジトリをアーカイブしてください。
 
 ---
 
