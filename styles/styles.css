@@ -271,7 +271,8 @@ main .section.stats .columns > div {
   gap: 0;
 }
 
-main .section.stats .columns strong {
+main .section.stats .columns strong,
+main .section.stats .columns > div > div > :is(h1, h2, h3, h4, h5, h6):first-child {
   display: block;
   font-size: var(--heading-font-size-xxl);
   font-weight: 700;
@@ -339,4 +340,13 @@ main .section.cta-banner > div > p {
   font-size: var(--body-font-size-s);
   max-width: 600px;
   margin: 0 auto 1.5em;
+}
+
+main .section.cta-banner > div {
+  text-align: center;
+}
+
+main .section.cta-banner p.button-container {
+  display: inline-flex;
+  margin: 0 8px 0 0;
 }

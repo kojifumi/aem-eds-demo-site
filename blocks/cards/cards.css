@@ -25,10 +25,14 @@
   padding: 28px;
 }
 
-.cards .cards-card-body > p:first-child {
-  font-size: 2.5rem;
+.cards .cards-card-body > p.card-category {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-color, #22d3ee);
   margin: 0 0 16px;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .cards .cards-card-body h3 {

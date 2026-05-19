@@ -113,6 +113,20 @@
   line-height: 1.7;
 }
 
+/* Eyebrow label (UE text field) */
+.hero.gradient .hero-eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-color, #22d3ee);
+  margin-bottom: 28px;
+  padding: 6px 16px;
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  border-radius: 999px;
+}
+
 /* Button containers: display inline so they sit side by side */
 .hero.gradient p.button-container {
   display: inline-flex;
