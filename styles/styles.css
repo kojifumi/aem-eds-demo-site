@@ -371,9 +371,68 @@ main .section.products .cards-wrapper {
 
 /* Testimonial section */
 main .section.testimonial {
-  background: linear-gradient(135deg, #0f1c33 0%, #0d1117 100%);
-  padding: 80px 0;
+  background:
+    radial-gradient(ellipse 50% 80% at 50% 0%, rgba(34, 211, 238, 0.06) 0%, transparent 70%),
+    linear-gradient(135deg, #0f1c33 0%, #0d1117 100%);
+  padding: 64px 0;
   margin: 0;
+}
+
+main .section.testimonial > div,
+main .section.testimonial .quote-wrapper {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+main .section.testimonial .quote blockquote {
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+main .section.testimonial .quote blockquote .quote-quotation {
+  position: relative;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--text-color);
+  margin-bottom: 1.5em;
+}
+
+main .section.testimonial .quote blockquote .quote-quotation > :first-child::before {
+  content: '\201C';
+  display: block;
+  font-size: clamp(48px, 12vw, 80px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-color);
+  opacity: 0.3;
+  margin-bottom: 0.25em;
+  text-indent: 0;
+}
+
+main .section.testimonial .quote blockquote .quote-quotation > :last-child::after {
+  content: none;
+}
+
+main .section.testimonial .quote blockquote .quote-attribution {
+  text-align: center;
+  font-size: var(--body-font-size-s);
+  color: var(--text-muted-color);
+}
+
+main .section.testimonial .quote blockquote .quote-attribution cite {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  main .section.testimonial {
+    padding: 96px 0;
+  }
 }
 
 /* CTA Banner */

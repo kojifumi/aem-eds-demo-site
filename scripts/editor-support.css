@@ -130,6 +130,31 @@ main .section.stats .columns > div > div > p,
   }
 }
 
+/* Testimonial — UE canvas (quote block) */
+main .section.testimonial .quote blockquote,
+main .section.testimonial .quote > div > div {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+main .section.testimonial .quote p {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--text-color, #e6edf3);
+}
+
+main .section.testimonial .quote em,
+main .section.testimonial .quote cite {
+  display: block;
+  margin-top: 1.5em;
+  font-style: normal;
+  font-size: var(--body-font-size-s, 16px);
+  font-weight: 600;
+  color: var(--text-color, #e6edf3);
+}
+
 main .section.how-it-works .default-content-wrapper h2 ~ p,
 main .section.how-it-works .default-content-wrapper h2 ~ div > p,
 main .section:has(.columns.block) .default-content-wrapper h2 ~ p,
