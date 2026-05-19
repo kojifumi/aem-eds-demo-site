@@ -33,6 +33,7 @@
 }
 
 /* How It Works — 3 steps (class set by columns.js, works without section.how-it-works in UE) */
+.columns.how-it-works-steps > div > div > .step-number,
 .columns.how-it-works-steps > div > div > p.step-number,
 .columns.how-it-works-steps > div > div > p:has(+ :is(h1, h2, h3, h4)) {
   display: block;

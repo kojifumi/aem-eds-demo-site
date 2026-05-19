@@ -288,6 +288,7 @@ main .section.stats .columns p {
 }
 
 /* How It Works — step numbers (UE may omit <strong> on 01/02/03) */
+main .section.how-it-works .columns .step-number,
 main .section.how-it-works .columns p.step-number,
 main .section.how-it-works .columns > div > div > p:has(+ :is(h1, h2, h3, h4)),
 main .section.how-it-works .columns > div > div > p:first-child strong {

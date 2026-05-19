@@ -7,32 +7,42 @@ function decorateHowItWorksSteps(block) {
 
   let stepCount = 0;
   cells.forEach((cell) => {
-    if (cell.querySelector(':scope > .step-number')) return;
+    // Remove duplicate step <p> inserted by earlier decoration (keeps authored element)
+    cell.querySelectorAll(':scope > p.step-number').forEach((p) => {
+      const prev = p.previousElementSibling;
+      const prevText = prev?.textContent?.trim() ?? '';
+      if (prev && /^\d{1,2}$/.test(prevText)) {
+        p.remove();
+      }
+    });
 
+    const heading = cell.querySelector(':scope > :is(h1, h2, h3, h4)');
     let stepEl = cell.querySelector(':scope > p:has(+ :is(h1, h2, h3, h4))');
+
     if (!stepEl) {
       const firstP = cell.querySelector(':scope > p');
-      const text = firstP?.textContent?.trim() ?? '';
-      if (/^\d{1,2}$/.test(text)) stepEl = firstP;
-    }
-    if (!stepEl) {
-      const divText = cell.querySelector(':scope > div:not(:has(p))')?.textContent?.trim()
-        ?? cell.children[0]?.textContent?.trim();
-      if (/^\d{1,2}$/.test(divText ?? '')) {
-        const wrapper = cell.querySelector(':scope > div') || cell;
-        stepEl = document.createElement('p');
-        stepEl.className = 'step-number';
-        stepEl.textContent = divText;
-        const heading = cell.querySelector(':scope > :is(h1, h2, h3, h4)');
-        if (heading) {
-          cell.insertBefore(stepEl, heading);
-        } else {
-          cell.prepend(stepEl);
-        }
-        stepCount += 1;
-        return;
+      if (/^\d{1,2}$/.test(firstP?.textContent?.trim() ?? '')) {
+        stepEl = firstP;
       }
     }
+
+    if (!stepEl) {
+      const stepWrapper = [...cell.children].find((el) => {
+        if (el === heading || el.contains(heading)) return false;
+        if (el.matches(':is(h1, h2, h3, h4)')) return false;
+        return /^\d{1,2}$/.test(el.textContent?.trim() ?? '');
+      });
+      if (stepWrapper) {
+        if (stepWrapper.tagName === 'P') {
+          stepEl = stepWrapper;
+        } else {
+          stepWrapper.classList.add('step-number');
+          stepCount += 1;
+          return;
+        }
+      }
+    }
+
     if (stepEl) {
       stepEl.classList.add('step-number');
       stepCount += 1;
@@ -57,7 +67,6 @@ export default function decorate(block) {
       if (pic) {
         const picWrapper = pic.closest('div');
         if (picWrapper && picWrapper.children.length === 1) {
-          // picture is only content in column
           picWrapper.classList.add('columns-img-col');
         }
       }
