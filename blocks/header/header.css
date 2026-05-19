@@ -36,31 +36,55 @@ header nav[aria-expanded='true'] {
 }
 
 @media (width >= 900px) {
+  /* Flex row — mobile grid-template-areas must not apply on desktop */
   header nav {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    display: flex;
     align-items: center;
-    gap: 32px;
+    position: relative;
+    grid-template: none;
+    grid-template-areas: none;
+    gap: 0;
+    height: var(--nav-height);
     max-width: 1264px;
     padding: 0 32px;
   }
 
+  header nav .nav-hamburger {
+    display: none;
+    visibility: hidden;
+  }
+
   header nav .nav-brand {
-    justify-self: start;
+    grid-area: unset;
+    flex: 0 0 auto;
+    z-index: 1;
   }
 
   header nav .nav-sections {
-    justify-self: center;
+    grid-area: unset;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    visibility: visible;
+    width: max-content;
+    flex: none;
   }
 
   header nav .nav-tools {
-    justify-self: end;
+    grid-area: unset;
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: flex-end;
     margin-left: 0;
+    z-index: 1;
   }
 
   header nav[aria-expanded='true'] {
     min-height: 0;
     overflow: visible;
+    height: var(--nav-height);
   }
 }
 
@@ -171,13 +195,6 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   transform: rotate(-45deg);
 }
 
-@media (width >= 900px) {
-  header nav .nav-hamburger {
-    display: none;
-    visibility: hidden;
-  }
-}
-
 /* sections */
 header nav .nav-sections {
   grid-area: sections;
@@ -225,13 +242,7 @@ header nav .nav-sections ul > li > ul > li {
 
 @media (width >= 900px) {
   header nav .nav-sections {
-    display: block;
-    visibility: visible;
     white-space: nowrap;
-  }
-
-  header nav[aria-expanded='true'] .nav-sections {
-    align-self: unset;
   }
 
   header nav .nav-sections .nav-drop {
