@@ -108,6 +108,26 @@ export function syncSectionStyleClasses(root) {
 export function decorateSectionSubtitles(root) {
   root.querySelectorAll('.section').forEach((section) => {
     const wrapper = section.querySelector('.default-content-wrapper') || section;
+
+    if (section.classList.contains('cta-banner')) {
+      let foundHeading = false;
+      [...wrapper.children].some((child) => {
+        if (child.classList.contains('section-metadata')) return false;
+        if (child.matches('h1, h2, h3') || child.querySelector('h1, h2, h3')) {
+          foundHeading = true;
+          return false;
+        }
+        if (!foundHeading) return false;
+        const p = child.tagName === 'P' ? child : child.querySelector('p');
+        if (p && !p.closest('.button-container') && !p.querySelector('a.button, a[class*="button"]')) {
+          p.classList.add('section-subtitle');
+          return true;
+        }
+        return false;
+      });
+      return;
+    }
+
     const block = section.querySelector(
       '.block.cards, .cards, .block.columns, .block.accordion, .accordion',
     );

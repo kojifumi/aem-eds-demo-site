@@ -49,6 +49,28 @@ main p.section-subtitle {
   margin-bottom: 2em;
 }
 
+/* CTA Banner — UE Text uses class="text" inside wrappers */
+main .section.cta-banner h2 {
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+main .section.cta-banner p.section-subtitle,
+main .section.cta-banner .default-content-wrapper h2 ~ p,
+main .section.cta-banner .default-content-wrapper h2 ~ div > p,
+main .section.cta-banner > div > h2 ~ p,
+main .section.cta-banner > div > h2 ~ div > p,
+main .section.cta-banner p.text {
+  text-align: center;
+  color: var(--text-muted-color, #8b949e);
+  font-size: var(--body-font-size-s, 16px);
+  line-height: 1.7;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5em;
+}
+
 /* How It Works — before columns.js runs in UE */
 main .columns.columns-3-cols > div > div > p:has(+ :is(h1, h2, h3, h4)) {
   display: block;
