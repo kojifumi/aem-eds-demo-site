@@ -172,7 +172,7 @@ The header and footer blocks load content from **`/nav`** and **`/footer`** frag
 </main>
 ```
 
-Structure: **3 sibling `<div>`s** inside `<main>` — brand, nav links (`<ul>`), CTA button (`<strong><a>`).
+Structure: **3 sibling `<div>`s** directly under `<main>` (no extra wrapper) — brand link (not bold), nav `<ul>` with `<a>` on each item, CTA in `<strong><a>` only.
 
 ### Footer page (`…/footer`)
 
