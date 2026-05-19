@@ -1,7 +1,7 @@
 /* Nexara — global header / nav (fragment: /nav) */
 
 header .nav-wrapper {
-  background: rgb(13 17 23 / 88%);
+  background: var(--nav-background);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color, #30363d);
   position: sticky;
@@ -330,10 +330,10 @@ header nav .nav-tools p.button-container {
 }
 
 header nav .nav-tools a.button {
-  background-color: var(--accent-color, #22d3ee);
+  background-color: var(--accent-color);
   border: 2px solid transparent;
   border-radius: 999px;
-  color: var(--background-color, #0d1117);
+  color: var(--button-primary-color);
   font-size: 14px;
   font-weight: 600;
   margin: 0;
@@ -342,6 +342,6 @@ header nav .nav-tools a.button {
 
 header nav .nav-tools a.button:hover,
 header nav .nav-tools a.button:focus {
-  background-color: var(--link-hover-color, #67e8f9);
-  color: var(--background-color, #0d1117);
+  background-color: var(--link-hover-color);
+  color: var(--button-primary-color);
 }

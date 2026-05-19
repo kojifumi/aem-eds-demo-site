@@ -27,7 +27,7 @@
   left: 32px;
   right: 32px;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-color, #22d3ee), #818cf8);
+  background: var(--gradient-accent-line);
   border-radius: 0 0 2px 2px;
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -39,8 +39,8 @@
 
 .cards > ul > li:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(34, 211, 238, 0.1);
-  border-color: rgba(34, 211, 238, 0.4);
+  box-shadow: var(--shadow-float);
+  border-color: var(--accent-bright-color);
 }
 
 .cards .cards-card-body {

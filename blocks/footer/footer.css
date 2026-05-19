@@ -1,9 +1,9 @@
 /* Nexara — global footer (fragment: /footer) */
 
 footer {
-  background-color: var(--background-color, #0d1117);
-  border-top: 1px solid var(--border-color, #30363d);
-  color: var(--text-muted-color, #8b949e);
+  background-color: var(--light-color);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted-color);
   font-size: 14px;
 }
 

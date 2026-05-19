@@ -1,6 +1,6 @@
 /**
  * Hero (Gradient) block — UE outputs class "hero-gradient" (not "hero").
- * Fields are one row per property; text is often in div cells, CTAs as strong/em links.
+ * One row per model field; CTA style comes from cta_linkType rows and/or strong/em wrappers.
  */
 
 function wrapHighlightInHeading(heading, highlightText) {
@@ -27,6 +27,81 @@ function getCell(row) {
   return row?.firstElementChild;
 }
 
+const CTA_LINK_TYPES = new Set(['primary', 'secondary']);
+
+function parseLinkType(text) {
+  const value = text?.trim().toLowerCase();
+  return CTA_LINK_TYPES.has(value) ? value : null;
+}
+
+/** UE may emit linkType as its own row (text "primary" / "secondary"), not as strong/em. */
+function readLinkTypeFromCell(cell) {
+  if (!cell || cell.querySelector('a')) return null;
+  return parseLinkType(cell.textContent);
+}
+
+function inferLinkTypeFromCell(cell) {
+  if (cell?.querySelector('strong')) return 'primary';
+  if (cell?.querySelector('em')) return 'secondary';
+  return null;
+}
+
+function applyCtaButtonClasses(link, linkType) {
+  link.className = 'button';
+  if (linkType === 'primary') link.classList.add('primary');
+  else if (linkType === 'secondary') link.classList.add('secondary');
+}
+
+function resolveLinkType(cell, pendingType, ctaIndex) {
+  return pendingType
+    || inferLinkTypeFromCell(cell)
+    || (ctaIndex === 0 ? 'primary' : 'secondary');
+}
+
+/**
+ * Collect CTA links and styles from UE rows (one field per row).
+ * cta_linkType / cta2_linkType often appear as a text-only row after the link.
+ */
+function collectCtas(block) {
+  const rows = getRows(block);
+  const ctas = [];
+  let pendingType = null;
+
+  for (let i = 0; i < rows.length; i += 1) {
+    const row = rows[i];
+    const cell = getCell(row);
+    if (cell) {
+      const link = cell.querySelector('a');
+      const typeOnly = !link && readLinkTypeFromCell(cell);
+
+      if (typeOnly) {
+        pendingType = typeOnly;
+        row.remove();
+      } else if (link) {
+        let linkType = pendingType;
+        pendingType = null;
+
+        if (!linkType) {
+          const nextCell = getCell(rows[i + 1]);
+          const nextType = readLinkTypeFromCell(nextCell);
+          if (nextType) {
+            linkType = nextType;
+            rows[i + 1]?.remove();
+          }
+        }
+
+        ctas.push({
+          link,
+          linkType: resolveLinkType(cell, linkType, ctas.length),
+          row,
+        });
+      }
+    }
+  }
+
+  return ctas;
+}
+
 /** Undo consolidated layout so decoration can run again after UE patches. */
 function prepareForDecorate(block) {
   const rows = getRows(block);
@@ -40,10 +115,12 @@ function prepareForDecorate(block) {
 
   items.forEach((item) => {
     if (item.classList?.contains('hero-ctas')) {
-      item.querySelectorAll('a').forEach((link) => {
+      item.querySelectorAll('a').forEach((link, index) => {
         const row = document.createElement('div');
         const inner = document.createElement('div');
-        const wrap = document.createElement(link.classList.contains('primary') ? 'strong' : 'em');
+        const isPrimary = link.classList.contains('primary')
+          || (!link.classList.contains('secondary') && index === 0);
+        const wrap = document.createElement(isPrimary ? 'strong' : 'em');
         wrap.append(link.cloneNode(true));
         inner.append(wrap);
         row.append(inner);
@@ -159,20 +236,14 @@ export default function decorate(block) {
     }
   }
 
-  // CTAs: UE outputs <strong><a> and <em><a> in separate rows (not .button-container)
+  // CTAs: style from cta_linkType / cta2_linkType rows and/or strong/em wrappers
   const ctaWrapper = document.createElement('div');
   ctaWrapper.className = 'hero-ctas';
 
-  getRows(block).forEach((row) => {
-    const cell = getCell(row);
-    const link = cell?.querySelector('a');
-    if (!link) return;
-
+  collectCtas(block).forEach(({ link, linkType, row }) => {
     const p = document.createElement('p');
     p.className = 'button-container';
-    link.classList.add('button');
-    if (cell.querySelector('strong')) link.classList.add('primary');
-    if (cell.querySelector('em')) link.classList.add('secondary');
+    applyCtaButtonClasses(link, linkType);
     p.append(link);
     ctaWrapper.append(p);
     row.remove();

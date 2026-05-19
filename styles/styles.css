@@ -17,27 +17,52 @@
 }
 
 :root {
-  /* Nexara AI — Dark Navy Theme
-     Contrast ratios (WCAG 2.1):
-       --text-color on --background-color : ~15:1  (AAA)
-       --text-muted-color on --background-color : ~6.2:1 (AA)
-       --accent-color on --background-color : ~9.9:1  (AAA)
-       --accent-color as button bg, --background-color text : ~9.9:1 (AAA)
+  /* Nexara AI — Luminous (light) theme
+     Contrast (WCAG 2.1):
+       --text-color on --background-color : ~17:1 (AAA)
+       --text-muted-color on --background-color : ~8:1 (AAA body)
+       --accent-color on --background-color : ~5.5:1 (AA large text)
   */
 
   /* base colors */
-  --background-color: #0d1117;
-  --surface-color: #161b22;
-  --light-color: #161b22;
-  --dark-color: #c9d1d9;
-  --text-color: #e6edf3;
-  --text-muted-color: #8b949e;
-  --border-color: #30363d;
+  --background-color: #fafbfc;
+  --surface-color: #ffffff;
+  --light-color: #f1f4f8;
+  --dark-color: #3d4a5c;
+  --text-color: #0b1220;
+  --text-muted-color: #3d4a5c;
+  --text-tertiary-color: #5c6b7f;
+  --border-color: #dce3ec;
+  --border-strong-color: #c5d0de;
 
-  /* brand accent — electric cyan */
-  --accent-color: #22d3ee;
-  --link-color: #22d3ee;
-  --link-hover-color: #67e8f9;
+  /* brand accent */
+  --accent-color: #0a7c8c;
+  --accent-bright-color: #0ea5b7;
+  --accent-deep-color: #065a66;
+  --link-color: #0a7c8c;
+  --link-hover-color: #065a66;
+
+  /* buttons & chrome */
+  --button-primary-color: #ffffff;
+  --nav-background: rgb(255 255 255 / 78%);
+  --shadow-card: 0 1px 2px rgb(11 18 32 / 4%), 0 12px 40px rgb(11 18 32 / 7%);
+  --shadow-float: 0 24px 64px rgb(11 18 32 / 10%), 0 2px 8px rgb(11 18 32 / 4%);
+
+  /* gradients (mockups/nexara-light-theme.html — Luminous) */
+  --gradient-text: linear-gradient(118deg, #0a7c8c 12%, #4f46e5 88%);
+  --gradient-accent-line: linear-gradient(90deg, #0a7c8c, #4f46e5);
+  --gradient-hero: radial-gradient(120% 80% at 50% -30%, #e8f6f8 0%, transparent 55%),
+    radial-gradient(60% 50% at 100% 0%, #ebe9ff 0%, transparent 50%),
+    linear-gradient(180deg, #ffffff 0%, var(--background-color) 72%);
+  --gradient-testimonial: radial-gradient(ellipse 50% 80% at 50% 0%, rgb(14 165 183 / 8%) 0%, transparent 70%),
+    linear-gradient(180deg, #ffffff 0%, var(--light-color) 100%);
+  --gradient-cta-banner: radial-gradient(80% 120% at 100% 0%, rgb(14 165 183 / 35%) 0%, transparent 50%),
+    linear-gradient(155deg, #0b3d47 0%, #0f172a 48%, #111827 100%);
+  --hero-orb-1: rgb(14 165 183 / 28%);
+  --hero-orb-2: rgb(79 70 229 / 18%);
+  --eyebrow-border-color: rgb(10 124 140 / 25%);
+  --eyebrow-background-color: #ffffff;
+  --stat-number-color: var(--text-color);
 
   /* fonts — self-hosted/system only (UE canvas CSP blocks fonts.googleapis.com) */
   --body-font-family: inter-fallback, system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -92,7 +117,7 @@ body {
   color: var(--text-color);
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 body.appear {
@@ -208,7 +233,7 @@ button {
   text-align: center;
   text-decoration: none;
   background-color: var(--link-color);
-  color: var(--background-color);
+  color: var(--button-primary-color);
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -297,6 +322,7 @@ main .section.highlight {
 
 /* Stats section — surface band + columns block handles grid (blocks/columns/columns.css) */
 main .section.stats {
+  background-color: var(--background-color);
   padding: 48px 0;
 }
 
@@ -408,9 +434,7 @@ main .section.highlight:has(.accordion) .accordion-wrapper {
 
 /* Testimonial section */
 main .section.testimonial {
-  background:
-    radial-gradient(ellipse 50% 80% at 50% 0%, rgba(34, 211, 238, 0.06) 0%, transparent 70%),
-    linear-gradient(135deg, #0f1c33 0%, #0d1117 100%);
+  background: var(--gradient-testimonial);
   padding: 64px 0;
   margin: 0;
 }
@@ -511,17 +535,19 @@ main .section.testimonial .quote blockquote .quote-attribution cite {
 
 /* CTA Banner */
 main .section.cta-banner {
-  background: linear-gradient(135deg, #0f2044 0%, #0d1117 60%);
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  background: var(--gradient-cta-banner);
+  border-top: none;
+  border-bottom: none;
   margin: 0;
   padding: 80px 0;
   text-align: center;
+  color: #f4f8fb;
 }
 
 main .section.cta-banner h2 {
   margin-bottom: 0.5em;
   text-align: center;
+  color: #fff;
 }
 
 main .section.cta-banner p.section-subtitle,
@@ -530,12 +556,29 @@ main .section.cta-banner .default-content-wrapper h2 ~ div > p,
 main .section.cta-banner > div > h2 ~ p,
 main .section.cta-banner > div > h2 ~ div > p,
 main .section.cta-banner > div > p:not(.button-container):not(:has(.button)) {
-  color: var(--text-muted-color);
+  color: #b8c9d9;
   font-size: var(--body-font-size-s);
   line-height: 1.7;
   max-width: 600px;
   margin: 0 auto 1.5em;
   text-align: center;
+}
+
+main .section.cta-banner a.button:any-link {
+  margin: 0 8px 12px;
+  background-color: var(--accent-bright-color);
+  color: #042f38;
+}
+
+main .section.cta-banner a.button.secondary:any-link {
+  background-color: rgb(255 255 255 / 8%);
+  border-color: rgb(255 255 255 / 25%);
+  color: #fff;
+}
+
+main .section.cta-banner a.button.secondary:any-link:hover {
+  background-color: rgb(255 255 255 / 14%);
+  color: #fff;
 }
 
 main .section.cta-banner > div,
@@ -551,6 +594,3 @@ main .section.cta-banner div:has(> a.button) {
   vertical-align: top;
 }
 
-main .section.cta-banner a.button:any-link {
-  margin: 0 8px 12px;
-}

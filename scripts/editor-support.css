@@ -6,7 +6,7 @@
 /* Nav document (/nav) — UE edits fragment without header.js */
 main:not(:has(.section)) {
   align-items: center;
-  background: rgb(13 17 23 / 88%);
+  background: var(--nav-background, rgb(255 255 255 / 78%));
   border-bottom: 1px solid var(--border-color, #30363d);
   box-sizing: border-box;
   display: flex;
@@ -73,7 +73,7 @@ main:not(:has(.section)) > div:only-child > div:last-child a.button,
 main:not(:has(.section)) > div:only-child > div:last-child a {
   background-color: var(--accent-color, #22d3ee);
   border-radius: 999px;
-  color: var(--background-color, #0d1117);
+  color: var(--button-primary-color, #ffffff);
   font-size: 14px;
   font-weight: 600;
   padding: 8px 20px;

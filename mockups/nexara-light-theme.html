@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nexara AI — Light Theme Concept (Luminous)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /*
+      Luminous — light theme concept
+      Readability: body #0b1220 on #fafbfc (~17:1), muted #3d4a5c (~8:1)
+      Display: Plus Jakarta Sans | Body/JP: Inter
+    */
+    :root {
+      --bg: #fafbfc;
+      --bg-elevated: #ffffff;
+      --bg-muted: #f1f4f8;
+      --text: #0b1220;
+      --text-secondary: #3d4a5c;
+      --text-tertiary: #5c6b7f;
+      --border: #dce3ec;
+      --border-strong: #c5d0de;
+      --accent: #0a7c8c;
+      --accent-bright: #0ea5b7;
+      --accent-deep: #065a66;
+      --accent-glow: rgb(14 165 183 / 22%);
+      --indigo: #4f46e5;
+      --gradient-text: linear-gradient(118deg, #0a7c8c 12%, #4f46e5 88%);
+      --gradient-cta: linear-gradient(135deg, #0a7c8c 0%, #0e7490 45%, #1e4d8c 100%);
+      --gradient-hero: radial-gradient(120% 80% at 50% -30%, #e8f6f8 0%, transparent 55%),
+        radial-gradient(60% 50% at 100% 0%, #ebe9ff 0%, transparent 50%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 72%);
+      --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-body: 'Inter', 'Hiragino Sans', 'Noto Sans JP', system-ui, sans-serif;
+      --max: 1120px;
+      --prose: 40rem;
+      --nav-h: 72px;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow-card: 0 1px 2px rgb(11 18 32 / 4%), 0 12px 40px rgb(11 18 32 / 7%);
+      --shadow-float: 0 24px 64px rgb(11 18 32 / 10%), 0 2px 8px rgb(11 18 32 / 4%);
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3, .logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s var(--ease); }
+    a:hover { color: var(--accent-deep); }
+
+    .concept-tag {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 200;
+      padding: 8px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-card);
+    }
+
+    /* ── Header ── */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      border-bottom: 1px solid rgb(220 227 236 / 80%);
+      background: rgb(255 255 255 / 78%);
+      backdrop-filter: blur(16px) saturate(1.2);
+    }
+
+    .header__inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 4vw, 32px);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .logo span {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .nav a:hover { color: var(--text); text-decoration: none; }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 0 26px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s;
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--accent-glow);
+      outline-offset: 2px;
+    }
+
+    .btn--primary {
+      color: #fff;
+      background: var(--gradient-cta);
+      box-shadow: 0 4px 20px var(--accent-glow), 0 1px 0 rgb(255 255 255 / 20%) inset;
+    }
+
+    .btn--primary:hover {
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 28px var(--accent-glow);
+      text-decoration: none;
+    }
+
+    .btn--ghost {
+      color: var(--text);
+      background: var(--bg-elevated);
+      border-color: var(--border-strong);
+    }
+
+    .btn--ghost:hover {
+      background: var(--bg-muted);
+      border-color: var(--text-tertiary);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      padding: clamp(64px, 10vw, 112px) clamp(20px, 4vw, 32px) clamp(80px, 12vw, 120px);
+      background: var(--gradient-hero);
+      overflow: hidden;
+    }
+
+    .hero__grid {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgb(11 18 32 / 3%) 1px, transparent 1px),
+        linear-gradient(90deg, rgb(11 18 32 / 3%) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 75%);
+    }
+
+    .hero__orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+    }
+
+    .hero__orb--1 {
+      width: 420px;
+      height: 420px;
+      top: -80px;
+      right: -60px;
+      background: rgb(14 165 183 / 28%);
+    }
+
+    .hero__orb--2 {
+      width: 300px;
+      height: 300px;
+      bottom: 0;
+      left: -40px;
+      background: rgb(79 70 229 / 18%);
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+      padding: 8px 16px 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-bright);
+      box-shadow: 0 0 12px var(--accent-bright);
+    }
+
+    .hero h1 {
+      margin: 0 auto 28px;
+      max-width: 14ch;
+      font-size: clamp(2.35rem, 6.5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--text);
+    }
+
+    .hero h1 .hl {
+      font-style: normal;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero__lead {
+      margin: 0 auto 40px;
+      max-width: var(--prose);
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      line-height: 1.85;
+      color: var(--text-secondary);
+      font-feature-settings: 'palt' 1;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .hero__note {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Trust strip ── */
+    .trust {
+      padding: 32px clamp(20px, 4vw, 32px);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-elevated);
+    }
+
+    .trust__inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 32px 48px;
+    }
+
+    .trust__label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+
+    .trust__logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px 40px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trust__logos span {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      letter-spacing: -0.02em;
+      opacity: 0.85;
+    }
+
+    /* ── Stats ── */
+    .stats-wrap {
+      margin-top: -56px;
+      padding: 0 clamp(20px, 4vw, 32px) 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stats {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) + 4px);
+      box-shadow: var(--shadow-float);
+      overflow: hidden;
+    }
+
+    .stat {
+      padding: 36px 28px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat__num {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat__num sub {
+      font-size: 0.55em;
+      font-weight: 700;
+      color: var(--accent);
+      vertical-align: baseline;
+    }
+
+    .stat__label {
+      margin: 10px 0 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* ── Sections ── */
+    .section {
+      padding: clamp(72px, 10vw, 104px) clamp(20px, 4vw, 32px);
+    }
+
+    .section--soft { background: var(--bg-muted); }
+
+    .section__head {
+      max-width: 36rem;
+      margin: 0 auto 56px;
+      text-align: center;
+    }
+
+    .section__kicker {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section__head h2 {
+      margin: 0 0 16px;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text);
+    }
+
+    .section__head p {
+      margin: 0;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    /* ── Product cards ── */
+    .cards {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      position: relative;
+      padding: 32px 28px 28px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 28px;
+      right: 28px;
+      height: 3px;
+      border-radius: 0 0 4px 4px;
+      background: var(--gradient-text);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-float);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card__icon {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 20px;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--accent-deep);
+      background: linear-gradient(145deg, #e8f6f8, #fff);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .card__tag {
+      margin: 0 0 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .card > p {
+      margin: 0 0 20px;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    .card__link {
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card__link::after {
+      content: '→';
+      transition: transform 0.2s var(--ease);
+    }
+
+    .card:hover .card__link::after { transform: translateX(4px); }
+
+    /* ── Steps ── */
+    .steps {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .step {
+      padding: 28px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .step__num {
+      display: inline-block;
+      margin-bottom: 16px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .step h3 {
+      margin: 0 0 10px;
+      font-size: 1.125rem;
+    }
+
+    .step p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    /* ── Quote ── */
+    .quote-wrap {
+      max-width: 44rem;
+      margin: 0 auto;
+    }
+
+    .quote {
+      position: relative;
+      margin: 0;
+      padding: 40px 44px 40px 52px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+    }
+
+    .quote::before {
+      content: '"';
+      position: absolute;
+      top: 12px;
+      left: 20px;
+      font-family: var(--font-display);
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--accent-bright);
+      opacity: 0.35;
+    }
+
+    .quote p {
+      margin: 0;
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      line-height: 1.75;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .quote footer {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .quote footer strong {
+      display: block;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── Dark CTA (high contrast, readable) ── */
+    .cta-dark {
+      margin: 0 clamp(20px, 4vw, 32px) clamp(72px, 10vw, 96px);
+      max-width: calc(var(--max));
+      margin-inline: auto;
+      padding: clamp(48px, 8vw, 72px) clamp(28px, 5vw, 56px);
+      text-align: center;
+      border-radius: calc(var(--radius) + 8px);
+      color: #f4f8fb;
+      background:
+        radial-gradient(80% 120% at 100% 0%, rgb(14 165 183 / 35%) 0%, transparent 50%),
+        linear-gradient(155deg, #0b3d47 0%, #0f172a 48%, #111827 100%);
+      box-shadow: var(--shadow-float);
+    }
+
+    .cta-dark h2 {
+      margin: 0 0 14px;
+      font-size: clamp(1.6rem, 4vw, 2.25rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+
+    .cta-dark > p {
+      margin: 0 auto 32px;
+      max-width: 32rem;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: #b8c9d9;
+    }
+
+    .cta-dark .btn--primary {
+      background: linear-gradient(135deg, #22d3ee 0%, #0ea5b7 100%);
+      color: #042f38;
+      font-weight: 700;
+      box-shadow: 0 8px 32px rgb(34 211 238 / 35%);
+    }
+
+    .cta-dark .btn--ghost {
+      color: #fff;
+      background: rgb(255 255 255 / 8%);
+      border-color: rgb(255 255 255 / 25%);
+    }
+
+    .cta-dark .btn--ghost:hover {
+      background: rgb(255 255 255 / 14%);
+      color: #fff;
+    }
+
+    /* ── Readability panel ── */
+    .readability {
+      padding: 48px clamp(20px, 4vw, 32px) 64px;
+      background: var(--bg-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    .readability__inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .readability__item {
+      padding: 20px 22px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .readability__item h3 {
+      margin: 0 0 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .readability__item p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+
+    .readability__item code {
+      font-size: 12px;
+      padding: 2px 6px;
+      background: var(--bg-muted);
+      border-radius: 4px;
+    }
+
+    .footer-note {
+      padding: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    @media (width < 900px) {
+      .nav { display: none; }
+      .stats,
+      .cards,
+      .steps,
+      .readability__inner { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+      .concept-tag { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <p class="concept-tag">Light · Luminous v2</p>
+
+  <header class="header">
+    <div class="header__inner">
+      <a class="logo" href="#">Nexara<span> AI</span></a>
+      <ul class="nav">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#how">Solutions</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Docs</a></li>
+      </ul>
+      <a class="btn btn--primary" href="#">Get Started</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <span class="hero__orb hero__orb--1" aria-hidden="true"></span>
+    <span class="hero__orb hero__orb--2" aria-hidden="true"></span>
+    <div class="hero__inner">
+      <p class="eyebrow">エンタープライズ AI プラットフォーム</p>
+      <h1>Intelligence That <span class="hl">Moves the World</span> Forward</h1>
+      <p class="hero__lead">
+        Nexara AI は、予測・自動化・意思決定支援により、あらゆる規模のビジネス運用を改革するエンタープライズ向け AI ソリューションを提供します。
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#">無料で始める</a>
+        <a class="btn btn--ghost" href="#">製品を見る</a>
+      </div>
+      <p class="hero__note">クレジットカード不要 · 14日間フルアクセス</p>
+    </div>
+  </section>
+
+  <div class="trust">
+    <div class="trust__inner">
+      <span class="trust__label">Trusted by teams at</span>
+      <div class="trust__logos">
+        <span>Meridian</span>
+        <span>Northline</span>
+        <span>Atlas Corp</span>
+        <span>Vertex</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-wrap">
+    <div class="stats">
+      <div class="stat">
+        <p class="stat__num">10M<sub>+</sub></p>
+        <p class="stat__label">アクティブユーザー</p>
+      </div>
+      <div class="stat">
+        <p class="stat__num">99.9<sub>%</sub></p>
+        <p class="stat__label">稼働 SLA</p>
+      </div>
+      <div class="stat">
+        <p class="stat__num">150<sub>+</sub></p>
+        <p class="stat__label">対応国・地域</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" id="products">
+    <div class="section__head">
+      <span class="section__kicker">Products</span>
+      <h2>Built for Intelligence.<br>Designed for Scale.</h2>
+      <p>データ収集から意思決定まで、AI ライフサイクル全体をカバーする 3 つのプロダクト。</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="card__icon">01</div>
+        <p class="card__tag">Predict</p>
+        <h3>NexaPredict</h3>
+        <p>500B+ データポイントで学習した ML により、ビジネストレンドを高精度に予測。</p>
+        <a class="card__link" href="#">Explore NexaPredict</a>
+      </article>
+      <article class="card">
+        <div class="card__icon">02</div>
+        <p class="card__tag">Automate</p>
+        <h3>NexaAutomate</h3>
+        <p>プロセスに適応するワークフロー自動化。ノーコードで数時間以内にデプロイ。</p>
+        <a class="card__link" href="#">Explore NexaAutomate</a>
+      </article>
+      <article class="card">
+        <div class="card__icon">03</div>
+        <p class="card__tag">Insight</p>
+        <h3>NexaInsight</h3>
+        <p>組織全体が信頼できるリアルタイムダッシュボードとアクション可能なインサイト。</p>
+        <a class="card__link" href="#">Explore NexaInsight</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="how">
+    <div class="section__head">
+      <span class="section__kicker">How it works</span>
+      <h2>3 Steps to Confident Decisions</h2>
+      <p>生データから実行可能なインテリジェンスまで、最短 2 週間でオンボーディング。</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step__num">STEP 01</span>
+        <h3>データを接続</h3>
+        <p>200+ ソースに数分で接続。構造化・非構造化・ストリーミングに対応。</p>
+      </div>
+      <div class="step">
+        <span class="step__num">STEP 02</span>
+        <h3>学習と設定</h3>
+        <p>ノーコードのモデルスタジオで、専門チームなしにファインチューニング。</p>
+      </div>
+      <div class="step">
+        <span class="step__num">STEP 03</span>
+        <h3>意思決定を実行</h3>
+        <p>自動ワークフロー、既存ツール連携、カスタムダッシュボードを一元管理。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__head">
+      <span class="section__kicker">Customer story</span>
+      <h2>Trusted by leaders</h2>
+    </div>
+    <div class="quote-wrap">
+      <blockquote class="quote">
+        <p>Nexara AI は初四半期で運用コストを 40% 削減。予測精度は市場で見た中で最高水準でした。</p>
+        <footer>
+          <strong>Sarah Chen</strong>
+          CTO — Meridian Finance Group
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="cta-dark" aria-label="Call to action">
+    <h2>Start Transforming Your Business Today</h2>
+    <p>10M 人以上のプロフェッショナルが、より速く、より良い意思決定のために Nexara AI を利用しています。</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="#">Get Started Free</a>
+      <a class="btn btn--ghost" href="#">Talk to Sales</a>
+    </div>
+  </section>
+
+  <aside class="readability" aria-label="Design tokens">
+    <div class="readability__inner">
+      <div class="readability__item">
+        <h3>本文コントラスト</h3>
+        <p><code>#0b1220</code> on <code>#fafbfc</code> — 約 17:1（AAA）</p>
+      </div>
+      <div class="readability__item">
+        <h3>補助テキスト</h3>
+        <p><code>#3d4a5c</code> on white — 約 8:1（AAA 本文）</p>
+      </div>
+      <div class="readability__item">
+        <h3>日本語リード</h3>
+        <p>行間 1.85 · 最大幅 40rem · <code>palt</code> 有効</p>
+      </div>
+    </div>
+  </aside>
+
+  <p class="footer-note">
+    <code>mockups/nexara-light-theme.html</code> — Luminous v2 コンセプト（本番未反映）
+  </p>
+</body>
+</html>
