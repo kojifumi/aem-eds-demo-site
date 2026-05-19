@@ -215,10 +215,30 @@ main .section.highlight:has(.accordion) .accordion {
 }
 
 .accordion.accordion-ue > div > div:first-child {
+  align-items: center;
+  color: var(--text-color, #e6edf3);
+  display: flex;
   font-size: 17px;
   font-weight: 600;
+  justify-content: space-between;
   padding: 16px 20px;
-  color: var(--text-color, #e6edf3);
+}
+
+/* Match publish accordion "+" (details/summary ::after is skipped in UE) */
+.accordion.accordion-ue > div > div:first-child::after {
+  color: var(--text-muted-color, #8b949e);
+  content: '+';
+  flex-shrink: 0;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1;
+  margin-left: 12px;
+}
+
+.accordion.faq-accordion.accordion-ue > div > div:first-child::after,
+main .section.faq .accordion.accordion-ue > div > div:first-child::after,
+main .section.highlight:has(.accordion) .accordion.accordion-ue > div > div:first-child::after {
+  color: var(--accent-color, #22d3ee);
 }
 
 .accordion.accordion-ue > div > div:last-child {
