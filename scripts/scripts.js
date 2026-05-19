@@ -83,6 +83,21 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  normalizeBlockNames(main);
+}
+
+/**
+ * Map AEM UE block class slugs to blocks/ folder names.
+ * "Hero (Gradient)" is published as hero--gradient- but assets live under hero-gradient.
+ */
+function normalizeBlockNames(main) {
+  const aliases = {
+    'hero--gradient-': 'hero-gradient',
+  };
+  main.querySelectorAll('[data-block-name]').forEach((block) => {
+    const resolved = aliases[block.dataset.blockName];
+    if (resolved) block.dataset.blockName = resolved;
+  });
 }
 
 /**
