@@ -40,8 +40,10 @@
   --link-hover-color: #67e8f9;
 
   /* fonts — self-hosted/system only (UE canvas CSP blocks fonts.googleapis.com) */
-  --body-font-family: inter-fallback, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --heading-font-family: inter-fallback, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --body-font-family: inter-fallback, system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans',
+    'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Meiryo', sans-serif;
+  --heading-font-family: inter-fallback, system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans',
+    'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Meiryo', sans-serif;
 
   /* body sizes */
   --body-font-size-m: 22px;

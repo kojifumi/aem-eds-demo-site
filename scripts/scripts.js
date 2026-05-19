@@ -203,7 +203,7 @@ export async function reloadBlock(block) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = 'en';
+  document.documentElement.lang = document.documentElement.lang || 'ja';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
