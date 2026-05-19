@@ -37,16 +37,23 @@
 /* ----------------------------------------
    Gradient hero (no image, dark navy bg)
    ---------------------------------------- */
-.hero.gradient {
+.hero.gradient,
+.hero.hero-gradient,
+.hero-gradient.hero {
   min-height: 600px;
   background: linear-gradient(135deg, #0d1117 0%, #0f2044 50%, #0a1628 100%);
   overflow: hidden;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   text-align: center;
 }
 
-.hero.gradient > div {
+.hero.gradient > div,
+.hero.hero-gradient > div,
+.hero-gradient.hero > div {
   text-align: center;
+  width: 100%;
 }
 
 /* Glowing orbs — decorative, purely CSS */
@@ -89,13 +96,23 @@
   margin: 0 auto 0.5em;
 }
 
-.hero.gradient > div {
+.hero.gradient > div,
+.hero.hero-gradient > div,
+.hero-gradient.hero > div {
   position: relative;
   z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
   width: 100%;
+}
+
+.hero.gradient > div > div,
+.hero.hero-gradient > div > div,
+.hero-gradient.hero > div > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Hide the empty picture placeholder div in gradient hero */

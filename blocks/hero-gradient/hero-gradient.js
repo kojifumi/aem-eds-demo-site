@@ -1,6 +1,6 @@
 /**
  * Hero (Gradient) block — UE outputs class "hero-gradient" (not "hero").
- * Fields are one row per property; text is often in <motion> cells, CTAs as strong/em links.
+ * Fields are one row per property; text is often in div cells, CTAs as strong/em links.
  */
 
 function wrapHighlightInHeading(heading, highlightText) {
@@ -25,6 +25,46 @@ function getRows(block) {
 
 function getCell(row) {
   return row?.firstElementChild;
+}
+
+/** UE emits one block row per field; collapse into a single inner cell for layout/CSS. */
+function consolidateContent(block) {
+  const wrapper = document.createElement('div');
+  const cell = document.createElement('div');
+  const ordered = [];
+
+  [...block.children].forEach((child) => {
+    if (child.tagName === 'P' && child.classList.contains('hero-eyebrow')) {
+      ordered.push(child);
+      return;
+    }
+    if (child.tagName !== 'DIV') return;
+
+    const rowCell = getCell(child);
+    if (!rowCell) return;
+
+    if (rowCell.querySelector('picture, img')) return;
+
+    const ctas = rowCell.querySelector('.hero-ctas');
+    if (ctas) {
+      ordered.push(ctas);
+      return;
+    }
+
+    [...rowCell.childNodes].forEach((node) => {
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        ordered.push(node);
+      } else if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        const p = document.createElement('p');
+        p.textContent = node.textContent.trim();
+        ordered.push(p);
+      }
+    });
+  });
+
+  ordered.forEach((el) => cell.append(el));
+  wrapper.append(cell);
+  block.replaceChildren(wrapper);
 }
 
 export default function decorate(block) {
@@ -111,4 +151,6 @@ export default function decorate(block) {
     row.append(cell);
     block.append(row);
   }
+
+  consolidateContent(block);
 }
