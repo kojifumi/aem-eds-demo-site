@@ -5,6 +5,7 @@ import {
   decorateIcons,
   decorateSections,
   loadBlock,
+  loadCSS,
   loadScript,
   loadSections,
 } from './aem.js';
@@ -14,9 +15,18 @@ import {
   decorateSectionSubtitles,
   normalizeBlockNames,
   reloadBlock,
+  syncSectionStyleClasses,
 } from './scripts.js';
 
+loadCSS(`${window.hlx.codeBasePath}/scripts/editor-support.css`);
+
 let promiseChanges$ = Promise.resolve();
+
+function refreshSectionIntro(section) {
+  if (!section) return;
+  syncSectionStyleClasses(section);
+  decorateSectionSubtitles(section);
+}
 
 async function applyChanges(event) {
   await promiseChanges$;
@@ -72,6 +82,7 @@ async function applyChanges(event) {
         await loadBlock(newBlock);
         block.remove();
         newBlock.style.display = null;
+        refreshSectionIntro(newBlock.closest('.section'));
         return true;
       }
     } else {
@@ -112,13 +123,14 @@ async function applyChanges(event) {
           await loadSections(parentElement);
           element.remove();
           newSection.style.display = null;
+          refreshSectionIntro(newSection);
         } else {
           const section = element.closest('.section') || parentElement?.closest('.section');
           element.replaceWith(...newElements);
           decorateButtons(parentElement);
           decorateIcons(parentElement);
           decorateRichtext(parentElement);
-          if (section) decorateSectionSubtitles(section);
+          refreshSectionIntro(section);
           if (containingBlock) await reloadBlock(containingBlock);
         }
         return true;
@@ -145,7 +157,9 @@ function attachEventListeners(main) {
   }));
 }
 
-attachEventListeners(document.querySelector('main'));
+const main = document.querySelector('main');
+attachEventListeners(main);
+refreshSectionIntro(main);
 
 // decorate rich text
 // this has to happen after decorateMain(), and everythime decorateBlocks() is called

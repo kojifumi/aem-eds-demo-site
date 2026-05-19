@@ -1,0 +1,19 @@
+/**
+ * Universal Editor canvas overrides.
+ * UE may not run full decoration; these rules match preview styling for section intros.
+ */
+
+main .section:has(.cards, .block.cards) .default-content-wrapper h2 ~ p,
+main .section:has(.cards, .block.cards) .default-content-wrapper h2 ~ div > p,
+main .section:has(.cards, .block.cards) h2 ~ p,
+main .section:has(.cards, .block.cards) h2 ~ div > p,
+main p.section-subtitle {
+  text-align: center;
+  color: var(--text-muted-color, #8b949e);
+  font-size: var(--body-font-size-m, 18px);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2em;
+}

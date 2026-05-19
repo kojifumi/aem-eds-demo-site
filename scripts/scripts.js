@@ -78,34 +78,61 @@ function buildAutoBlocks() {
  */
 // eslint-disable-next-line import/prefer-default-export
 /**
- * Mark section intro paragraph after h2 (Products, How It Works, FAQ).
- * @param {Element} root
+ * Apply section style classes from section-metadata (UE may keep metadata in the DOM).
+ * @param {ParentNode} root
+ */
+export function syncSectionStyleClasses(root) {
+  root.querySelectorAll('.section-metadata').forEach((meta) => {
+    const section = meta.parentElement;
+    if (!section) return;
+    section.classList.add('section');
+    meta.querySelectorAll(':scope > div').forEach((row) => {
+      const cols = [...row.children];
+      if (cols.length < 2) return;
+      if (cols[0].textContent.trim().toLowerCase() !== 'style') return;
+      cols[1].textContent.split(',').forEach((style) => {
+        const cls = style.trim().toLowerCase().replace(/\s+/g, '-');
+        if (cls) section.classList.add(cls);
+      });
+    });
+  });
+}
+
+/**
+ * Mark section intro paragraph before cards/columns/accordion (Products, How It Works, FAQ).
+ * Handles UE wrappers around Title/Text components.
+ * @param {ParentNode} root
  */
 export function decorateSectionSubtitles(root) {
-  root.querySelectorAll('.section.products, .section.how-it-works, .section.highlight').forEach((section) => {
+  root.querySelectorAll('.section').forEach((section) => {
     const wrapper = section.querySelector('.default-content-wrapper') || section;
-    const heading = wrapper.querySelector(':scope > h2, :scope > h1');
-    if (!heading) return;
+    const block = section.querySelector(
+      '.block.cards, .cards, .block.columns, .block.accordion, .accordion',
+    );
+    if (!block) return;
 
-    let sibling = heading.nextElementSibling;
-    while (sibling) {
-      if (sibling.classList.contains('cards')
-        || sibling.classList.contains('columns')
-        || sibling.classList.contains('accordion')
-        || sibling.classList.contains('block')) {
-        break;
+    const introNodes = [];
+    [...wrapper.children].some((child) => {
+      if (child === block || child.contains(block)) return true;
+      if (child.classList.contains('section-metadata')) return false;
+      introNodes.push(child);
+      return false;
+    });
+
+    let foundHeading = false;
+    introNodes.some((node) => {
+      if (node.matches('h1, h2, h3') || node.querySelector('h1, h2, h3')) {
+        foundHeading = true;
+        return false;
       }
-      if (sibling.tagName === 'P') {
-        sibling.classList.add('section-subtitle');
-        break;
+      if (!foundHeading) return false;
+      const p = node.tagName === 'P' ? node : node.querySelector('p');
+      if (p) {
+        p.classList.add('section-subtitle');
+        return true;
       }
-      const innerP = sibling.querySelector(':scope > p');
-      if (innerP) {
-        innerP.classList.add('section-subtitle');
-        break;
-      }
-      sibling = sibling.nextElementSibling;
-    }
+      return false;
+    });
   });
 }
 
@@ -117,6 +144,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   normalizeBlockNames(main);
+  syncSectionStyleClasses(main);
   decorateSectionSubtitles(main);
 }
 
