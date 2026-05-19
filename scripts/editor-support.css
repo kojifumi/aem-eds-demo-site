@@ -138,6 +138,26 @@ main .section.testimonial .quote > div > div {
   text-align: center;
 }
 
+main .section.testimonial .quote .quote-quotation,
+main .section.testimonial .quote > div > div:first-child {
+  position: relative;
+  text-align: left;
+}
+
+main .section.testimonial .quote .quote-quotation.testimonial-quote::before,
+main .section.testimonial .quote > div > div:first-child::before {
+  content: '\201C';
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  font-size: clamp(56px, 10vw, 80px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-color, #22d3ee);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
 main .section.testimonial .quote .quote-quotation p,
 main .section.testimonial .quote > div > div:first-child p {
   font-size: clamp(18px, 2.5vw, 24px);

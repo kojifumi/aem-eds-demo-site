@@ -389,15 +389,33 @@ main .section.testimonial .quote blockquote {
   max-width: 100%;
   padding: 0;
   margin: 0;
+  text-align: center;
 }
 
+/* Quote body: left-aligned with hanging opening mark (match prototype) */
 main .section.testimonial .quote blockquote .quote-quotation {
   position: relative;
+  text-align: left;
   font-size: clamp(18px, 2.5vw, 24px);
   font-style: italic;
   line-height: 1.65;
   color: var(--text-color);
-  margin: 0 0 32px;
+  margin: 0 auto 32px;
+  max-width: 100%;
+}
+
+main .section.testimonial .quote blockquote .quote-quotation.testimonial-quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  font-size: clamp(56px, 10vw, 80px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-color);
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 /* Override default Quote block curly quotes and em-dash in testimonial */
@@ -405,19 +423,7 @@ main .section.testimonial .quote blockquote .quote-quotation > :first-child {
   text-indent: 0;
 }
 
-main .section.testimonial .quote blockquote .quote-quotation > :first-child::before {
-  content: '\201C';
-  display: block;
-  font-size: clamp(56px, 14vw, 80px);
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--accent-color);
-  opacity: 0.3;
-  margin-bottom: 8px;
-  text-indent: 0;
-}
-
+main .section.testimonial .quote blockquote .quote-quotation > :first-child::before,
 main .section.testimonial .quote blockquote .quote-quotation > :last-child::after {
   content: none;
 }
