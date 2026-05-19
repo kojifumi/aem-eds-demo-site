@@ -9,7 +9,7 @@ import {
   loadSections,
 } from './aem.js';
 import { decorateRichtext } from './editor-support-rte.js';
-import { decorateMain } from './scripts.js';
+import { decorateMain, normalizeBlockNames, reloadBlock } from './scripts.js';
 
 let promiseChanges$ = Promise.resolve();
 
@@ -62,6 +62,8 @@ async function applyChanges(event) {
         decorateIcons(newBlock);
         decorateBlock(newBlock);
         decorateRichtext(newBlock);
+        normalizeBlockNames(newBlock.closest('main') || document);
+        delete newBlock.dataset.blockStatus;
         await loadBlock(newBlock);
         block.remove();
         newBlock.style.display = null;
@@ -72,6 +74,27 @@ async function applyChanges(event) {
       const newElements = parsedUpdate.querySelectorAll(`[data-aue-resource="${resource}"],[data-richtext-resource="${resource}"]`);
       if (newElements.length) {
         const { parentElement } = element;
+        const containingBlock = element.closest('.block[data-aue-resource]');
+        const blockResource = containingBlock?.getAttribute('data-aue-resource');
+        const freshBlock = blockResource
+          ? parsedUpdate.querySelector(`[data-aue-resource="${blockResource}"]`)
+          : null;
+
+        if (freshBlock && containingBlock) {
+          freshBlock.style.display = 'none';
+          containingBlock.insertAdjacentElement('afterend', freshBlock);
+          decorateButtons(freshBlock);
+          decorateIcons(freshBlock);
+          decorateBlock(freshBlock);
+          decorateRichtext(freshBlock);
+          normalizeBlockNames(freshBlock.closest('main') || document);
+          delete freshBlock.dataset.blockStatus;
+          await loadBlock(freshBlock);
+          containingBlock.remove();
+          freshBlock.style.display = null;
+          return true;
+        }
+
         if (element.matches('.section')) {
           const [newSection] = newElements;
           newSection.style.display = 'none';
@@ -89,6 +112,7 @@ async function applyChanges(event) {
           decorateButtons(parentElement);
           decorateIcons(parentElement);
           decorateRichtext(parentElement);
+          if (containingBlock) await reloadBlock(containingBlock);
         }
         return true;
       }

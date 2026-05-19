@@ -1,12 +1,125 @@
 @import url('../hero/hero.css');
 
-/* UE block name becomes sole class "hero-gradient" */
-.hero.hero-gradient,
-.hero-gradient.hero {
-  min-height: 85vh;
+/* Authored class is hero-gradient; UE patches reset JS-added .hero.gradient */
+.hero-gradient {
+  position: relative;
+  padding: 80px 24px;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, #0d1117 0%, #0f2044 50%, #0a1628 100%);
+  overflow: hidden;
+}
+
+.hero-gradient::before,
+.hero-gradient::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-gradient::before {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.12) 0%, transparent 70%);
+  top: -200px;
+  right: -100px;
+}
+
+.hero-gradient::after {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.08) 0%, transparent 70%);
+  bottom: -100px;
+  left: -50px;
+}
+
+.hero-gradient > div {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  text-align: center;
+}
+
+.hero-gradient > div > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-gradient > div > div:first-child:empty {
+  display: none;
+}
+
+.hero-gradient h1 {
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin: 0 auto 0.5em;
+  color: var(--text-color);
+  font-size: var(--heading-font-size-xxl);
+}
+
+.hero-gradient h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, #22d3ee, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-gradient p:not(.button-container):not(.hero-eyebrow) {
+  color: var(--text-muted-color, #8b949e);
+  font-size: var(--body-font-size-m);
+  max-width: 640px;
+  margin: 0 auto 2em;
+  line-height: 1.7;
+}
+
+.hero-gradient .hero-eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-color, #22d3ee);
+  margin: 0 auto 28px;
+  padding: 6px 16px;
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  border-radius: 999px;
+}
+
+.hero-gradient .hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.hero-gradient .hero-ctas p.button-container {
+  display: inline-flex;
+  margin: 0;
 }
 
 .hero-gradient-container .hero-gradient-wrapper {
   max-width: unset;
   padding: 0;
+}
+
+@media (width >= 900px) {
+  .hero-gradient {
+    min-height: 680px;
+    padding: 80px 32px;
+  }
+
+  .hero-gradient h1 {
+    font-size: 64px;
+  }
 }

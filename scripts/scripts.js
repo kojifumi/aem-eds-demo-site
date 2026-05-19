@@ -10,6 +10,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  loadBlock,
 } from './aem.js';
 
 /**
@@ -86,18 +87,32 @@ export function decorateMain(main) {
   normalizeBlockNames(main);
 }
 
+const BLOCK_NAME_ALIASES = {
+  'hero--gradient-': 'hero-gradient',
+};
+
 /**
  * Map AEM UE block class slugs to blocks/ folder names.
  * "Hero (Gradient)" is published as hero--gradient- but assets live under hero-gradient.
+ * @param {ParentNode} root
  */
-function normalizeBlockNames(main) {
-  const aliases = {
-    'hero--gradient-': 'hero-gradient',
-  };
-  main.querySelectorAll('[data-block-name]').forEach((block) => {
-    const resolved = aliases[block.dataset.blockName];
+export function normalizeBlockNames(root) {
+  root.querySelectorAll('[data-block-name]').forEach((block) => {
+    const resolved = BLOCK_NAME_ALIASES[block.dataset.blockName];
     if (resolved) block.dataset.blockName = resolved;
   });
+}
+
+/**
+ * Re-run block JS after Universal Editor patches (resets decoration state).
+ * @param {HTMLElement} block
+ */
+export async function reloadBlock(block) {
+  const root = block.closest('main') || document;
+  normalizeBlockNames(root);
+  delete block.dataset.blockStatus;
+  decorateButtons(block);
+  await loadBlock(block);
 }
 
 /**
@@ -158,6 +173,9 @@ async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
+  if (document.querySelector('[data-aue-resource]')) {
+    import('./editor-support.js');
+  }
 }
 
 loadPage();

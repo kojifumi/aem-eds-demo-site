@@ -27,6 +27,39 @@ function getCell(row) {
   return row?.firstElementChild;
 }
 
+/** Undo consolidated layout so decoration can run again after UE patches. */
+function prepareForDecorate(block) {
+  const rows = getRows(block);
+  if (rows.length !== 1) return;
+
+  const cell = getCell(rows[0]);
+  if (!cell?.querySelector('h1, h2, .hero-eyebrow, .hero-ctas')) return;
+
+  const items = [...cell.children];
+  block.textContent = '';
+
+  items.forEach((item) => {
+    if (item.classList?.contains('hero-ctas')) {
+      item.querySelectorAll('a').forEach((link) => {
+        const row = document.createElement('div');
+        const inner = document.createElement('div');
+        const wrap = document.createElement(link.classList.contains('primary') ? 'strong' : 'em');
+        wrap.append(link.cloneNode(true));
+        inner.append(wrap);
+        row.append(inner);
+        block.append(row);
+      });
+      return;
+    }
+
+    const row = document.createElement('div');
+    const inner = document.createElement('div');
+    inner.append(item);
+    row.append(inner);
+    block.append(row);
+  });
+}
+
 /** UE emits one block row per field; collapse into a single inner cell for layout/CSS. */
 function consolidateContent(block) {
   const wrapper = document.createElement('div');
@@ -69,6 +102,7 @@ function consolidateContent(block) {
 
 export default function decorate(block) {
   block.classList.add('hero', 'gradient');
+  prepareForDecorate(block);
 
   const rows = getRows(block);
   const h1 = block.querySelector('h1, h2');
