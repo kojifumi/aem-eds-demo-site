@@ -22,14 +22,23 @@ loadCSS(`${window.hlx.codeBasePath}/scripts/editor-support.css`);
 
 let promiseChanges$ = Promise.resolve();
 
-async function refreshSectionIntro(section) {
-  if (!section) return;
-  syncSectionStyleClasses(document);
-  section.classList.add('section');
-  decorateSectionSubtitles(section);
+const HERO_BLOCK_SELECTOR = '.block.hero-gradient, .block.hero--gradient-, .block.hero.gradient';
+
+async function refreshHeroBlocks(root = document) {
   await Promise.all(
-    [...section.querySelectorAll('.columns.block, .block.columns')].map((block) => reloadBlock(block)),
+    [...root.querySelectorAll(HERO_BLOCK_SELECTOR)].map((block) => reloadBlock(block)),
   );
+}
+
+async function refreshSectionIntro(section) {
+  const root = section || document.querySelector('main') || document;
+  syncSectionStyleClasses(document);
+  if (section) section.classList.add('section');
+  decorateSectionSubtitles(root);
+  await Promise.all([
+    ...[...root.querySelectorAll('.columns.block, .block.columns')].map((block) => reloadBlock(block)),
+    refreshHeroBlocks(root),
+  ]);
 }
 
 async function applyChanges(event) {

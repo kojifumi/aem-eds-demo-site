@@ -3,6 +3,37 @@
  * UE may not run full decoration; these rules match preview styling for section intros.
  */
 
+/* Hero mobile: inner row wrapper must not add horizontal padding on top of .hero-gradient padding */
+.hero-gradient > div,
+.hero.gradient > div,
+[class*='hero--gradient'] > div,
+.hero-gradient.block > div,
+.hero.gradient.block > div {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-inline: auto;
+  padding-inline: 0;
+  box-sizing: border-box;
+}
+
+.hero-gradient h1,
+.hero.gradient h1 {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+@media (width < 900px) {
+  .hero-gradient .hero-ctas,
+  .hero.gradient .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 main .section:has(.cards, .block.cards) .default-content-wrapper h2 ~ p,
 main .section:has(.cards, .block.cards) .default-content-wrapper h2 ~ div > p,
 main .section:has(.cards, .block.cards) h2 ~ p,

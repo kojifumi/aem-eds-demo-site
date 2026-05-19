@@ -10,6 +10,12 @@
  * governing permissions and limitations under the License.
  */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   /* Nexara AI — Dark Navy Theme
      Contrast ratios (WCAG 2.1):
@@ -151,7 +157,8 @@ pre {
   white-space: pre;
 }
 
-main > div {
+/* Legacy wrapper only — sections use main > .section (avoid 16px horizontal margin on sections) */
+main > div:not(.section) {
   margin: 40px 16px;
 }
 
@@ -237,11 +244,19 @@ main img {
 }
 
 /* sections */
+main {
+  overflow-x: clip;
+  width: 100%;
+}
+
 main > .section {
   margin: 40px 0;
+  max-width: 100%;
 }
 
 main > .section > div {
+  box-sizing: border-box;
+  width: 100%;
   max-width: 1200px;
   margin: auto;
   padding: 0 24px;
