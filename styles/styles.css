@@ -315,7 +315,17 @@ main .section.how-it-works > div > p:not([class]),
 main .section.highlight > div > p:not([class]) {
   text-align: center;
   color: var(--text-muted-color);
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 2em;
+}
+
+/* Products — center cards block under section intro */
+main .section.products .cards-wrapper {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Testimonial section */
