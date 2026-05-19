@@ -9,7 +9,12 @@ import {
   loadSections,
 } from './aem.js';
 import { decorateRichtext } from './editor-support-rte.js';
-import { decorateMain, normalizeBlockNames, reloadBlock } from './scripts.js';
+import {
+  decorateMain,
+  decorateSectionSubtitles,
+  normalizeBlockNames,
+  reloadBlock,
+} from './scripts.js';
 
 let promiseChanges$ = Promise.resolve();
 
@@ -108,10 +113,12 @@ async function applyChanges(event) {
           element.remove();
           newSection.style.display = null;
         } else {
+          const section = element.closest('.section') || parentElement?.closest('.section');
           element.replaceWith(...newElements);
           decorateButtons(parentElement);
           decorateIcons(parentElement);
           decorateRichtext(parentElement);
+          if (section) decorateSectionSubtitles(section);
           if (containingBlock) await reloadBlock(containingBlock);
         }
         return true;

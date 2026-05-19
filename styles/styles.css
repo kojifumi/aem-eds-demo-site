@@ -33,9 +33,9 @@
   --link-color: #22d3ee;
   --link-hover-color: #67e8f9;
 
-  /* fonts */
-  --body-font-family: 'Inter', inter-fallback, system-ui, -apple-system, sans-serif;
-  --heading-font-family: 'Inter', inter-fallback, system-ui, -apple-system, sans-serif;
+  /* fonts — self-hosted/system only (UE canvas CSP blocks fonts.googleapis.com) */
+  --body-font-family: inter-fallback, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --heading-font-family: inter-fallback, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* body sizes */
   --body-font-size-m: 22px;
@@ -310,9 +310,13 @@ main .section.highlight > div > h2 {
   margin-bottom: 0.5em;
 }
 
-main .section.products > div > p:not([class]),
-main .section.how-it-works > div > p:not([class]),
-main .section.highlight > div > p:not([class]) {
+/* Section intro copy (UE Text adds .text class — do not use p:not([class])) */
+main .section.products > div > p.section-subtitle,
+main .section.how-it-works > div > p.section-subtitle,
+main .section.highlight > div > p.section-subtitle,
+main .section.products .default-content-wrapper > p.section-subtitle,
+main .section.how-it-works .default-content-wrapper > p.section-subtitle,
+main .section.highlight .default-content-wrapper > p.section-subtitle {
   text-align: center;
   color: var(--text-muted-color);
   max-width: 580px;

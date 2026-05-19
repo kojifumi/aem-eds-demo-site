@@ -77,6 +77,38 @@ function buildAutoBlocks() {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
+/**
+ * Mark section intro paragraph after h2 (Products, How It Works, FAQ).
+ * @param {Element} root
+ */
+export function decorateSectionSubtitles(root) {
+  root.querySelectorAll('.section.products, .section.how-it-works, .section.highlight').forEach((section) => {
+    const wrapper = section.querySelector('.default-content-wrapper') || section;
+    const heading = wrapper.querySelector(':scope > h2, :scope > h1');
+    if (!heading) return;
+
+    let sibling = heading.nextElementSibling;
+    while (sibling) {
+      if (sibling.classList.contains('cards')
+        || sibling.classList.contains('columns')
+        || sibling.classList.contains('accordion')
+        || sibling.classList.contains('block')) {
+        break;
+      }
+      if (sibling.tagName === 'P') {
+        sibling.classList.add('section-subtitle');
+        break;
+      }
+      const innerP = sibling.querySelector(':scope > p');
+      if (innerP) {
+        innerP.classList.add('section-subtitle');
+        break;
+      }
+      sibling = sibling.nextElementSibling;
+    }
+  });
+}
+
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
@@ -85,6 +117,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   normalizeBlockNames(main);
+  decorateSectionSubtitles(main);
 }
 
 const BLOCK_NAME_ALIASES = {
