@@ -1,0 +1,12 @@
+@import url('../hero/hero.css');
+
+/* UE block name becomes sole class "hero-gradient" */
+.hero.hero-gradient,
+.hero-gradient.hero {
+  min-height: 85vh;
+}
+
+.hero-gradient-container .hero-gradient-wrapper {
+  max-width: unset;
+  padding: 0;
+}
