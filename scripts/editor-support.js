@@ -22,15 +22,19 @@ loadCSS(`${window.hlx.codeBasePath}/scripts/editor-support.css`);
 
 let promiseChanges$ = Promise.resolve();
 
-function refreshSectionIntro(section) {
+async function refreshSectionIntro(section) {
   if (!section) return;
   syncSectionStyleClasses(section);
   decorateSectionSubtitles(section);
+  await Promise.all(
+    [...section.querySelectorAll('.columns.block, .block.columns')].map((block) => reloadBlock(block)),
+  );
 }
 
 async function applyChanges(event) {
   await promiseChanges$;
 
+  try {
   // redecorate default content and blocks on patches (in the properties rail)
   const { detail } = event;
 
@@ -82,7 +86,7 @@ async function applyChanges(event) {
         await loadBlock(newBlock);
         block.remove();
         newBlock.style.display = null;
-        refreshSectionIntro(newBlock.closest('.section'));
+        await refreshSectionIntro(newBlock.closest('.section'));
         return true;
       }
     } else {
@@ -123,14 +127,14 @@ async function applyChanges(event) {
           await loadSections(parentElement);
           element.remove();
           newSection.style.display = null;
-          refreshSectionIntro(newSection);
+          await refreshSectionIntro(newSection);
         } else {
           const section = element.closest('.section') || parentElement?.closest('.section');
           element.replaceWith(...newElements);
           decorateButtons(parentElement);
           decorateIcons(parentElement);
           decorateRichtext(parentElement);
-          refreshSectionIntro(section);
+          await refreshSectionIntro(section);
           if (containingBlock) await reloadBlock(containingBlock);
         }
         return true;
@@ -139,6 +143,11 @@ async function applyChanges(event) {
   }
 
   return false;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('editor-support applyChanges failed', error);
+    return false;
+  }
 }
 
 function attachEventListeners(main) {
@@ -153,7 +162,9 @@ function attachEventListeners(main) {
     event.stopPropagation();
     promiseChanges$ = applyChanges(event);
     const applied = await promiseChanges$;
-    if (!applied) window.location.reload();
+    if (!applied) {
+      await refreshSectionIntro(document.querySelector('main'));
+    }
   }));
 }
 

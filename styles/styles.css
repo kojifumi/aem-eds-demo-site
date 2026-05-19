@@ -287,15 +287,23 @@ main .section.stats .columns p {
   font-size: var(--body-font-size-s);
 }
 
-/* How It Works — step numbers */
-main .section.how-it-works .step-number,
+/* How It Works — step numbers (UE may omit <strong> on 01/02/03) */
+main .section.how-it-works .columns p.step-number,
+main .section.how-it-works .columns > div > div > p:has(+ :is(h1, h2, h3, h4)),
 main .section.how-it-works .columns > div > div > p:first-child strong {
+  display: block;
   font-size: var(--heading-font-size-l);
   font-weight: 700;
   color: var(--accent-color);
   opacity: 0.5;
   margin: 0 0 0.25em;
   line-height: 1;
+}
+
+main .section.how-it-works .columns > div > div > p.step-number + :is(h1, h2, h3, h4) {
+  color: var(--text-color);
+  margin-top: 0;
+  margin-bottom: 0.5em;
 }
 
 main .section.how-it-works .columns > div > div {

@@ -17,3 +17,30 @@ main p.section-subtitle {
   margin-right: auto;
   margin-bottom: 2em;
 }
+
+/* How It Works — step numbers in UE canvas */
+main .section.how-it-works .columns p.step-number,
+main .section.how-it-works .columns > div > div > p:has(+ :is(h1, h2, h3, h4)),
+main .section:has(.columns) .columns > div > div > p:has(+ :is(h1, h2, h3, h4)) {
+  display: block;
+  font-size: var(--heading-font-size-l, 34px);
+  font-weight: 700;
+  color: var(--accent-color, #22d3ee);
+  opacity: 0.5;
+  margin: 0 0 0.25em;
+  line-height: 1;
+}
+
+main .section.how-it-works .default-content-wrapper h2 ~ p,
+main .section.how-it-works .default-content-wrapper h2 ~ div > p,
+main .section:has(.columns.block) .default-content-wrapper h2 ~ p,
+main .section:has(.columns.block) .default-content-wrapper h2 ~ div > p {
+  text-align: center;
+  color: var(--text-muted-color, #8b949e);
+  font-size: var(--body-font-size-m, 18px);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2em;
+}
