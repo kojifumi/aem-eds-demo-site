@@ -551,12 +551,13 @@ main .section.cta-banner h2 {
 }
 
 main .section.cta-banner p.section-subtitle,
+main .section.cta-banner p.text,
 main .section.cta-banner .default-content-wrapper h2 ~ p,
 main .section.cta-banner .default-content-wrapper h2 ~ div > p,
 main .section.cta-banner > div > h2 ~ p,
 main .section.cta-banner > div > h2 ~ div > p,
 main .section.cta-banner > div > p:not(.button-container):not(:has(.button)) {
-  color: #b8c9d9;
+  color: #fff;
   font-size: var(--body-font-size-s);
   line-height: 1.7;
   max-width: 600px;

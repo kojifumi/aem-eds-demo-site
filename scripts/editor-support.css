@@ -146,7 +146,7 @@ main .section.cta-banner > div > h2 ~ p,
 main .section.cta-banner > div > h2 ~ div > p,
 main .section.cta-banner p.text {
   text-align: center;
-  color: var(--text-muted-color, #8b949e);
+  color: #fff;
   font-size: var(--body-font-size-s, 16px);
   line-height: 1.7;
   max-width: 600px;
