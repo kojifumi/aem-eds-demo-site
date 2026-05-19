@@ -24,7 +24,8 @@ let promiseChanges$ = Promise.resolve();
 
 async function refreshSectionIntro(section) {
   if (!section) return;
-  syncSectionStyleClasses(section);
+  syncSectionStyleClasses(document);
+  section.classList.add('section');
   decorateSectionSubtitles(section);
   await Promise.all(
     [...section.querySelectorAll('.columns.block, .block.columns')].map((block) => reloadBlock(block)),

@@ -82,6 +82,8 @@ function buildAutoBlocks() {
  * @param {ParentNode} root
  */
 export function syncSectionStyleClasses(root) {
+  root.querySelectorAll('main > div').forEach((el) => el.classList.add('section'));
+
   root.querySelectorAll('.section-metadata').forEach((meta) => {
     const section = meta.parentElement;
     if (!section) return;

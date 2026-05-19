@@ -31,3 +31,27 @@
     order: unset;
   }
 }
+
+/* How It Works — 3 steps (class set by columns.js, works without section.how-it-works in UE) */
+.columns.how-it-works-steps > div > div > p.step-number,
+.columns.how-it-works-steps > div > div > p:has(+ :is(h1, h2, h3, h4)) {
+  display: block;
+  font-size: clamp(40px, 6vw, 56px);
+  font-weight: 700;
+  color: var(--accent-color, #22d3ee);
+  opacity: 0.5;
+  margin: 0 0 0.25em;
+  line-height: 1;
+}
+
+.columns.how-it-works-steps > div > div > :is(h1, h2, h3, h4) {
+  color: var(--text-color, #e6edf3);
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+.columns.how-it-works-steps > div > div > p:not(.step-number):not(:has(+ :is(h1, h2, h3, h4))) {
+  color: var(--text-muted-color, #8b949e);
+  font-size: var(--body-font-size-s, 16px);
+  line-height: 1.7;
+}
