@@ -565,21 +565,36 @@ main .section.cta-banner > div > p:not(.button-container):not(:has(.button)) {
   text-align: center;
 }
 
-main .section.cta-banner a.button:any-link {
+/* Match Hero CTAs: primary = --link-color + white text; secondary = accent outline */
+main .section.cta-banner a.button:any-link,
+main .section.cta-banner a.button.primary:any-link {
   margin: 0 8px 12px;
-  background-color: var(--accent-bright-color);
-  color: #042f38;
+  background-color: var(--link-color);
+  color: var(--button-primary-color);
+  border-color: transparent;
+}
+
+main .section.cta-banner a.button:any-link:hover,
+main .section.cta-banner a.button:any-link:focus,
+main .section.cta-banner a.button.primary:any-link:hover,
+main .section.cta-banner a.button.primary:any-link:focus {
+  background-color: var(--link-hover-color);
+  color: var(--button-primary-color);
+  text-decoration: none;
 }
 
 main .section.cta-banner a.button.secondary:any-link {
-  background-color: rgb(255 255 255 / 8%);
-  border-color: rgb(255 255 255 / 25%);
-  color: #fff;
+  background-color: transparent;
+  border-color: var(--accent-color);
+  color: var(--accent-color);
 }
 
-main .section.cta-banner a.button.secondary:any-link:hover {
-  background-color: rgb(255 255 255 / 14%);
-  color: #fff;
+main .section.cta-banner a.button.secondary:any-link:hover,
+main .section.cta-banner a.button.secondary:any-link:focus {
+  background-color: transparent;
+  border-color: var(--link-hover-color);
+  color: var(--link-hover-color);
+  text-decoration: none;
 }
 
 main .section.cta-banner > div,

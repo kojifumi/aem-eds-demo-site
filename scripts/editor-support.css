@@ -162,8 +162,18 @@ main .section.cta-banner div:has(> a.button) {
   vertical-align: top;
 }
 
-main .section.cta-banner a.button:any-link {
+main .section.cta-banner a.button:any-link,
+main .section.cta-banner a.button.primary:any-link {
   margin: 0 8px 12px;
+  background-color: var(--link-color);
+  color: var(--button-primary-color);
+  border-color: transparent;
+}
+
+main .section.cta-banner a.button.secondary:any-link {
+  background-color: transparent;
+  border-color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 /* How It Works — before columns.js runs in UE */
