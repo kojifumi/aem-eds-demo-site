@@ -71,6 +71,17 @@ main .section.cta-banner p.text {
   margin-bottom: 1.5em;
 }
 
+main .section.cta-banner p.button-container,
+main .section.cta-banner div:has(> a.button) {
+  display: inline-flex;
+  margin: 0 8px 12px;
+  vertical-align: top;
+}
+
+main .section.cta-banner a.button:any-link {
+  margin: 0 8px 12px;
+}
+
 /* How It Works — before columns.js runs in UE */
 main .columns.columns-3-cols > div > div > p:has(+ :is(h1, h2, h3, h4)) {
   display: block;
