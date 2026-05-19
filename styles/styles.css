@@ -585,14 +585,14 @@ main .section.cta-banner a.button.primary:any-link:focus {
 
 main .section.cta-banner a.button.secondary:any-link {
   background-color: transparent;
-  border-color: rgb(255 255 255 / 40%);
+  border-color: var(--accent-color);
   color: #fff;
 }
 
 main .section.cta-banner a.button.secondary:any-link:hover,
 main .section.cta-banner a.button.secondary:any-link:focus {
-  background-color: rgb(255 255 255 / 10%);
-  border-color: #fff;
+  background-color: transparent;
+  border-color: var(--link-hover-color);
   color: #fff;
   text-decoration: none;
 }
