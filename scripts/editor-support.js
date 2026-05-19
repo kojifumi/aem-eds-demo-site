@@ -23,10 +23,17 @@ loadCSS(`${window.hlx.codeBasePath}/scripts/editor-support.css`);
 let promiseChanges$ = Promise.resolve();
 
 const HERO_BLOCK_SELECTOR = '.block.hero-gradient, .block.hero--gradient-, .block.hero.gradient';
+const QUOTE_BLOCK_SELECTOR = '.block.quote, .block[class*="quote"]';
 
 async function refreshHeroBlocks(root = document) {
   await Promise.all(
     [...root.querySelectorAll(HERO_BLOCK_SELECTOR)].map((block) => reloadBlock(block)),
+  );
+}
+
+async function refreshQuoteBlocks(root = document) {
+  await Promise.all(
+    [...root.querySelectorAll(QUOTE_BLOCK_SELECTOR)].map((block) => reloadBlock(block)),
   );
 }
 
@@ -42,6 +49,7 @@ async function refreshSectionIntro(section) {
   await Promise.all([
     ...columnsBlocks.map((block) => reloadBlock(block)),
     refreshHeroBlocks(root),
+    refreshQuoteBlocks(root),
   ]);
 }
 

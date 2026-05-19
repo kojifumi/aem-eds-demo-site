@@ -397,19 +397,24 @@ main .section.testimonial .quote blockquote .quote-quotation {
   font-style: italic;
   line-height: 1.65;
   color: var(--text-color);
-  margin-bottom: 1.5em;
+  margin: 0 0 32px;
+}
+
+/* Override default Quote block curly quotes and em-dash in testimonial */
+main .section.testimonial .quote blockquote .quote-quotation > :first-child {
+  text-indent: 0;
 }
 
 main .section.testimonial .quote blockquote .quote-quotation > :first-child::before {
   content: '\201C';
   display: block;
-  font-size: clamp(48px, 12vw, 80px);
+  font-size: clamp(56px, 14vw, 80px);
   font-style: normal;
   font-weight: 700;
   line-height: 1;
   color: var(--accent-color);
   opacity: 0.3;
-  margin-bottom: 0.25em;
+  margin-bottom: 8px;
   text-indent: 0;
 }
 
@@ -417,9 +422,32 @@ main .section.testimonial .quote blockquote .quote-quotation > :last-child::afte
   content: none;
 }
 
-main .section.testimonial .quote blockquote .quote-attribution {
+main .section.testimonial .quote blockquote .quote-attribution::before,
+main .section.testimonial .quote blockquote .quote-attribution > :first-child::before {
+  content: none;
+  padding: 0;
+}
+
+main .section.testimonial .quote blockquote .testimonial-attribution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
   text-align: center;
-  font-size: var(--body-font-size-s);
+}
+
+main .section.testimonial .quote blockquote .testimonial-name {
+  font-size: var(--body-font-size-m);
+  font-weight: 600;
+  font-style: normal;
+  color: var(--text-color);
+}
+
+main .section.testimonial .quote blockquote .testimonial-role {
+  font-size: 15px;
+  font-weight: 500;
+  font-style: normal;
   color: var(--text-muted-color);
 }
 
