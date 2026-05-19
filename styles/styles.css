@@ -402,14 +402,17 @@ main .section.testimonial .quote blockquote .quote-quotation {
   color: var(--text-color);
   margin: 0 auto 32px;
   max-width: 100%;
+  /* Reserve space so the decorative mark does not overlap the first line */
+  padding-top: clamp(44px, 11vw, 56px);
+  padding-left: 8px;
 }
 
 main .section.testimonial .quote blockquote .quote-quotation.testimonial-quote::before {
   content: '\201C';
   position: absolute;
-  top: -20px;
+  top: 0;
   left: -10px;
-  font-size: clamp(56px, 10vw, 80px);
+  font-size: clamp(48px, 10vw, 80px);
   font-style: normal;
   font-weight: 700;
   line-height: 1;

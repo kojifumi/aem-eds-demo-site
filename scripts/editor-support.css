@@ -142,15 +142,17 @@ main .section.testimonial .quote .quote-quotation,
 main .section.testimonial .quote > div > div:first-child {
   position: relative;
   text-align: left;
+  padding-top: clamp(44px, 11vw, 56px);
+  padding-left: 8px;
 }
 
 main .section.testimonial .quote .quote-quotation.testimonial-quote::before,
 main .section.testimonial .quote > div > div:first-child::before {
   content: '\201C';
   position: absolute;
-  top: -20px;
+  top: 0;
   left: -10px;
-  font-size: clamp(56px, 10vw, 80px);
+  font-size: clamp(48px, 10vw, 80px);
   font-weight: 700;
   line-height: 1;
   color: var(--accent-color, #22d3ee);
