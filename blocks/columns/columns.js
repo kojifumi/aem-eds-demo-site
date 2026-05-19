@@ -1,3 +1,33 @@
+function decorateStatsColumns(block) {
+  const section = block.closest('.section');
+  if (!section?.classList.contains('stats')) return;
+
+  const row = block.firstElementChild;
+  if (!row) return;
+
+  const cells = [...row.children];
+  if (cells.length !== 3) return;
+
+  let statCount = 0;
+  cells.forEach((cell) => {
+    const metric = cell.querySelector(':scope > :is(h1, h2, h3, h4, h5, h6)')
+      || cell.querySelector(':scope > p:first-child strong');
+    const label = [...cell.querySelectorAll(':scope > p')].find(
+      (p) => !p.querySelector('strong') && p !== metric,
+    );
+
+    if (!metric || !label) return;
+
+    metric.classList.add('stat-number');
+    label.classList.add('stat-label');
+    statCount += 1;
+  });
+
+  if (statCount >= 2) {
+    block.classList.add('stats-columns');
+  }
+}
+
 function decorateHowItWorksSteps(block) {
   const row = block.firstElementChild;
   if (!row) return;
@@ -58,6 +88,7 @@ function decorateHowItWorksSteps(block) {
 export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-${cols.length}-cols`);
+  decorateStatsColumns(block);
   decorateHowItWorksSteps(block);
 
   // setup image columns

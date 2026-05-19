@@ -35,8 +35,12 @@ async function refreshSectionIntro(section) {
   syncSectionStyleClasses(document);
   if (section) section.classList.add('section');
   decorateSectionSubtitles(root);
+  const columnsBlocks = root === document
+    ? [...document.querySelectorAll('.columns.block, .block.columns')]
+    : [...root.querySelectorAll('.columns.block, .block.columns')];
+
   await Promise.all([
-    ...[...root.querySelectorAll('.columns.block, .block.columns')].map((block) => reloadBlock(block)),
+    ...columnsBlocks.map((block) => reloadBlock(block)),
     refreshHeroBlocks(root),
   ]);
 }

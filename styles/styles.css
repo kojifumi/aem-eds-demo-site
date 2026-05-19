@@ -285,26 +285,20 @@ main .section.highlight {
   padding: 40px 0;
 }
 
-/* Stats section — large accent numbers */
-main .section.stats .columns > div {
-  text-align: center;
-  gap: 0;
+/* Stats section — surface band + columns block handles grid (blocks/columns/columns.css) */
+main .section.stats {
+  padding: 48px 0;
 }
 
-main .section.stats .columns strong,
-main .section.stats .columns > div > div > :is(h1, h2, h3, h4, h5, h6):first-child {
-  display: block;
-  font-size: var(--heading-font-size-xxl);
-  font-weight: 700;
-  color: var(--accent-color);
-  line-height: 1;
-  letter-spacing: -0.02em;
+@media (width >= 900px) {
+  main .section.stats {
+    padding: 64px 0;
+  }
 }
 
-main .section.stats .columns p {
-  margin: 0.25em 0 0;
-  color: var(--text-muted-color);
-  font-size: var(--body-font-size-s);
+main .section.stats .columns-wrapper {
+  max-width: 1200px;
+  margin-inline: auto;
 }
 
 /* How It Works — step numbers (UE may omit <strong> on 01/02/03) */
