@@ -13,13 +13,15 @@ main:not(:has(.section)) {
   justify-content: center;
   min-height: var(--nav-height, 64px);
   padding: 0 32px;
+  width: 100%;
+  max-width: none;
 }
 
 main:not(:has(.section)) > div:only-child {
   align-items: center;
   display: flex;
   flex: 1 1 auto;
-  max-width: 1264px;
+  max-width: none;
   position: relative;
   width: 100%;
 }

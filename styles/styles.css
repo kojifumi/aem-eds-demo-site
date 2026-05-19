@@ -100,10 +100,17 @@ body.appear {
 }
 
 header {
+  width: 100%;
+  max-width: none;
   height: var(--nav-height);
   position: sticky;
   top: 0;
   z-index: 100;
+}
+
+header .header {
+  width: 100%;
+  max-width: none;
 }
 
 header .header,
