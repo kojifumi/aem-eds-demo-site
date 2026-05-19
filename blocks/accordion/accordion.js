@@ -21,7 +21,11 @@ function restoreRows(block) {
 export default function decorate(block) {
   restoreRows(block);
 
-  if (block.closest('.section.faq')) {
+  const section = block.closest('.section');
+  if (
+    section?.classList.contains('faq')
+    || section?.querySelector('.block.accordion, .accordion.block')
+  ) {
     block.classList.add('faq-accordion');
   }
 

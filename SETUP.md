@@ -10,12 +10,13 @@ The aem-code-sync GitHub App connects this repository to AEM's content delivery 
 
 > **Action required:**
 >
-> 1. Open: <https://github.com/apps/aem-code-sync/installations/new>
+> 1. Open: [https://github.com/apps/aem-code-sync/installations/new](https://github.com/apps/aem-code-sync/installations/new)
 > 2. Under "Repository access", select **Only select repositories**
 > 3. Choose **kojifumi/aem-eds-demo-site** from the list
 > 4. Click **Save**
 
 **Verify:** After installing, the following URL should return a valid JSON response (not 404):
+
 ```
 https://admin.hlx.page/status/kojifumi/aem-eds-demo-site/main/
 ```
@@ -27,21 +28,18 @@ https://admin.hlx.page/status/kojifumi/aem-eds-demo-site/main/
 **Reference:** [Create an AEM site](https://experienceleague.adobe.com/en/docs/experience-manager-learn/sites/edge-delivery-services/developing/universal-editor/2-new-aem-site)
 
 1. Log in to AEM Author:
-   ```
+  ```
    https://author-p159404-e1696482.adobeaemcloud.com
-   ```
-
+  ```
 2. Navigate to **Sites > Create > Site from Template**
-
 3. Select the **Edge Delivery Services** site template (import it first if unavailable)
-
 4. Configure:
-   - **Title**: `AEM EDS Demo Site`
-   - **Name** (URL path): `aem-eds-demo-site`
-
+  - **Title**: `AEM EDS Demo Site`
+  - **Name** (URL path): `aem-eds-demo-site`
 5. Click **Create**
 
 The new site will be created at:
+
 ```
 /content/aem-eds-demo-site/
 ```
@@ -84,17 +82,17 @@ To enable the Universal Editor on this site:
 1. In AEM Author, navigate to the site page you want to edit
 2. Open **Page Properties > Advanced**
 3. Set the **Universal Editor URL** to:
-   ```
+  ```
    https://experience.adobe.com/#/aem/editor/canvas
-   ```
+  ```
 4. Verify the page template includes the required Universal Editor instrumentation script in `<head>`:
-   ```html
+  ```html
    <script>
      var ue = {
        "editurl": "https://main--aem-eds-demo-site--kojifumi.aem.page/",
      };
    </script>
-   ```
+  ```
 
 This is already handled by `head.html` in the boilerplate.
 
@@ -111,49 +109,61 @@ aem up
 The local dev server starts at `http://localhost:3000`. Content is proxied from the AEM Author.
 
 To target the specific preview URL:
+
 ```bash
 aem up --url https://main--aem-eds-demo-site--kojifumi.aem.page
 ```
 
 ---
 
+## Step 6b: Universal Editor — Section Style (FAQ など) が出ないとき
+
+UE のセクション **Style** は GitHub の `component-models.json`（`models/_section.json` から `npm run build:json` で生成）を読み込みます。
+
+1. **プレビューで定義を確認**（FAQ が含まれること）:
+   ```
+   https://main--aem-eds-demo-site--kojifumi.aem.page/component-models.json
+   ```
+   `section` モデルの `options` に `"name": "FAQ"` があること。
+
+2. **モデルを変更したら** リポジトリで再生成して `main` に push:
+   ```bash
+   npm run build:json
+   git add component-models.json component-definition.json component-filters.json
+   git commit -m "chore: rebuild UE component JSON"
+   git push
+   ```
+
+3. **AEM Author の UE を完全に閉じて開き直す**（キャッシュ対策）。
+
+4. **当面の回避策**（FAQ が Style 一覧に無い場合）:
+   - Section metadata の **Style** で **`Highlight`** のみ選択し、セクションに **Accordion** を置く（見た目は FAQ 用 CSS が適用されます）
+   - または metadata の値に手動で `faq` と入力できる UI ならそれを使用
+
+---
+
 ## Step 6: Verify Preview URL
 
 After aem-code-sync is installed and the AEM site is created, the preview URL will be:
+
 ```
 https://main--aem-eds-demo-site--kojifumi.aem.page/
 ```
 
 ---
 
-## GitHub: `kojifumi` 名下にリポジトリを用意する
+## GitHub: `kojifumi` 
 
-コードと `fstab.yaml` は **`kojifumi/aem-eds-demo-site`** を前提にしています。
-
-1. [kojifumi](https://github.com/kojifumi/) でサインインし、**New repository** で `aem-eds-demo-site` を作成する（private 可）。
-2. ローカルでリモートを設定してプッシュする:
-
-```bash
-cd /Users/fkojima/dev/eds/aem-eds-demo-site
-git remote set-url origin https://github.com/kojifumi/aem-eds-demo-site.git
-# 普段の gh / git が別アカウント（例: EMU）のときは kojifumi 用ラッパーで push
-kojifumi-git push -u origin main
-```
-
-`kojifumi-git` / `kojifumi` は **`~/.local/bin` にインストール済み**想定。初回だけ `gh auth login` で **kojifumi** を `gh` に登録。詳細は [docs/KOJIFUMI-CLI.md](./docs/KOJIFUMI-CLI.md) または `~/.local/share/doc/kojifumi-cli/README.md`。
-
-別アカウント（例: Enterprise Managed User）からは `kojifumi` 側にリポジトリを自動作成できない場合があります。そのときは上記の手動作成とプッシュで問題ありません。
-
-以前 **`fkojima_adobe/aem-eds-demo-site`** にだけあった場合は、GitHub の **Transfer ownership** で `kojifumi` に移すか、移行後に旧リポジトリをアーカイブしてください。
+コードと `fstab.yaml` は `**kojifumi/aem-eds-demo-site**` を前提にしています。
 
 ---
 
 ## Cursor MCP（`.cursor/mcp.json`）
 
-- **ユーザー全体の設定**なら **`~/.cursor/mcp.json`** に書いてもよい（このリポを開いていなくても同じ MCP が使える）。
-- リポジトリ単位なら、ローカルに **`.cursor/mcp.json`** を置く（**Git には含めない** — `.gitignore` 済み）。
-- 雛形は **`.cursor/mcp.json.example`**。初回はコピーしてトークンを入れる:  
-  `cp .cursor/mcp.json.example .cursor/mcp.json`
+- **ユーザー全体の設定**なら `**~/.cursor/mcp.json`** に書いてもよい（このリポを開いていなくても同じ MCP が使える）。
+- リポジトリ単位なら、ローカルに `**.cursor/mcp.json**` を置く（**Git には含めない** — `.gitignore` 済み）。
+- 雛形は `**.cursor/mcp.json.example`**。初回はコピーしてトークンを入れる:  
+`cp .cursor/mcp.json.example .cursor/mcp.json`
 - **AEM** の `url` 型サーバーは Cursor の MCP 画面で **Connect** し、**Adobe ID** でサインイン。
 - **Helix** は `HELIX_ADMIN_API_TOKEN` が必要。トークンは **リポジトリに push しない**。
 
@@ -170,14 +180,14 @@ MCP 経由の操作は **OAuth した Adobe ID と同じ権限**で実行され�
 
 ### 2. AEM Author（コンテンツパス）
 
-- デモ用サイトルートは **`/content/aem-eds-demo-site/`**。MCP の Content ツールも **そのユーザーに許された ACL の範囲**でのみ成功する。本番ツリーへの権限を付けなければ、MCP からも更新できない。
+- デモ用サイトルートは `**/content/aem-eds-demo-site/`**。MCP の Content ツールも **そのユーザーに許された ACL の範囲**でのみ成功する。本番ツリーへの権限を付けなければ、MCP からも更新できない。
 
 ### 3. Cursor・運用（補助）
 
-- **書き込みを絞る**: 調査だけなら **`content-readonly`** の MCP だけにし、`aem-content` を外す方法がある（書き換え・削除の経路を減らす）。
-- **Cloud Manager を IDE から使わない**: `~/.cursor/mcp.json` から **`aem-cloudmanager` エントリを外す**と、パイプライン／環境系の誤操作経路がなくなる（必要なときだけ一時追加）。
+- **書き込みを絞る**: 調査だけなら `**content-readonly`** の MCP だけにし、`aem-content` を外す方法がある（書き換え・削除の経路を減らす）。
+- **Cloud Manager を IDE から使わない**: `~/.cursor/mcp.json` から `**aem-cloudmanager` エントリを外す**と、パイプライン／環境系の誤操作経路がなくなる（必要なときだけ一時追加）。
 - **ツールの自動承認を絶対に頼らない**: 更新・削除・公開は都度確認する（公式も「人間の監視」を推奨）。
-- このリポジトリでは **`.cursor/rules/aem-mcp-demo-scope.mdc`** でエージェント向けにデモ Author とコンテンツパスのガードレールを置いている（法的・技術的強制ではなく補助）。
+- このリポジトリでは `**.cursor/rules/aem-mcp-demo-scope.mdc`** でエージェント向けにデモ Author とコンテンツパスのガードレールを置いている（法的・技術的強制ではなく補助）。
 
 ### 4. さらに厳しくする場合
 
@@ -190,6 +200,7 @@ MCP 経由の操作は **OAuth した Adobe ID と同じ権限**で実行され�
 See [README.md](./README.md) for the full list of available blocks (Boilerplate + Block Collection).
 
 All blocks are registered in the Universal Editor component palette via:
+
 - `component-definition.json` — block palette entries
 - `component-models.json` — block property panels
 - `component-filters.json` — placement rules

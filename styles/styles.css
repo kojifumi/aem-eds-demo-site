@@ -329,7 +329,8 @@ main .section.how-it-works .columns > div > div {
 main .section.products > div > h2,
 main .section.how-it-works > div > h2,
 main .section.faq > div > h2,
-main .section.highlight > div > h2 {
+main .section.highlight:has(.accordion.block, .block.accordion) > div > h2,
+main .section.highlight:not(:has(.accordion)) > div > h2 {
   text-align: center;
   margin-bottom: 0.5em;
 }
@@ -353,8 +354,10 @@ main .section.how-it-works .default-content-wrapper h2 ~ p,
 main .section.how-it-works .default-content-wrapper h2 ~ div > p,
 main .section.faq .default-content-wrapper h2 ~ p,
 main .section.faq .default-content-wrapper h2 ~ div > p,
-main .section.highlight:not(.stats):not(.faq) .default-content-wrapper h2 ~ p,
-main .section.highlight:not(.stats):not(.faq) .default-content-wrapper h2 ~ div > p {
+main .section.highlight:has(.accordion) .default-content-wrapper h2 ~ p,
+main .section.highlight:has(.accordion) .default-content-wrapper h2 ~ div > p,
+main .section.highlight:not(.stats):not(.faq):not(:has(.accordion)) .default-content-wrapper h2 ~ p,
+main .section.highlight:not(.stats):not(.faq):not(:has(.accordion)) .default-content-wrapper h2 ~ div > p {
   text-align: center;
   color: var(--text-muted-color);
   font-size: var(--body-font-size-m);
@@ -372,20 +375,23 @@ main .section.products .cards-wrapper {
   margin-right: auto;
 }
 
-/* FAQ section */
-main .section.faq {
+/* FAQ section (style: faq, or highlight + Accordion until UE lists faq) */
+main .section.faq,
+main .section.highlight:has(.accordion.block, .block.accordion) {
   background-color: var(--surface-color);
   margin: 0;
   padding: 64px 0;
 }
 
 @media (width >= 900px) {
-  main .section.faq {
+  main .section.faq,
+  main .section.highlight:has(.accordion.block, .block.accordion) {
     padding: 80px 0;
   }
 }
 
-main .section.faq .accordion-wrapper {
+main .section.faq .accordion-wrapper,
+main .section.highlight:has(.accordion) .accordion-wrapper {
   max-width: 760px;
   margin: 48px auto 0;
 }

@@ -131,7 +131,9 @@
       {
         "component": "multiselect",
         "name": "style",
+        "value": "",
         "label": "Style",
+        "valueType": "string",
         "options": [
           {
             "name": "Highlight",
