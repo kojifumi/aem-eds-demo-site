@@ -42,10 +42,15 @@ header nav[aria-expanded='true'] {
 
   header nav {
     display: flex;
-    justify-content: space-between;
-    gap: 0 32px;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 32px;
     max-width: 1264px;
     padding: 0 32px;
+  }
+
+  header nav .nav-tools {
+    margin-left: auto;
   }
 
   header nav[aria-expanded='true'] {
@@ -193,13 +198,16 @@ header nav .nav-sections ul > li {
   font-weight: 500;
 }
 
-header nav .nav-sections a:any-link {
-  color: var(--text-muted-color, #8b949e);
+header nav .nav-sections a:any-link,
+header nav .nav-sections li {
+  color: var(--text-color, #e6edf3);
+  font-size: 15px;
+  font-weight: 500;
   transition: color 0.15s ease;
 }
 
 header nav .nav-sections a:any-link:hover {
-  color: var(--text-color, #e6edf3);
+  color: var(--accent-color, #22d3ee);
 }
 
 header nav .nav-sections ul > li > ul {
@@ -253,7 +261,8 @@ header nav .nav-sections ul > li > ul > li {
     margin: 0;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li {
+  header nav .nav-sections .default-content-wrapper > ul > li,
+  header nav .nav-sections > ul > li {
     flex: 0 1 auto;
     position: relative;
   }

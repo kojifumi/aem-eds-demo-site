@@ -3,6 +3,77 @@
  * UE may not run full decoration; these rules match preview styling for section intros.
  */
 
+/* Nav document (/nav) — UE edits fragment without header.js */
+main:not(:has(.section)) {
+  align-items: center;
+  background: rgb(13 17 23 / 88%);
+  border-bottom: 1px solid var(--border-color, #30363d);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  min-height: var(--nav-height, 64px);
+  padding: 0 32px;
+}
+
+main:not(:has(.section)) > div:only-child {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  gap: 32px;
+  max-width: 1264px;
+  width: 100%;
+}
+
+main:not(:has(.section)) > div:only-child > div:first-child a {
+  color: var(--text-color, #e6edf3);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+main:not(:has(.section)) > div:only-child > div:first-child a span {
+  color: var(--accent-color, #22d3ee);
+}
+
+main:not(:has(.section)) > div:only-child > div:nth-child(2) ul {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+main:not(:has(.section)) > div:only-child > div:nth-child(2) a,
+main:not(:has(.section)) > div:only-child > div:nth-child(2) li {
+  color: var(--text-color, #e6edf3);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+main:not(:has(.section)) > div:only-child > div:last-child {
+  margin-left: auto;
+}
+
+main:not(:has(.section)) > div:only-child > div:last-child a.button,
+main:not(:has(.section)) > div:only-child > div:last-child a {
+  background-color: var(--accent-color, #22d3ee);
+  border-radius: 999px;
+  color: var(--background-color, #0d1117);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 20px;
+  text-decoration: none;
+}
+
+main:not(:has(.section)) > div:only-child > div:first-child a.button {
+  background: none;
+  border-radius: 0;
+  color: var(--text-color, #e6edf3);
+  padding: 0;
+}
+
 /* Hero mobile: inner row wrapper must not add horizontal padding on top of .hero-gradient padding */
 .hero-gradient > div,
 .hero.gradient > div,

@@ -56,10 +56,49 @@ function focusNavSection() {
  * @param {Element} sections The container element
  * @param {Boolean} expanded Whether the element should be expanded or collapsed
  */
+function navSectionItems(navSections) {
+  return navSections.querySelectorAll(
+    ':scope .default-content-wrapper > ul > li, :scope > ul > li',
+  );
+}
+
 function toggleAllNavSections(sections, expanded = false) {
-  sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li').forEach((section) => {
+  navSectionItems(sections).forEach((section) => {
     section.setAttribute('aria-expanded', expanded);
   });
+}
+
+/** UE may wrap the three nav columns in a single div — flatten to brand / sections / tools. */
+function normalizeNavColumns(nav) {
+  if (nav.children.length !== 1) return;
+  const wrapper = nav.firstElementChild;
+  if (wrapper.children.length < 2) return;
+  [...wrapper.children].forEach((child) => nav.append(child));
+  wrapper.remove();
+}
+
+function decorateNavBrand(navBrand) {
+  if (!navBrand) return;
+  navBrand.querySelectorAll('a.button').forEach((a) => {
+    a.classList.remove('button', 'primary', 'secondary');
+  });
+  navBrand.querySelectorAll('.button-container').forEach((el) => {
+    el.classList.remove('button-container');
+  });
+  const link = navBrand.querySelector('a');
+  if (!link) return;
+  const strong = link.closest('strong');
+  if (strong && strong.parentElement?.tagName === 'P') {
+    strong.replaceWith(link);
+  }
+  if (!link.querySelector('span') && /\sAI\s*$/i.test(link.textContent)) {
+    const base = link.textContent.replace(/\s*AI\s*$/i, '').trim();
+    link.textContent = '';
+    link.append(document.createTextNode(base));
+    const accent = document.createElement('span');
+    accent.textContent = ' AI';
+    link.append(accent);
+  }
 }
 
 /**
@@ -118,6 +157,7 @@ export default async function decorate(block) {
   const nav = document.createElement('nav');
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
+  normalizeNavColumns(nav);
 
   const classes = ['brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
@@ -125,16 +165,11 @@ export default async function decorate(block) {
     if (section) section.classList.add(`nav-${c}`);
   });
 
-  const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
-  if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
-  }
+  decorateNavBrand(nav.querySelector('.nav-brand'));
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
-    navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
+    navSectionItems(navSections).forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
       navSection.addEventListener('click', () => {
         if (isDesktop.matches) {
