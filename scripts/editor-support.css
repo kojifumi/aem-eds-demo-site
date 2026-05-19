@@ -222,10 +222,16 @@ main .section.highlight:has(.accordion) .accordion {
 }
 
 .accordion.accordion-ue > div > div:last-child {
-  padding: 0 20px 16px;
+  border-top: 1px solid var(--border-color, #30363d);
+  padding: 16px 24px 20px;
   color: var(--text-muted-color, #8b949e);
   font-size: var(--body-font-size-s, 16px);
   line-height: 1.75;
+}
+
+main .section.faq .accordion.accordion-ue > div > div:first-child,
+main .section.highlight:has(.accordion) .accordion.accordion-ue > div > div:first-child {
+  padding: 20px 24px;
 }
 
 .accordion.accordion-ue > div > div:last-child p {

@@ -156,7 +156,10 @@ async function applyChanges(event) {
           decorateIcons(parentElement);
           decorateRichtext(parentElement);
           await refreshSectionIntro(section);
-          if (containingBlock) await reloadBlock(containingBlock);
+          // Skip accordion reload in UE — rows stay editable without re-decorating
+          if (containingBlock && !containingBlock.classList.contains('accordion')) {
+            await reloadBlock(containingBlock);
+          }
         }
         return true;
       }
