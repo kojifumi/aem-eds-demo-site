@@ -142,6 +142,65 @@ UE のセクション **Style** は GitHub の `component-models.json`（`models
 
 ---
 
+## Step 6a: Create Nav and Footer Pages (AEM Author)
+
+The header and footer blocks load content from **`/nav`** and **`/footer`** fragments. Create two pages under the site (sibling to the homepage), then publish.
+
+### Nav page (`…/nav`)
+
+1. In AEM Author, under **AEM EDS Demo Site**, create a page named **`nav`** (title: Navigation).
+2. Open the page in **Universal Editor** (or edit as HTML) and set the body to match `nav.plain.html` in this repo:
+
+```html
+<main>
+  <div>
+    <div>
+      <p><a href="/">Nexara<span> AI</span></a></p>
+    </div>
+    <div>
+      <ul>
+        <li><a href="/#products">Products</a></li>
+        <li><a href="/#solutions">Solutions</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/#docs">Docs</a></li>
+      </ul>
+    </div>
+    <div>
+      <p><strong><a href="/signup">Get Started Free</a></strong></p>
+    </div>
+  </div>
+</main>
+```
+
+Structure: **3 sibling `<div>`s** inside `<main>` — brand, nav links (`<ul>`), CTA button (`<strong><a>`).
+
+### Footer page (`…/footer`)
+
+1. Create a page named **`footer`** (title: Footer).
+2. Body content (see `footer.plain.html`):
+
+```html
+<main>
+  <div>
+    <div>
+      <p>© 2026 Nexara AI, Inc. All rights reserved.</p>
+    </div>
+  </div>
+</main>
+```
+
+### Publish and verify
+
+1. **Publish** both pages (and the homepage if needed).
+2. Confirm fragments load:
+   - `https://main--aem-eds-demo-site--kojifumi.aem.page/nav.plain.html`
+   - `https://main--aem-eds-demo-site--kojifumi.aem.page/footer.plain.html`
+3. Reload the homepage — sticky nav (logo, links, **Get Started Free**) and footer should appear.
+
+Optional: on the homepage **Page metadata**, set `nav` → `/nav` and `footer` → `/footer` if your template uses custom paths (defaults are `/nav` and `/footer`).
+
+---
+
 ## Step 6: Verify Preview URL
 
 After aem-code-sync is installed and the AEM site is created, the preview URL will be:
