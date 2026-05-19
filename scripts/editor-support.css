@@ -172,8 +172,8 @@ main .section.cta-banner a.button.primary:any-link {
 
 main .section.cta-banner a.button.secondary:any-link {
   background-color: transparent;
-  border-color: var(--accent-color);
-  color: var(--accent-color);
+  border-color: rgb(255 255 255 / 40%);
+  color: #fff;
 }
 
 /* How It Works — before columns.js runs in UE */
