@@ -51,6 +51,10 @@
               "value": "testimonial"
             },
             {
+              "name": "FAQ",
+              "value": "faq"
+            },
+            {
               "name": "CTA Banner",
               "value": "cta-banner"
             }
@@ -72,6 +76,7 @@
         "cards",
         "columns",
         "quote",
+        "accordion",
         "fragment"
       ]
     }

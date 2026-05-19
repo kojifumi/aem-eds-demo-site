@@ -64,3 +64,27 @@
 .accordion .accordion-item-body p {
   margin: 0;
 }
+
+/* FAQ — tighter stack (prototype .faq-list) */
+.accordion.faq-accordion .accordion-item + .accordion-item {
+  margin-top: 2px;
+}
+
+.accordion.faq-accordion .accordion-item-label {
+  font-size: 17px;
+  min-height: unset;
+  padding: 20px 24px;
+}
+
+.accordion.faq-accordion .accordion-item-label::after {
+  color: var(--accent-color, #22d3ee);
+}
+
+.accordion.faq-accordion .accordion-item-body {
+  padding: 0 24px;
+}
+
+.accordion.faq-accordion .accordion-item[open] .accordion-item-body {
+  padding-bottom: 20px;
+  padding-top: 0;
+}

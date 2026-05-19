@@ -24,6 +24,7 @@ let promiseChanges$ = Promise.resolve();
 
 const HERO_BLOCK_SELECTOR = '.block.hero-gradient, .block.hero--gradient-, .block.hero.gradient';
 const QUOTE_BLOCK_SELECTOR = '.block.quote, .block[class*="quote"]';
+const ACCORDION_BLOCK_SELECTOR = '.block.accordion, .accordion.block';
 
 async function refreshHeroBlocks(root = document) {
   await Promise.all(
@@ -34,6 +35,12 @@ async function refreshHeroBlocks(root = document) {
 async function refreshQuoteBlocks(root = document) {
   await Promise.all(
     [...root.querySelectorAll(QUOTE_BLOCK_SELECTOR)].map((block) => reloadBlock(block)),
+  );
+}
+
+async function refreshAccordionBlocks(root = document) {
+  await Promise.all(
+    [...root.querySelectorAll(ACCORDION_BLOCK_SELECTOR)].map((block) => reloadBlock(block)),
   );
 }
 
@@ -50,6 +57,7 @@ async function refreshSectionIntro(section) {
     ...columnsBlocks.map((block) => reloadBlock(block)),
     refreshHeroBlocks(root),
     refreshQuoteBlocks(root),
+    refreshAccordionBlocks(root),
   ]);
 }
 

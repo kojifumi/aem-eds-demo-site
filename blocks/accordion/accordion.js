@@ -4,7 +4,27 @@
  * https://www.hlx.live/developer/block-collection/accordion
  */
 
+function restoreRows(block) {
+  [...block.querySelectorAll(':scope > details.accordion-item')].forEach((details) => {
+    const row = document.createElement('div');
+    const labelCell = document.createElement('div');
+    const bodyCell = document.createElement('div');
+    const summary = details.querySelector('.accordion-item-label');
+    const body = details.querySelector('.accordion-item-body');
+    if (summary) labelCell.append(...summary.childNodes);
+    if (body) bodyCell.append(...body.childNodes);
+    row.append(labelCell, bodyCell);
+    details.replaceWith(row);
+  });
+}
+
 export default function decorate(block) {
+  restoreRows(block);
+
+  if (block.closest('.section.faq')) {
+    block.classList.add('faq-accordion');
+  }
+
   [...block.children].forEach((row) => {
     // decorate accordion item label
     const label = row.children[0];
