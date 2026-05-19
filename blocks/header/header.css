@@ -4,7 +4,7 @@ header .nav-wrapper {
   background: rgb(13 17 23 / 88%);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color, #30363d);
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
@@ -36,21 +36,26 @@ header nav[aria-expanded='true'] {
 }
 
 @media (width >= 900px) {
-  header .nav-wrapper {
-    position: sticky;
-  }
-
   header nav {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    flex-wrap: nowrap;
     gap: 32px;
     max-width: 1264px;
     padding: 0 32px;
   }
 
+  header nav .nav-brand {
+    justify-self: start;
+  }
+
+  header nav .nav-sections {
+    justify-self: center;
+  }
+
   header nav .nav-tools {
-    margin-left: auto;
+    justify-self: end;
+    margin-left: 0;
   }
 
   header nav[aria-expanded='true'] {
