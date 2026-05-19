@@ -1,3 +1,25 @@
+/* Full-bleed hero — section wrapper must not use main > .section > div max-width */
+main > .section.hero-container,
+main > .section.hero-gradient-container,
+main > .section:has(.hero.gradient),
+main > .section:has(.hero-gradient),
+main > .section:has(.hero--gradient-) {
+  margin: 0;
+  padding: 0;
+  max-width: none;
+}
+
+main > .section.hero-container > .hero-wrapper,
+main > .section.hero-gradient-container > .hero-gradient-wrapper,
+main > .section:has(.hero.gradient) > div,
+main > .section:has(.hero-gradient) > div,
+main > .section:has(.hero--gradient-) > div {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -39,7 +61,11 @@
    ---------------------------------------- */
 .hero.gradient,
 .hero.hero-gradient,
-.hero-gradient.hero {
+.hero-gradient.hero,
+.hero-gradient {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
   min-height: 600px;
   background: linear-gradient(135deg, #0d1117 0%, #0f2044 50%, #0a1628 100%);
   overflow: hidden;
