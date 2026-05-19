@@ -96,7 +96,7 @@ main .section.stats .columns.columns-3-cols > div,
 
 main .section.stats .columns.columns-3-cols > div > div,
 .columns.stats-columns > div > div {
-  background-color: var(--background-color, #0d1117);
+  background-color: var(--surface-color, #161b22);
   padding: 40px 20px;
   text-align: center;
 }
