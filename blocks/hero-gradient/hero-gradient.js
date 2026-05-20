@@ -214,7 +214,7 @@ export default function decorate(block) {
     }
   }
 
-  // Headline highlight: row after h1 with short duplicate text
+  // Headline highlight: row after h1 (UE "Headline highlight" field)
   const highlightRowIndex = rows.findIndex(
     (row, i) => i > h1RowIndex && !row.contains(h1) && !row.querySelector('a'),
   );
@@ -222,14 +222,21 @@ export default function decorate(block) {
     const highlightCell = getCell(rows[highlightRowIndex]);
     const highlightText = highlightCell?.textContent.trim();
     const headingText = h1.textContent.trim();
-    if (
-      highlightText
-      && highlightText.length < 80
-      && highlightText !== headingText
-      && headingText.includes(highlightText)
-    ) {
-      wrapHighlightInHeading(h1, highlightText);
-      rows[highlightRowIndex].remove();
+    if (highlightText && highlightText.length < 80) {
+      if (highlightText === headingText) {
+        // Same text in Headline + Headline highlight → wrap full title, drop duplicate row
+        const em = document.createElement('em');
+        em.textContent = headingText;
+        h1.textContent = '';
+        h1.append(em);
+        rows[highlightRowIndex].remove();
+      } else if (headingText.includes(highlightText)) {
+        wrapHighlightInHeading(h1, highlightText);
+        rows[highlightRowIndex].remove();
+      } else {
+        // Orphan highlight row (e.g. stale UE value) — remove so it is not shown as body copy
+        rows[highlightRowIndex].remove();
+      }
     }
   }
 

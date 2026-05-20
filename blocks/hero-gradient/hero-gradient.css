@@ -163,15 +163,18 @@
   margin-bottom: 0;
 }
 
+/* Compact pages: slightly stronger orbs so the gradient band reads on light theme */
 .hero-gradient.compact::before {
-  width: 420px;
-  height: 420px;
-  top: -160px;
+  width: 520px;
+  height: 520px;
+  top: -180px;
+  background: radial-gradient(circle, rgb(14 165 183 / 32%) 0%, transparent 70%);
 }
 
 .hero-gradient.compact::after {
-  width: 280px;
-  height: 280px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgb(79 70 229 / 22%) 0%, transparent 70%);
 }
 
 @media (width >= 900px) {

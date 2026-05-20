@@ -209,9 +209,21 @@ Optional: on the homepage **Page metadata**, set `nav` → `/nav` and `footer` �
 
 | # | Section style (metadata) | Blocks / content |
 |---|--------------------------|------------------|
-| 1 | *(none — full-bleed hero)* | **Hero (Gradient, Compact)** — eyebrow `Product`, headline `NexaPredict` (highlight), lead, 2 CTAs |
+| 1 | *(none — full-bleed hero)* | **Hero (Gradient, Compact)** — see Hero fields below |
 
 > **Palette に出ない場合:** `component-filters.json` の `section` 配列に `hero-gradient-compact` が必要です（`models/_section.json` → `npm run build:json` → push）。反映後は UE を完全に閉じて開き直してください。
+
+**§1 Hero のフィールド（重要）**
+
+| フィールド | NexaPredict の例 | 注意 |
+|------------|------------------|------|
+| Eyebrow | `Product` | ピル表示（大文字化されます） |
+| Headline | `NexaPredict` | そのままの見出し |
+| Headline highlight | **空欄** または `NexaPredict` | 空欄＝黒字見出し。`NexaPredict` と同じ文字を入れると **全体がグラデーション文字** になります。**別の短いフレーズだけ**入れる場合は Headline の一部に含まれる文字列にすること（ホームの "Moves the World" と同じ仕組み） |
+| Lead text | 500B+… の1段落 | 見出しの直下に1つだけ |
+| Primary / Secondary CTA | デモ申し込み、料金を見る | URL を設定 |
+
+**よくある表示崩れ:** Headline と Headline highlight に同じ `NexaPredict` を入れたうえで highlight がマージされないと、見出しが2行になります（コード側で修正済み。`main` 反映後に再読み込み）。
 | 2 | `prose` | Default content — h3 課題 / ソリューション + paragraphs |
 | 3 | `soft` | h2 主要機能 + intro + **Cards** (3 items; category `01`–`03`) |
 | 4 | `how-it-works` | h2 導入の流れ + intro + **Columns** (3 cols; step `01`–`03` in `<strong>`) |
