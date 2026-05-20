@@ -77,6 +77,42 @@ function normalizeNavColumns(nav) {
   wrapper.remove();
 }
 
+/** Locale prefix for /ja/… pages (matches DA folder structure). */
+function getLocalePrefix() {
+  const [first] = window.location.pathname.split('/').filter(Boolean);
+  return first === 'ja' ? '/ja' : '';
+}
+
+const NAV_PATHS = {
+  products: '/products/nexapredict',
+  solutions: '/solutions',
+  pricing: '/pricing',
+  customers: '/customers',
+  integrations: '/integrations',
+  about: '/about',
+  docs: '/docs',
+};
+
+/** UE sometimes saves nav labels without <a> — infer href from label when missing. */
+function ensureNavItemLinks(navSections) {
+  if (!navSections) return;
+  const prefix = getLocalePrefix();
+
+  navSections.querySelectorAll('ul > li').forEach((li) => {
+    if (li.querySelector('a')) return;
+
+    const text = li.textContent.trim();
+    const path = NAV_PATHS[text.toLowerCase()];
+    if (!path) return;
+
+    const a = document.createElement('a');
+    a.href = `${prefix}${path}`;
+    a.textContent = text;
+    li.textContent = '';
+    li.append(a);
+  });
+}
+
 function decorateNavBrand(navBrand) {
   if (!navBrand) return;
   navBrand.querySelectorAll('a.button').forEach((a) => {
@@ -98,6 +134,21 @@ function decorateNavBrand(navBrand) {
     const accent = document.createElement('span');
     accent.textContent = ' AI';
     link.append(accent);
+  }
+
+  const prefix = getLocalePrefix();
+  if (prefix && (link.getAttribute('href') === '/' || link.getAttribute('href') === '')) {
+    link.setAttribute('href', prefix);
+  }
+}
+
+function decorateNavTools(navTools) {
+  if (!navTools) return;
+  const cta = navTools.querySelector('a');
+  if (!cta) return;
+  const href = cta.getAttribute('href');
+  if (!href || href === '#') {
+    cta.setAttribute('href', `${getLocalePrefix()}/signup`);
   }
 }
 
@@ -166,16 +217,23 @@ export default async function decorate(block) {
   });
 
   decorateNavBrand(nav.querySelector('.nav-brand'));
+  decorateNavTools(nav.querySelector('.nav-tools'));
 
   const navSections = nav.querySelector('.nav-sections');
+  ensureNavItemLinks(navSections);
+
   if (navSections) {
-    navSectionItems(navSections).forEach((navSection) => {
-      if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-      navSection.addEventListener('click', () => {
+    navSectionItems(navSections).forEach((navItem) => {
+      const submenu = navItem.querySelector(':scope > ul');
+      if (!submenu) return;
+
+      navItem.classList.add('nav-drop');
+      navItem.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
         if (isDesktop.matches) {
-          const expanded = navSection.getAttribute('aria-expanded') === 'true';
+          const expanded = navItem.getAttribute('aria-expanded') === 'true';
           toggleAllNavSections(navSections);
-          navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+          navItem.setAttribute('aria-expanded', expanded ? 'false' : 'true');
         }
       });
     });

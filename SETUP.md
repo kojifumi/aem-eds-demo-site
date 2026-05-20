@@ -154,25 +154,32 @@ The header and footer blocks load content from **`/nav`** and **`/footer`** frag
 ```html
 <main>
   <div>
-    <div>
-      <p><a href="/">Nexara<span> AI</span></a></p>
-    </div>
-    <div>
-      <ul>
-        <li><a href="/#products">Products</a></li>
-        <li><a href="/#solutions">Solutions</a></li>
-        <li><a href="/#pricing">Pricing</a></li>
-        <li><a href="/#docs">Docs</a></li>
-      </ul>
-    </div>
-    <div>
-      <p><strong><a href="/signup">Get Started Free</a></strong></p>
-    </div>
+    <p><a href="/">Nexara<span> AI</span></a></p>
+  </div>
+  <div>
+    <ul>
+      <li><a href="/products/nexapredict">Products</a></li>
+      <li><a href="/solutions">Solutions</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/customers">Customers</a></li>
+      <li><a href="/integrations">Integrations</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </div>
+  <div>
+    <p><strong><a href="/signup">Get Started Free</a></strong></p>
   </div>
 </main>
 ```
 
-Structure: **3 sibling `<div>`s** directly under `<main>` (no extra wrapper) — brand link (not bold), nav `<ul>` with `<a>` on each item, CTA in `<strong><a>` only.
+Structure: **3 sibling `<div>`s** directly under `<main>` — brand link, nav `<ul>`, CTA.
+
+**重要（リンクが動かないとき）**
+
+- 各メニュー項目は **`<li>` の中に `<a href="...">` を置く**（ラベルだけの `<li>Solutions</li>` ではクリックできません）。
+- UE で確認: `https://…/nav.plain.html` に `<a href=` が各行にあること。
+- 日本語サイト（`/ja/…`）ではコードが自動で `/ja` プレフィックスを付与します（`/ja/about` など）。**nav ページ自体は `/nav` のまま**（`/ja/nav` は不要）。
+- ラベルだけで `<a>` が無い場合、Products / Solutions / About など既知ラベルは `header.js` がリンクを補完します（応急措置。正しくは UE で `<a>` を設定）。
 
 ### Footer page (`…/footer`)
 
