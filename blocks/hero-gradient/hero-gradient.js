@@ -3,17 +3,22 @@
  * One row per model field; CTA style comes from cta_linkType rows and/or strong/em wrappers.
  */
 
+function normalizeText(text) {
+  return (text ?? '').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
 function wrapHighlightInHeading(heading, highlightText) {
-  const full = heading.textContent;
-  const start = full.indexOf(highlightText);
+  const full = normalizeText(heading.textContent);
+  const phrase = normalizeText(highlightText);
+  const start = full.indexOf(phrase);
   if (start < 0) return false;
 
   const before = full.slice(0, start);
-  const after = full.slice(start + highlightText.length);
+  const after = full.slice(start + phrase.length);
   heading.textContent = '';
   if (before) heading.append(document.createTextNode(before));
   const em = document.createElement('em');
-  em.textContent = highlightText;
+  em.textContent = phrase;
   heading.append(em);
   if (after) heading.append(document.createTextNode(after));
   return true;
@@ -21,18 +26,47 @@ function wrapHighlightInHeading(heading, highlightText) {
 
 /** Headline field without the highlight phrase; highlight is a separate UE row. */
 function insertHighlightIntoHeading(heading, highlightText) {
-  const text = heading.textContent.trim();
+  const text = normalizeText(heading.textContent);
+  const phrase = normalizeText(highlightText);
   heading.textContent = '';
 
   const em = document.createElement('em');
-  em.textContent = highlightText;
+  em.textContent = phrase;
 
-  const trimmed = text.replace(highlightText, '').trim();
+  const trimmed = text.replace(phrase, '').trim();
   if (trimmed) {
     heading.append(document.createTextNode(trimmed));
     heading.append(document.createTextNode(' '));
   }
   heading.append(em);
+}
+
+/** Remove orphan highlight <p> and merge into h1 after consolidate (safety net). */
+function finalizeHeadlineHighlight(block) {
+  const h1 = block.querySelector('h1, h2');
+  const content = block.querySelector('.hero-content') || block;
+  if (!h1 || !content) return;
+
+  const orphans = [...content.querySelectorAll('p')].filter((p) => !p.classList.contains('hero-eyebrow')
+    && !p.classList.contains('hero-lead')
+    && !p.closest('.hero-ctas')
+    && normalizeText(p.textContent).length > 0
+    && normalizeText(p.textContent).length < 60);
+
+  const orphan = orphans[0];
+  if (!orphan) return;
+
+  const phrase = normalizeText(orphan.textContent);
+  const headingText = normalizeText(h1.textContent);
+
+  if (!h1.querySelector('em')) {
+    if (headingText.includes(phrase)) {
+      wrapHighlightInHeading(h1, phrase);
+    } else {
+      insertHighlightIntoHeading(h1, phrase);
+    }
+  }
+  orphan.remove();
 }
 
 function getRows(block) {
@@ -232,25 +266,26 @@ export default function decorate(block) {
     eyebrowRow.replaceWith(p);
   }
 
-  // Lead: long copy row after headline (before highlight/CTA stripping)
+  // Lead row: long copy only (do not use row reference in highlight loop — avoids skipping highlight)
   const leadRow = getRows(block).find((row, i) => {
     if (i <= h1RowIndex || row.contains(h1)) return false;
     if (row.querySelector('a, picture, img, h1, h2')) return false;
-    const len = row.textContent.trim().length;
-    return len >= 20 && len < 500;
+    const len = normalizeText(row.textContent).length;
+    return len >= 50 && len < 500;
   });
+  if (leadRow) leadRow.dataset.heroLead = 'true';
 
   // Headline highlight + UE metadata rows after h1 (titleType, etc.)
-  const headingText = h1.textContent.trim();
+  const headingText = normalizeText(h1.textContent);
   const skipHighlightValues = new Set(['h1', 'h2', 'h3', 'h4', 'primary', 'secondary']);
 
   getRows(block).forEach((row, i) => {
-    if (i <= h1RowIndex || row === leadRow || row.contains(h1) || row.querySelector('a, picture, img')) {
+    if (i <= h1RowIndex || row.dataset.heroLead === 'true' || row.contains(h1) || row.querySelector('a, picture, img')) {
       return;
     }
 
     const highlightCell = getCell(row);
-    const highlightText = highlightCell?.textContent.trim();
+    const highlightText = normalizeText(highlightCell?.textContent);
     if (!highlightText || highlightText.length >= 80) return;
 
     if (skipHighlightValues.has(highlightText.toLowerCase())) {
@@ -258,7 +293,7 @@ export default function decorate(block) {
       return;
     }
 
-    const existingEm = h1.querySelector('em')?.textContent.trim();
+    const existingEm = normalizeText(h1.querySelector('em')?.textContent);
     if (existingEm === highlightText) {
       row.remove();
       return;
@@ -271,9 +306,11 @@ export default function decorate(block) {
       h1.append(em);
       row.remove();
     } else if (headingText.includes(highlightText)) {
-      wrapHighlightInHeading(h1, highlightText);
+      if (!wrapHighlightInHeading(h1, highlightText)) {
+        insertHighlightIntoHeading(h1, highlightText);
+      }
       row.remove();
-    } else {
+    } else if (highlightText.length < 60) {
       insertHighlightIntoHeading(h1, highlightText);
       row.remove();
     }
@@ -317,16 +354,17 @@ export default function decorate(block) {
   }
 
   consolidateContent(block, block.classList.contains('with-image'));
+  finalizeHeadlineHighlight(block);
 
   if (block.classList.contains('with-image')) {
     const content = block.querySelector('.hero-content');
-    const highlight = h1.querySelector('em')?.textContent.trim();
+    const highlight = normalizeText(h1.querySelector('em')?.textContent);
     if (content && highlight) {
       content.querySelectorAll('p').forEach((p) => {
         if (p.classList.contains('hero-eyebrow')
           || p.classList.contains('hero-lead')
           || p.closest('.hero-ctas')) return;
-        if (p.textContent.trim() === highlight) p.remove();
+        if (normalizeText(p.textContent) === highlight) p.remove();
       });
     }
   }

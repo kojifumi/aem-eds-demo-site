@@ -630,6 +630,12 @@ function decorateBlock(block) {
  */
 function decorateBlocks(main) {
   main.querySelectorAll('div.section > div > div').forEach(decorateBlock);
+  // UE pages: block may be a direct child of the section wrapper (one div deep)
+  main.querySelectorAll(
+    'div.section > div.hero-gradient, div.section > div.hero--gradient-, div.section > div.cards, div.section > div.columns, div.section > div.timeline, div.section > div.quote, div.section > div.accordion, div.section > div.tabs, div.section > div.table, div.section > div.carousel, div.section > div.pricing-cards',
+  ).forEach((block) => {
+    if (!block.classList.contains('block')) decorateBlock(block);
+  });
 }
 
 /**
