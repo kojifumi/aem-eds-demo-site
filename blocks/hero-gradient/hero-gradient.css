@@ -191,6 +191,7 @@
 /* With-image variant — two-column layout for About-style heroes.
    Image is the first row of the block; remaining rows render on the left. */
 .hero-gradient.with-image {
+  align-items: stretch;
   text-align: left;
   padding-top: 64px;
   padding-bottom: 64px;
@@ -205,25 +206,44 @@
   text-align: left;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
-.hero-gradient.with-image > div > div {
+.hero-gradient.with-image .hero-content {
+  display: flex;
+  flex-direction: column;
   align-items: flex-start;
   text-align: left;
+  width: 100%;
+  min-width: 0;
+}
+
+.hero-gradient.with-image .hero-eyebrow {
+  margin: 0 0 28px;
+  align-self: flex-start;
 }
 
 .hero-gradient.with-image h1 {
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0 0 0.5em;
+  text-align: left;
 }
 
 .hero-gradient.with-image p:not(.button-container, .hero-eyebrow) {
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0 0 1.5em;
+  text-align: left;
+  max-width: 36em;
 }
 
 .hero-gradient.with-image .hero-ctas {
   justify-content: flex-start;
   margin-top: 32px;
+}
+
+.hero-gradient.with-image .hero-media {
+  width: 100%;
+  min-height: min(280px, 50vw);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-color, #dce3ec);
+  box-shadow: var(--shadow-float);
+  background: linear-gradient(135deg, #e8f6f8, #ebe9ff);
 }
 
 .hero-gradient.with-image picture {

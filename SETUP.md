@@ -243,6 +243,52 @@ Visual check against **`mockups/products-nexapredict.html`**.
 
 ---
 
+## Step 6d: About page (`/about`)
+
+1. Under **AEM EDS Demo Site**, create a page **`about`** (title: About).
+2. Open in **Universal Editor**. Reference: **`about.plain.html`** · mockup **`mockups/about.html`**.
+3. Build **7 sections** (top to bottom):
+
+| # | Section style | Blocks / content |
+|---|---------------|------------------|
+| 1 | *(none)* | **Hero (Gradient, With Image)** — see below |
+| 2 | `prose` | H2 ミッション + 本文、H2 ビジョン + 本文 |
+| 3 | `values` | H2 バリュー + intro + **Cards** ×3 |
+| 4 | `history` | H2 沿革 + **Timeline** ×4 |
+| 5 | `leadership` | H2 リーダーシップ + **Cards** ×4 |
+| 6 | `stats` のみ（`highlight` は付けない） | **Columns (3)** ×1 行 3 列（数字は `<strong>`） |
+| 7 | `cta-banner` | H2 + リード + 2 CTA |
+
+**§1 Hero (Gradient, With Image)**
+
+| フィールド | 値 |
+|------------|-----|
+| **Image** | チーム写真など（DAM）。未設定時はグラデーションのプレースホルダー表示 |
+| Alt | `Team collaboration` |
+| Eyebrow | `About` |
+| Headline | `Intelligence for Every Decision` |
+| Headline highlight | `Every Decision`（Headline 内のグラデーション部分。**全体**なら Headline と同文を入れても可） |
+| Lead text | 2019 年の創業以来… |
+| CTA | 任意（モックには無し。省略可） |
+
+画像は **最初のフィールド** です（UE の並び）。表示は **左：テキスト／右：写真** の2カラム（モバイルは縦積み）。
+
+**§4 Timeline（沿革）**
+
+ブロック **Timeline** を追加し、行ごとに **Milestone** を4つ:
+
+| Year | Title | Description |
+|------|-------|-------------|
+| 2019 | 創業 | サンフランシスコで Nexara AI 設立。 |
+| 2021 | Series A | NexaPredict 正式リリース。 |
+| 2024 | グローバル展開 | APAC・EMEA オフィス開設。 |
+| 2026 | 10M ユーザー | プラットフォーム利用者が 1,000 万人突破。 |
+
+4. **Publish** → https://main--aem-eds-demo-site--kojifumi.aem.page/about  
+5. Optional: **nav** の About を `/about` にリンク。
+
+---
+
 ## Step 6: Verify Preview URL
 
 After aem-code-sync is installed and the AEM site is created, the preview URL will be:

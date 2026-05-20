@@ -214,31 +214,35 @@ export default function decorate(block) {
     }
   }
 
-  // Headline highlight: row after h1 (UE "Headline highlight" field)
-  const highlightRowIndex = rows.findIndex(
-    (row, i) => i > h1RowIndex && !row.contains(h1) && !row.querySelector('a'),
-  );
-  if (highlightRowIndex > -1) {
-    const highlightCell = getCell(rows[highlightRowIndex]);
+  // Headline highlight + UE metadata rows after h1 (titleType, etc.)
+  const headingText = h1.textContent.trim();
+  const skipHighlightValues = new Set(['h1', 'h2', 'h3', 'h4', 'primary', 'secondary']);
+
+  getRows(block).forEach((row, i) => {
+    if (i <= h1RowIndex || row.contains(h1) || row.querySelector('a, picture')) return;
+
+    const highlightCell = getCell(row);
     const highlightText = highlightCell?.textContent.trim();
-    const headingText = h1.textContent.trim();
-    if (highlightText && highlightText.length < 80) {
-      if (highlightText === headingText) {
-        // Same text in Headline + Headline highlight → wrap full title, drop duplicate row
-        const em = document.createElement('em');
-        em.textContent = headingText;
-        h1.textContent = '';
-        h1.append(em);
-        rows[highlightRowIndex].remove();
-      } else if (headingText.includes(highlightText)) {
-        wrapHighlightInHeading(h1, highlightText);
-        rows[highlightRowIndex].remove();
-      } else {
-        // Orphan highlight row (e.g. stale UE value) — remove so it is not shown as body copy
-        rows[highlightRowIndex].remove();
-      }
+    if (!highlightText || highlightText.length >= 80) return;
+
+    if (skipHighlightValues.has(highlightText.toLowerCase())) {
+      row.remove();
+      return;
     }
-  }
+
+    if (highlightText === headingText) {
+      const em = document.createElement('em');
+      em.textContent = headingText;
+      h1.textContent = '';
+      h1.append(em);
+      row.remove();
+    } else if (headingText.includes(highlightText)) {
+      wrapHighlightInHeading(h1, highlightText);
+      row.remove();
+    } else {
+      row.remove();
+    }
+  });
 
   // Lead: wrap long text cell after headline in <p>
   const leadRow = [...block.children].find(
@@ -278,4 +282,15 @@ export default function decorate(block) {
   }
 
   consolidateContent(block, block.classList.contains('with-image'));
+
+  if (block.classList.contains('with-image')) {
+    const content = block.querySelector('.hero-content');
+    const highlight = h1.querySelector('em')?.textContent.trim();
+    if (content && highlight) {
+      content.querySelectorAll('p').forEach((p) => {
+        if (p.classList.contains('hero-eyebrow') || p.closest('.hero-ctas')) return;
+        if (p.textContent.trim() === highlight) p.remove();
+      });
+    }
+  }
 }
