@@ -220,7 +220,7 @@ Optional: on the homepage **Page metadata**, set `nav` → `/nav` and `footer` �
 | Eyebrow | `Product` | ピル表示（大文字化されます） |
 | Headline | `NexaPredict` | そのままの見出し |
 | Headline highlight | **空欄** または `NexaPredict` | 空欄＝黒字見出し。`NexaPredict` と同じ文字を入れると **全体がグラデーション文字** になります。**別の短いフレーズだけ**入れる場合は Headline の一部に含まれる文字列にすること（ホームの "Moves the World" と同じ仕組み） |
-| Lead text | 500B+… の1段落 | 見出しの直下に1つだけ |
+| Lead text | 500B+… の1段落 | **Headline highlight には入れない**（入れると見出しにグラデーション文字としてマージされます）。見出しの直下に1段落だけ |
 | Primary / Secondary CTA | デモ申し込み、料金を見る | URL を設定 |
 
 **よくある表示崩れ:** Headline と Headline highlight に同じ `NexaPredict` を入れたうえで highlight がマージされないと、見出しが2行になります（コード側で修正済み。`main` 反映後に再読み込み）。

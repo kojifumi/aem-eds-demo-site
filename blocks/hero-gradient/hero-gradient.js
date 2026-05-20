@@ -7,6 +7,18 @@ function normalizeText(text) {
   return (text ?? '').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+/** Lead copy is usually a full sentence; highlight phrases are short labels. */
+function isLeadCopy(text, headingText = '') {
+  const t = normalizeText(text);
+  const heading = normalizeText(headingText);
+  if (!t || t.length < 25 || t.length >= 500) return false;
+  if (t === heading || heading.includes(t)) return false;
+  if (t.length >= 40) return true;
+  return /[。.!?]/.test(t);
+}
+
+const HIGHLIGHT_MAX_LEN = 40;
+
 function wrapHighlightInHeading(heading, highlightText) {
   const full = normalizeText(heading.textContent);
   const phrase = normalizeText(highlightText);
@@ -51,7 +63,8 @@ function finalizeHeadlineHighlight(block) {
     && !p.classList.contains('hero-lead')
     && !p.closest('.hero-ctas')
     && normalizeText(p.textContent).length > 0
-    && normalizeText(p.textContent).length < 60);
+    && normalizeText(p.textContent).length <= HIGHLIGHT_MAX_LEN
+    && !isLeadCopy(p.textContent, h1.textContent));
 
   const orphan = orphans[0];
   if (!orphan) return;
@@ -266,17 +279,18 @@ export default function decorate(block) {
     eyebrowRow.replaceWith(p);
   }
 
-  // Lead row: long copy only (do not use row reference in highlight loop — avoids skipping highlight)
-  const leadRow = getRows(block).find((row, i) => {
-    if (i <= h1RowIndex || row.contains(h1)) return false;
-    if (row.querySelector('a, picture, img, h1, h2')) return false;
-    const len = normalizeText(row.textContent).length;
-    return len >= 50 && len < 500;
+  const headingText = normalizeText(h1.textContent);
+
+  // Mark lead rows before highlight pass (product page lead is often ~45 chars)
+  getRows(block).forEach((row, i) => {
+    if (i <= h1RowIndex || row.contains(h1)) return;
+    if (row.querySelector('a, picture, img, h1, h2')) return;
+    const text = normalizeText(row.textContent);
+    if (isLeadCopy(text, headingText)) row.dataset.heroLead = 'true';
   });
-  if (leadRow) leadRow.dataset.heroLead = 'true';
+  const leadRow = getRows(block).find((row) => row.dataset.heroLead === 'true');
 
   // Headline highlight + UE metadata rows after h1 (titleType, etc.)
-  const headingText = normalizeText(h1.textContent);
   const skipHighlightValues = new Set(['h1', 'h2', 'h3', 'h4', 'primary', 'secondary']);
 
   getRows(block).forEach((row, i) => {
@@ -287,6 +301,10 @@ export default function decorate(block) {
     const highlightCell = getCell(row);
     const highlightText = normalizeText(highlightCell?.textContent);
     if (!highlightText || highlightText.length >= 80) return;
+
+    if (row.dataset.heroLead === 'true' || isLeadCopy(highlightText, headingText)) {
+      return;
+    }
 
     if (skipHighlightValues.has(highlightText.toLowerCase())) {
       row.remove();
@@ -310,8 +328,10 @@ export default function decorate(block) {
         insertHighlightIntoHeading(h1, highlightText);
       }
       row.remove();
-    } else if (highlightText.length < 60) {
+    } else if (highlightText.length <= HIGHLIGHT_MAX_LEN) {
       insertHighlightIntoHeading(h1, highlightText);
+      row.remove();
+    } else {
       row.remove();
     }
   });
