@@ -119,6 +119,8 @@
         "title",
         "hero",
         "hero-gradient",
+        "hero-gradient-compact",
+        "hero-gradient-with-image",
         "cards",
         "columns",
         "quote",

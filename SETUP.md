@@ -210,6 +210,8 @@ Optional: on the homepage **Page metadata**, set `nav` → `/nav` and `footer` �
 | # | Section style (metadata) | Blocks / content |
 |---|--------------------------|------------------|
 | 1 | *(none — full-bleed hero)* | **Hero (Gradient, Compact)** — eyebrow `Product`, headline `NexaPredict` (highlight), lead, 2 CTAs |
+
+> **Palette に出ない場合:** `component-filters.json` の `section` 配列に `hero-gradient-compact` が必要です（`models/_section.json` → `npm run build:json` → push）。反映後は UE を完全に閉じて開き直してください。
 | 2 | `prose` | Default content — h3 課題 / ソリューション + paragraphs |
 | 3 | `soft` | h2 主要機能 + intro + **Cards** (3 items; category `01`–`03`) |
 | 4 | `how-it-works` | h2 導入の流れ + intro + **Columns** (3 cols; step `01`–`03` in `<strong>`) |
