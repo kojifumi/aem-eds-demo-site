@@ -99,17 +99,40 @@ function ensureNavItemLinks(navSections) {
   const prefix = getLocalePrefix();
 
   navSections.querySelectorAll('ul > li').forEach((li) => {
-    if (li.querySelector('a')) return;
-
+    let a = li.querySelector(':scope a[href]');
     const text = li.textContent.trim();
-    const path = NAV_PATHS[text.toLowerCase()];
-    if (!path) return;
+    const key = text.toLowerCase();
+    const defaultPath = NAV_PATHS[key];
 
-    const a = document.createElement('a');
-    a.href = `${prefix}${path}`;
-    a.textContent = text;
-    li.textContent = '';
-    li.append(a);
+    if (a && a.parentElement !== li) {
+      const href = a.getAttribute('href');
+      li.textContent = '';
+      a = document.createElement('a');
+      a.setAttribute('href', href);
+      a.textContent = text;
+      li.append(a);
+    }
+
+    if (!a && defaultPath) {
+      a = document.createElement('a');
+      a.href = `${prefix}${defaultPath}`;
+      a.textContent = text;
+      li.textContent = '';
+      li.append(a);
+    }
+
+    if (!a) return;
+
+    let href = a.getAttribute('href') || '';
+    if (!href || href === '#') {
+      if (defaultPath) href = `${prefix}${defaultPath}`;
+      else return;
+      a.setAttribute('href', href);
+    }
+
+    a.classList.remove('button', 'primary', 'secondary');
+    const wrap = a.closest('p.button-container');
+    if (wrap?.parentElement === li) wrap.replaceWith(a);
   });
 }
 

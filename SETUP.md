@@ -177,9 +177,13 @@ Structure: **3 sibling `<div>`s** directly under `<main>` — brand link, nav `<
 **重要（リンクが動かないとき）**
 
 - 各メニュー項目は **`<li>` の中に `<a href="...">` を置く**（ラベルだけの `<li>Solutions</li>` ではクリックできません）。
-- UE で確認: `https://…/nav.plain.html` に `<a href=` が各行にあること。
-- 日本語サイト（`/ja/…`）ではコードが自動で `/ja` プレフィックスを付与します（`/ja/about` など）。**nav ページ自体は `/nav` のまま**（`/ja/nav` は不要）。
-- ラベルだけで `<a>` が無い場合、Products / Solutions / About など既知ラベルは `header.js` がリンクを補完します（応急措置。正しくは UE で `<a>` を設定）。
+- **UE の Text ブロックで箇条書きにリンクを付ける場合**
+  1. リスト項目の **文字だけ** を選択してからリンクを設定する（行全体や箇条書きマーカーではなく `Solutions` などの語をドラッグ選択）。
+  2. URL は `/ja/about` のように **パスで指定**（`about` だけだと解決されないことがあります）。
+  3. **Publish** 後、`https://…/nav.plain.html` を開き、**すべての** `<li>` に `<a href=` があるか確認する。UE 上で青く見えても、plain には `<li>Solutions</li>` のまま残ることがあります。
+- 日本語サイト（`/ja/…`）ではコードが自動で `/ja` プレフィックスを付与します。**nav ページ自体は `/nav` のまま**（`/ja/nav` は 404）。
+- ラベルだけで `<a>` が無い場合、Products / Solutions / About など既知ラベルは `header.js` がリンクを補完します（応急措置。正しくは UE で `<a>` を設定し plain に反映させる）。
+- デスクトップで中央メニューがクリックできない場合は `header.css` の z-index 修正を main に反映してください（`nav-tools` がメニューを覆う不具合）。
 
 ### Footer page (`…/footer`)
 

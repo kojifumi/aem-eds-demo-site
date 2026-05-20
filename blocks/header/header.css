@@ -38,13 +38,14 @@ header nav[aria-expanded='true'] {
 }
 
 @media (width >= 900px) {
-  /* Flex row — mobile grid-template-areas must not apply on desktop */
+  /* Flex row — avoid absolute centering (blocks pointer events under brand/tools) */
   header nav {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     position: relative;
     grid-template: none;
-    gap: 0;
+    gap: 24px;
     height: var(--nav-height);
     max-width: none;
     padding: 0 32px;
@@ -59,28 +60,40 @@ header nav[aria-expanded='true'] {
   header nav .nav-brand {
     grid-area: unset;
     flex: 0 0 auto;
-    z-index: 1;
+    order: 1;
   }
 
   header nav .nav-sections {
     grid-area: unset;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: block;
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    align-items: center;
     visibility: visible;
-    width: max-content;
-    flex: none;
+    width: auto;
+    min-width: 0;
+    order: 2;
+    pointer-events: auto;
+  }
+
+  header nav .nav-sections .default-content-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   header nav .nav-tools {
     grid-area: unset;
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     display: flex;
     justify-content: flex-end;
     margin-left: 0;
-    z-index: 1;
+    order: 3;
+    pointer-events: auto;
   }
 
   header nav[aria-expanded='true'] {
@@ -197,18 +210,20 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   transform: rotate(-45deg);
 }
 
-/* sections */
-header nav .nav-sections {
-  grid-area: sections;
-  flex: 1 1 auto;
-  display: none;
-  visibility: hidden;
-}
+/* sections — mobile: hidden until hamburger opens */
+@media (width < 900px) {
+  header nav .nav-sections {
+    grid-area: sections;
+    flex: 1 1 auto;
+    display: none;
+    visibility: hidden;
+  }
 
-header nav[aria-expanded='true'] .nav-sections {
-  display: block;
-  visibility: visible;
-  align-self: start;
+  header nav[aria-expanded='true'] .nav-sections {
+    display: block;
+    visibility: visible;
+    align-self: start;
+  }
 }
 
 header nav .nav-sections ul {
@@ -228,6 +243,11 @@ header nav .nav-sections li {
   font-size: 15px;
   font-weight: 500;
   transition: color 0.15s ease;
+}
+
+header nav .nav-sections a:any-link {
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 header nav .nav-sections a:any-link:hover {

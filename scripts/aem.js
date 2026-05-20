@@ -428,9 +428,18 @@ function wrapTextNodes(block) {
  * Decorates paragraphs containing a single link as buttons.
  * @param {Element} element container element
  */
+function isNavMenuLink(a) {
+  const li = a.closest('li');
+  if (!li) return false;
+  const ul = li.closest('ul');
+  if (!ul) return false;
+  return !ul.closest('.cards, .pricing-cards, .block.cards');
+}
+
 function decorateButtons(element) {
   element.querySelectorAll('a').forEach((a) => {
     a.title = a.title || a.textContent;
+    if (isNavMenuLink(a)) return;
     if (a.href !== a.textContent) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;
