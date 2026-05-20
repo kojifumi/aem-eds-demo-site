@@ -83,59 +83,6 @@ function getLocalePrefix() {
   return first === 'ja' ? '/ja' : '';
 }
 
-const NAV_PATHS = {
-  products: '/products/nexapredict',
-  solutions: '/solutions',
-  pricing: '/pricing',
-  customers: '/customers',
-  integrations: '/integrations',
-  about: '/about',
-  docs: '/docs',
-};
-
-/** UE sometimes saves nav labels without <a> — infer href from label when missing. */
-function ensureNavItemLinks(navSections) {
-  if (!navSections) return;
-  const prefix = getLocalePrefix();
-
-  navSections.querySelectorAll('ul > li').forEach((li) => {
-    let a = li.querySelector(':scope a[href]');
-    const text = li.textContent.trim();
-    const key = text.toLowerCase();
-    const defaultPath = NAV_PATHS[key];
-
-    if (a && a.parentElement !== li) {
-      const href = a.getAttribute('href');
-      li.textContent = '';
-      a = document.createElement('a');
-      a.setAttribute('href', href);
-      a.textContent = text;
-      li.append(a);
-    }
-
-    if (!a && defaultPath) {
-      a = document.createElement('a');
-      a.href = `${prefix}${defaultPath}`;
-      a.textContent = text;
-      li.textContent = '';
-      li.append(a);
-    }
-
-    if (!a) return;
-
-    let href = a.getAttribute('href') || '';
-    if (!href || href === '#') {
-      if (defaultPath) href = `${prefix}${defaultPath}`;
-      else return;
-      a.setAttribute('href', href);
-    }
-
-    a.classList.remove('button', 'primary', 'secondary');
-    const wrap = a.closest('p.button-container');
-    if (wrap?.parentElement === li) wrap.replaceWith(a);
-  });
-}
-
 function decorateNavBrand(navBrand) {
   if (!navBrand) return;
   navBrand.querySelectorAll('a.button').forEach((a) => {
@@ -243,7 +190,6 @@ export default async function decorate(block) {
   decorateNavTools(nav.querySelector('.nav-tools'));
 
   const navSections = nav.querySelector('.nav-sections');
-  ensureNavItemLinks(navSections);
 
   if (navSections) {
     navSectionItems(navSections).forEach((navItem) => {

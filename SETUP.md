@@ -182,8 +182,7 @@ Structure: **3 sibling `<div>`s** directly under `<main>` — brand link, nav `<
   2. URL は `/ja/about` のように **パスで指定**（`about` だけだと解決されないことがあります）。
   3. **Publish** 後、`https://…/nav.plain.html` を開き、**すべての** `<li>` に `<a href=` があるか確認する。UE 上で青く見えても、plain には `<li>Solutions</li>` のまま残ることがあります。
 - 日本語サイト（`/ja/…`）ではコードが自動で `/ja` プレフィックスを付与します。**nav ページ自体は `/nav` のまま**（`/ja/nav` は 404）。
-- ラベルだけで `<a>` が無い場合、Products / Solutions / About など既知ラベルは `header.js` がリンクを補完します（応急措置。正しくは UE で `<a>` を設定し plain に反映させる）。
-- デスクトップで中央メニューがクリックできない場合は `header.css` の z-index 修正を main に反映してください（`nav-tools` がメニューを覆う不具合）。
+- デスクトップで中央メニューがクリックできない場合は `header.css` を main に反映してください（`display: none` の上書きと flex レイアウトの修正）。
 
 ### Footer page (`…/footer`)
 
