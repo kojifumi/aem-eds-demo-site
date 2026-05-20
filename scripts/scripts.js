@@ -5,6 +5,7 @@ import {
   decorateIcons,
   decorateSections,
   decorateBlocks,
+  decorateBlock,
   decorateTemplateAndTheme,
   waitForFirstImage,
   loadSection,
@@ -158,21 +159,59 @@ export function decorateSectionSubtitles(root) {
   });
 }
 
+const BLOCK_NAME_ALIASES = {
+  'hero--gradient-': 'hero-gradient',
+};
+
+const KNOWN_BLOCK_CLASSES = new Set([
+  'hero-gradient',
+  'hero--gradient-',
+  'hero',
+  'cards',
+  'columns',
+  'timeline',
+  'quote',
+  'accordion',
+  'tabs',
+  'table',
+  'carousel',
+  'pricing-cards',
+  'fragment',
+]);
+
+/**
+ * Ensure block JS runs even when section wrappers differ from the default EDS shape.
+ * @param {ParentNode} main
+ */
+export function ensureBlocksDecorated(main) {
+  main.querySelectorAll('.section').forEach((section) => {
+    const candidates = section.querySelectorAll(
+      ':scope > div > div, :scope > div[class*="hero-"], :scope > div.cards, :scope > div.columns, :scope > div.timeline',
+    );
+    candidates.forEach((el) => {
+      if (el.classList.contains('section-metadata')) return;
+      const blockClass = [...el.classList].find((cls) => KNOWN_BLOCK_CLASSES.has(cls)
+        || cls.startsWith('hero--'));
+      if (!blockClass) return;
+      if (!el.classList.contains('block')) decorateBlock(el);
+      const resolved = BLOCK_NAME_ALIASES[blockClass];
+      if (resolved) el.dataset.blockName = resolved;
+    });
+  });
+}
+
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
   buildAutoBlocks(main);
+  syncSectionStyleClasses(main);
   decorateSections(main);
   decorateBlocks(main);
+  ensureBlocksDecorated(main);
   normalizeBlockNames(main);
-  syncSectionStyleClasses(main);
   decorateSectionSubtitles(main);
 }
-
-const BLOCK_NAME_ALIASES = {
-  'hero--gradient-': 'hero-gradient',
-};
 
 /**
  * Map AEM UE block class slugs to blocks/ folder names.

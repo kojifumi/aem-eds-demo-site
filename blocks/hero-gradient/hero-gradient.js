@@ -19,6 +19,22 @@ function wrapHighlightInHeading(heading, highlightText) {
   return true;
 }
 
+/** Headline field without the highlight phrase; highlight is a separate UE row. */
+function insertHighlightIntoHeading(heading, highlightText) {
+  const text = heading.textContent.trim();
+  heading.textContent = '';
+
+  const em = document.createElement('em');
+  em.textContent = highlightText;
+
+  const trimmed = text.replace(highlightText, '').trim();
+  if (trimmed) {
+    heading.append(document.createTextNode(trimmed));
+    heading.append(document.createTextNode(' '));
+  }
+  heading.append(em);
+}
+
 function getRows(block) {
   return [...block.children].filter((row) => row.tagName === 'DIV');
 }
@@ -200,32 +216,50 @@ export default function decorate(block) {
 
   const h1RowIndex = rows.findIndex((row) => row.contains(h1));
 
-  // Eyebrow: row immediately before headline row
-  if (h1RowIndex > 0) {
-    const eyebrowCell = getCell(rows[h1RowIndex - 1]);
-    if (eyebrowCell && !eyebrowCell.querySelector('a, h1, h2, picture')) {
-      const text = eyebrowCell.textContent.trim();
-      if (text) {
-        const p = document.createElement('p');
-        p.className = 'hero-eyebrow';
-        p.textContent = text;
-        rows[h1RowIndex - 1].replaceWith(p);
-      }
-    }
+  // Eyebrow: first short text row before h1 (skip empty image / alt rows)
+  const eyebrowRow = rows.find((row, i) => {
+    if (i >= h1RowIndex || row.contains(h1)) return false;
+    const cell = getCell(row);
+    if (!cell || cell.querySelector('a, h1, h2, picture, img')) return false;
+    const text = cell.textContent.trim();
+    return text && text.length <= 40;
+  });
+  if (eyebrowRow) {
+    const text = getCell(eyebrowRow).textContent.trim();
+    const p = document.createElement('p');
+    p.className = 'hero-eyebrow';
+    p.textContent = text;
+    eyebrowRow.replaceWith(p);
   }
+
+  // Lead: long copy row after headline (before highlight/CTA stripping)
+  const leadRow = getRows(block).find((row, i) => {
+    if (i <= h1RowIndex || row.contains(h1)) return false;
+    if (row.querySelector('a, picture, img, h1, h2')) return false;
+    const len = row.textContent.trim().length;
+    return len >= 20 && len < 500;
+  });
 
   // Headline highlight + UE metadata rows after h1 (titleType, etc.)
   const headingText = h1.textContent.trim();
   const skipHighlightValues = new Set(['h1', 'h2', 'h3', 'h4', 'primary', 'secondary']);
 
   getRows(block).forEach((row, i) => {
-    if (i <= h1RowIndex || row.contains(h1) || row.querySelector('a, picture')) return;
+    if (i <= h1RowIndex || row === leadRow || row.contains(h1) || row.querySelector('a, picture, img')) {
+      return;
+    }
 
     const highlightCell = getCell(row);
     const highlightText = highlightCell?.textContent.trim();
     if (!highlightText || highlightText.length >= 80) return;
 
     if (skipHighlightValues.has(highlightText.toLowerCase())) {
+      row.remove();
+      return;
+    }
+
+    const existingEm = h1.querySelector('em')?.textContent.trim();
+    if (existingEm === highlightText) {
       row.remove();
       return;
     }
@@ -240,23 +274,24 @@ export default function decorate(block) {
       wrapHighlightInHeading(h1, highlightText);
       row.remove();
     } else {
+      insertHighlightIntoHeading(h1, highlightText);
       row.remove();
     }
   });
 
-  // Lead: wrap long text cell after headline in <p>
-  const leadRow = [...block.children].find(
-    (row) => row.tagName === 'DIV'
-      && !row.querySelector('h1, h2, a, picture')
-      && row.textContent.trim().length > 40,
-  );
   if (leadRow) {
     const cell = getCell(leadRow);
-    if (cell && !cell.querySelector('p')) {
-      const p = document.createElement('p');
-      p.textContent = cell.textContent.trim();
-      cell.textContent = '';
-      cell.append(p);
+    if (cell) {
+      let lead = cell.querySelector('p.hero-lead, p:not(.button-container)');
+      if (!lead) {
+        lead = document.createElement('p');
+        lead.className = 'hero-lead';
+        lead.textContent = cell.textContent.trim();
+        cell.textContent = '';
+        cell.append(lead);
+      } else {
+        lead.classList.add('hero-lead');
+      }
     }
   }
 
@@ -288,7 +323,9 @@ export default function decorate(block) {
     const highlight = h1.querySelector('em')?.textContent.trim();
     if (content && highlight) {
       content.querySelectorAll('p').forEach((p) => {
-        if (p.classList.contains('hero-eyebrow') || p.closest('.hero-ctas')) return;
+        if (p.classList.contains('hero-eyebrow')
+          || p.classList.contains('hero-lead')
+          || p.closest('.hero-ctas')) return;
         if (p.textContent.trim() === highlight) p.remove();
       });
     }

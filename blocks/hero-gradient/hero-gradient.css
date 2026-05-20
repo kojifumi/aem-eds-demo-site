@@ -225,10 +225,14 @@
   text-align: left;
 }
 
-.hero-gradient.with-image p:not(.button-container, .hero-eyebrow) {
+.hero-gradient.with-image p:not(.button-container, .hero-eyebrow),
+.hero-gradient.with-image .hero-lead {
   margin: 0 0 1.5em;
   text-align: left;
   max-width: 36em;
+  display: block;
+  color: var(--text-muted-color, #8b949e);
+  line-height: 1.7;
 }
 
 .hero-gradient.with-image .hero-ctas {
