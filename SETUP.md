@@ -201,6 +201,34 @@ Optional: on the homepage **Page metadata**, set `nav` → `/nav` and `footer` �
 
 ---
 
+## Step 6c: Product page — NexaPredict (`/products/nexapredict`)
+
+1. Under **AEM EDS Demo Site**, create **`products`** (if missing), then a child page **`nexapredict`** (title: NexaPredict).
+2. Open in **Universal Editor** (or paste HTML). Reference: **`products-nexapredict.plain.html`** in this repo (same pattern as `mockups/index.plain.html` for the homepage).
+3. Build the page from **8 sections** (top to bottom):
+
+| # | Section style (metadata) | Blocks / content |
+|---|--------------------------|------------------|
+| 1 | *(none — full-bleed hero)* | **Hero (Gradient, Compact)** — eyebrow `Product`, headline `NexaPredict` (highlight), lead, 2 CTAs |
+| 2 | `prose` | Default content — h3 課題 / ソリューション + paragraphs |
+| 3 | `soft` | h2 主要機能 + intro + **Cards** (3 items; category `01`–`03`) |
+| 4 | `how-it-works` | h2 導入の流れ + intro + **Columns** (3 cols; step `01`–`03` in `<strong>`) |
+| 5 | `stats` | **Columns** only (3 cols: metric in `<strong>`, label in next `<p>`) |
+| 6 | `testimonial` | **Quote** (body + attribution `Name, Role — Company`) |
+| 7 | `related` | h2 他のプロダクト + intro + **Cards** (2 items with links) |
+| 8 | `cta-banner` | h2 + subtitle + 2 buttons (`<strong>` primary, `<em>` secondary) |
+
+4. **Section metadata** (each styled section): add a **Section metadata** block with `style` → value from the table (comma-separated if multiple). Example for Features: `soft`.
+5. **Publish** the page and verify:
+   ```
+   https://main--aem-eds-demo-site--kojifumi.aem.page/products/nexapredict
+   ```
+6. Optional: update **`nav`** links from `/#products` to `/products/nexapredict` for the Products entry.
+
+Visual check against **`mockups/products-nexapredict.html`**.
+
+---
+
 ## Step 6: Verify Preview URL
 
 After aem-code-sync is installed and the AEM site is created, the preview URL will be:

@@ -30,6 +30,38 @@
           }
         }
       }
+    },
+    {
+      "title": "Hero (Gradient, Compact)",
+      "id": "hero-gradient-compact",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "hero-gradient",
+              "model": "hero",
+              "classes": ["gradient", "compact"]
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Hero (Gradient, With Image)",
+      "id": "hero-gradient-with-image",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "hero-gradient",
+              "model": "hero",
+              "classes": ["gradient", "with-image"]
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
