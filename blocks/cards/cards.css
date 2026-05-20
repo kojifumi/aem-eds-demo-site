@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 0;
   display: grid;
+
   /* auto-fit collapses empty tracks (auto-fill leaves gaps → cards hug the left) */
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 20px;
@@ -72,7 +73,7 @@
   margin-bottom: 12px;
 }
 
-.cards .cards-card-body > p:not(:first-child):not(:last-child) {
+.cards .cards-card-body > p:not(:first-child, :last-child) {
   color: var(--text-muted-color, #8b949e);
   font-size: var(--body-font-size-s);
   line-height: 1.7;

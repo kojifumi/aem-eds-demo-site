@@ -37,6 +37,10 @@
               "value": "highlight"
             },
             {
+              "name": "Soft (muted band)",
+              "value": "soft"
+            },
+            {
               "name": "Products",
               "value": "products"
             },
@@ -59,6 +63,46 @@
             {
               "name": "CTA Banner",
               "value": "cta-banner"
+            },
+            {
+              "name": "Use Cases (3-up cards, 2 rows)",
+              "value": "use-cases"
+            },
+            {
+              "name": "Case Stories (2-up cards)",
+              "value": "case-stories"
+            },
+            {
+              "name": "Logos (carousel band)",
+              "value": "logos"
+            },
+            {
+              "name": "Pricing Comparison Table",
+              "value": "comparison"
+            },
+            {
+              "name": "Leadership (2x2 cards)",
+              "value": "leadership"
+            },
+            {
+              "name": "Values (3-up cards)",
+              "value": "values"
+            },
+            {
+              "name": "History (timeline)",
+              "value": "history"
+            },
+            {
+              "name": "Related (2-up cards)",
+              "value": "related"
+            },
+            {
+              "name": "Integrations (tabs)",
+              "value": "integrations"
+            },
+            {
+              "name": "Prose (centered text)",
+              "value": "prose"
             }
           ]
         }
@@ -79,6 +123,11 @@
         "columns",
         "quote",
         "accordion",
+        "tabs",
+        "table",
+        "carousel",
+        "pricing-cards",
+        "timeline",
         "fragment"
       ]
     }

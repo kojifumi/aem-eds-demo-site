@@ -81,12 +81,12 @@
 .hero-gradient h1 em {
   font-style: normal;
   background: var(--gradient-text);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.hero-gradient p:not(.button-container):not(.hero-eyebrow) {
+.hero-gradient p:not(.button-container, .hero-eyebrow) {
   color: var(--text-muted-color, #8b949e);
   font-size: var(--body-font-size-m);
   max-width: min(640px, 100%);
@@ -145,5 +145,103 @@
 
   .hero-gradient h1 {
     font-size: 64px;
+  }
+}
+
+/* Compact variant — secondary pages (Pricing, Solutions, Integrations, Customers, About). */
+.hero-gradient.compact {
+  min-height: auto;
+  padding: 64px 24px 56px;
+}
+
+.hero-gradient.compact h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  margin-bottom: 0.4em;
+}
+
+.hero-gradient.compact p:not(.button-container, .hero-eyebrow) {
+  margin-bottom: 0;
+}
+
+.hero-gradient.compact::before {
+  width: 420px;
+  height: 420px;
+  top: -160px;
+}
+
+.hero-gradient.compact::after {
+  width: 280px;
+  height: 280px;
+}
+
+@media (width >= 900px) {
+  .hero-gradient.compact {
+    min-height: auto;
+    padding: 96px 32px 80px;
+  }
+
+  .hero-gradient.compact h1 {
+    font-size: 56px;
+  }
+}
+
+/* With-image variant — two-column layout for About-style heroes.
+   Image is the first row of the block; remaining rows render on the left. */
+.hero-gradient.with-image {
+  text-align: left;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.hero-gradient.with-image > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+  text-align: left;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.hero-gradient.with-image > div > div {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hero-gradient.with-image h1 {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.hero-gradient.with-image p:not(.button-container, .hero-eyebrow) {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.hero-gradient.with-image .hero-ctas {
+  justify-content: flex-start;
+  margin-top: 32px;
+}
+
+.hero-gradient.with-image picture {
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-float);
+}
+
+.hero-gradient.with-image picture img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+}
+
+@media (width >= 900px) {
+  .hero-gradient.with-image > div {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
   }
 }

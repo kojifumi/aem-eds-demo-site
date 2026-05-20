@@ -44,7 +44,6 @@ header nav[aria-expanded='true'] {
     align-items: center;
     position: relative;
     grid-template: none;
-    grid-template-areas: none;
     gap: 0;
     height: var(--nav-height);
     max-width: none;

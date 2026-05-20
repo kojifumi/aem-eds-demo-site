@@ -137,11 +137,14 @@ function prepareForDecorate(block) {
   });
 }
 
-/** UE emits one block row per field; collapse into a single inner cell for layout/CSS. */
-function consolidateContent(block) {
+/** UE emits one block row per field; collapse into a single inner cell for layout/CSS.
+ *  When `keepImage` is true, the first picture/img is preserved as a sibling of the text cell. */
+function consolidateContent(block, keepImage) {
   const wrapper = document.createElement('div');
   const cell = document.createElement('div');
+  cell.className = 'hero-content';
   const ordered = [];
+  let picture = null;
 
   [...block.children].forEach((child) => {
     if (child.tagName === 'P' && child.classList.contains('hero-eyebrow')) {
@@ -153,7 +156,11 @@ function consolidateContent(block) {
     const rowCell = getCell(child);
     if (!rowCell) return;
 
-    if (rowCell.querySelector('picture, img')) return;
+    const pic = rowCell.querySelector('picture, img');
+    if (pic) {
+      if (keepImage && !picture) picture = pic.tagName === 'PICTURE' ? pic : pic.closest('picture') || pic;
+      return;
+    }
 
     const ctas = rowCell.querySelector('.hero-ctas');
     if (ctas) {
@@ -174,6 +181,12 @@ function consolidateContent(block) {
 
   ordered.forEach((el) => cell.append(el));
   wrapper.append(cell);
+  if (keepImage && picture) {
+    const mediaCell = document.createElement('div');
+    mediaCell.className = 'hero-media';
+    mediaCell.append(picture);
+    wrapper.append(mediaCell);
+  }
   block.replaceChildren(wrapper);
 }
 
@@ -257,5 +270,5 @@ export default function decorate(block) {
     block.append(row);
   }
 
-  consolidateContent(block);
+  consolidateContent(block, block.classList.contains('with-image'));
 }

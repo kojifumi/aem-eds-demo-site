@@ -18,6 +18,11 @@
       "columns",
       "quote",
       "accordion",
+      "tabs",
+      "table",
+      "carousel",
+      "pricing-cards",
+      "timeline",
       "fragment"
     ]
   },
@@ -55,9 +60,21 @@
     ]
   },
   {
+    "id": "pricing-cards",
+    "components": [
+      "pricing-card"
+    ]
+  },
+  {
     "id": "tabs",
     "components": [
       "tab"
+    ]
+  },
+  {
+    "id": "timeline",
+    "components": [
+      "timeline-item"
     ]
   }
 ]

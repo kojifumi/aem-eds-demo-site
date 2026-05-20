@@ -140,6 +140,10 @@
             "value": "highlight"
           },
           {
+            "name": "Soft (muted band)",
+            "value": "soft"
+          },
+          {
             "name": "Products",
             "value": "products"
           },
@@ -162,6 +166,46 @@
           {
             "name": "CTA Banner",
             "value": "cta-banner"
+          },
+          {
+            "name": "Use Cases (3-up cards, 2 rows)",
+            "value": "use-cases"
+          },
+          {
+            "name": "Case Stories (2-up cards)",
+            "value": "case-stories"
+          },
+          {
+            "name": "Logos (carousel band)",
+            "value": "logos"
+          },
+          {
+            "name": "Pricing Comparison Table",
+            "value": "comparison"
+          },
+          {
+            "name": "Leadership (2x2 cards)",
+            "value": "leadership"
+          },
+          {
+            "name": "Values (3-up cards)",
+            "value": "values"
+          },
+          {
+            "name": "History (timeline)",
+            "value": "history"
+          },
+          {
+            "name": "Related (2-up cards)",
+            "value": "related"
+          },
+          {
+            "name": "Integrations (tabs)",
+            "value": "integrations"
+          },
+          {
+            "name": "Prose (centered text)",
+            "value": "prose"
           }
         ]
       }
@@ -440,6 +484,77 @@
     ]
   },
   {
+    "id": "pricing-card",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "name",
+        "label": "Plan name",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "price",
+        "label": "Price",
+        "value": "",
+        "description": "e.g. $0, $299, Custom"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "period",
+        "label": "Period",
+        "value": "",
+        "description": "e.g. / mo, / yr (leave empty for Custom plans)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Short description",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "features",
+        "label": "Features (bulleted list)",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "featured",
+        "label": "Featured plan",
+        "value": "",
+        "options": [
+          {
+            "name": "Standard",
+            "value": ""
+          },
+          {
+            "name": "Featured",
+            "value": "yes"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "cta_link",
+        "label": "CTA URL"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta_linkText",
+        "label": "CTA label",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "quote",
     "fields": [
       {
@@ -483,6 +598,30 @@
         "value": "",
         "label": "Tab Content",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "timeline-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "year",
+        "label": "Year"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
       }
     ]
   },

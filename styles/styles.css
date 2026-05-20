@@ -26,7 +26,7 @@
 
   /* base colors */
   --background-color: #fafbfc;
-  --surface-color: #ffffff;
+  --surface-color: #fff;
   --light-color: #f1f4f8;
   --dark-color: #3d4a5c;
   --text-color: #0b1220;
@@ -43,7 +43,7 @@
   --link-hover-color: #065a66;
 
   /* buttons & chrome */
-  --button-primary-color: #ffffff;
+  --button-primary-color: #fff;
   --nav-background: rgb(255 255 255 / 78%);
   --shadow-card: 0 1px 2px rgb(11 18 32 / 4%), 0 12px 40px rgb(11 18 32 / 7%);
   --shadow-float: 0 24px 64px rgb(11 18 32 / 10%), 0 2px 8px rgb(11 18 32 / 4%);
@@ -53,15 +53,15 @@
   --gradient-accent-line: linear-gradient(90deg, #0a7c8c, #4f46e5);
   --gradient-hero: radial-gradient(120% 80% at 50% -30%, #e8f6f8 0%, transparent 55%),
     radial-gradient(60% 50% at 100% 0%, #ebe9ff 0%, transparent 50%),
-    linear-gradient(180deg, #ffffff 0%, var(--background-color) 72%);
+    linear-gradient(180deg, #fff 0%, var(--background-color) 72%);
   --gradient-testimonial: radial-gradient(ellipse 50% 80% at 50% 0%, rgb(14 165 183 / 8%) 0%, transparent 70%),
-    linear-gradient(180deg, #ffffff 0%, var(--light-color) 100%);
+    linear-gradient(180deg, #fff 0%, var(--light-color) 100%);
   --gradient-cta-banner: radial-gradient(80% 120% at 100% 0%, rgb(14 165 183 / 35%) 0%, transparent 50%),
     linear-gradient(155deg, #0b3d47 0%, #0f172a 48%, #111827 100%);
   --hero-orb-1: rgb(14 165 183 / 28%);
   --hero-orb-2: rgb(79 70 229 / 18%);
   --eyebrow-border-color: rgb(10 124 140 / 25%);
-  --eyebrow-background-color: #ffffff;
+  --eyebrow-background-color: #fff;
   --stat-number-color: var(--text-color);
 
   /* fonts — self-hosted/system only (UE canvas CSP blocks fonts.googleapis.com) */
@@ -392,8 +392,8 @@ main .section.faq .default-content-wrapper h2 ~ p,
 main .section.faq .default-content-wrapper h2 ~ div > p,
 main .section.highlight:has(.accordion) .default-content-wrapper h2 ~ p,
 main .section.highlight:has(.accordion) .default-content-wrapper h2 ~ div > p,
-main .section.highlight:not(.stats):not(.faq):not(:has(.accordion)) .default-content-wrapper h2 ~ p,
-main .section.highlight:not(.stats):not(.faq):not(:has(.accordion)) .default-content-wrapper h2 ~ div > p {
+main .section.highlight:not(.stats, .faq, :has(.accordion)) .default-content-wrapper h2 ~ p,
+main .section.highlight:not(.stats, .faq, :has(.accordion)) .default-content-wrapper h2 ~ div > p {
   text-align: center;
   color: var(--text-muted-color);
   font-size: var(--body-font-size-m);
@@ -463,6 +463,7 @@ main .section.testimonial .quote blockquote .quote-quotation {
   color: var(--text-color);
   margin: 0 auto 32px;
   max-width: 100%;
+
   /* Reserve space so the decorative mark does not overlap the first line */
   padding-top: clamp(44px, 11vw, 56px);
   padding-left: 8px;
@@ -556,7 +557,7 @@ main .section.cta-banner .default-content-wrapper h2 ~ p,
 main .section.cta-banner .default-content-wrapper h2 ~ div > p,
 main .section.cta-banner > div > h2 ~ p,
 main .section.cta-banner > div > h2 ~ div > p,
-main .section.cta-banner > div > p:not(.button-container):not(:has(.button)) {
+main .section.cta-banner > div > p:not(.button-container, :has(.button)) {
   color: #fff;
   font-size: var(--body-font-size-s);
   line-height: 1.7;
@@ -609,4 +610,264 @@ main .section.cta-banner div:has(> a.button) {
   margin: 0 8px 12px;
   vertical-align: top;
 }
+
+/* ---------- Section styles for new pages (pricing, solutions, integrations, customers, about) ---------- */
+/* stylelint-disable no-descending-specificity */
+
+/* Soft band — alternative to highlight with muted (light gray) background */
+main .section.soft {
+  background-color: var(--light-color);
+  margin: 0;
+  padding: 64px 0;
+}
+
+@media (width >= 900px) {
+  main .section.soft {
+    padding: 80px 0;
+  }
+}
+
+main .section.soft > div > h2,
+main .section.use-cases > div > h2,
+main .section.case-stories > div > h2,
+main .section.leadership > div > h2,
+main .section.values > div > h2,
+main .section.history > div > h2,
+main .section.related > div > h2,
+main .section.integrations > div > h2,
+main .section.comparison > div > h2 {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+/* Use Cases — 3-up cards (2 rows for 6 items), centered heading */
+main .section.use-cases {
+  padding: 64px 0;
+}
+
+main .section.use-cases .cards > ul,
+main .section.values .cards > ul {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+@media (width >= 900px) {
+  main .section.use-cases .cards > ul,
+  main .section.values .cards > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Case stories / Related / Leadership — 2-up cards */
+main .section.case-stories .cards > ul,
+main .section.related .cards > ul,
+main .section.leadership .cards > ul {
+  grid-template-columns: 1fr;
+  max-width: 960px;
+}
+
+@media (width >= 700px) {
+  main .section.case-stories .cards > ul,
+  main .section.related .cards > ul,
+  main .section.leadership .cards > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Logos band — minimal cards, no hover lift, single line on desktop */
+main .section.logos {
+  padding: 32px 0;
+  background-color: var(--surface-color);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+main .section.logos .cards > ul {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  max-width: 1120px;
+}
+
+main .section.logos .cards > ul > li {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  min-height: 64px;
+  align-items: center;
+  justify-content: center;
+}
+
+main .section.logos .cards > ul > li::before {
+  display: none;
+}
+
+main .section.logos .cards > ul > li:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--border-strong-color);
+}
+
+main .section.logos .cards .cards-card-body {
+  padding: 14px 16px;
+  text-align: center;
+}
+
+main .section.logos .cards .cards-card-body > * {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-tertiary-color);
+}
+
+/* Pricing comparison table — centered, surface card frame */
+main .section.comparison {
+  padding: 64px 0;
+}
+
+main .section.comparison .table-wrap,
+main .section.comparison .table {
+  max-width: 960px;
+  margin: 0 auto;
+  overflow-x: auto;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+}
+
+main .section.comparison .table table {
+  margin: 0;
+}
+
+main .section.comparison .table table thead tr {
+  border-top: none;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--light-color);
+}
+
+main .section.comparison .table table tbody tr {
+  border-bottom: 1px solid var(--border-color);
+}
+
+main .section.comparison .table table tbody tr:last-child {
+  border-bottom: none;
+}
+
+main .section.comparison .table table th,
+main .section.comparison .table table td {
+  padding: 14px 18px;
+  font-size: var(--body-font-size-s);
+}
+
+main .section.comparison .table table th {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-muted-color);
+}
+
+main .section.comparison .table table td:first-child {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+/* Highlight ✓ marks coming from authored content (e.g. "✓") */
+main .section.comparison .table table td:not(:first-child) {
+  color: var(--accent-color);
+  font-weight: 700;
+  text-align: center;
+}
+
+/* History (Timeline) section — soft band, narrower wrapper */
+main .section.history {
+  background-color: var(--light-color);
+  padding: 64px 0;
+  margin: 0;
+}
+
+@media (width >= 900px) {
+  main .section.history {
+    padding: 80px 0;
+  }
+}
+
+main .section.history .timeline-wrapper {
+  max-width: 720px;
+  margin: 32px auto 0;
+}
+
+/* Integrations (Tabs) section — center the tabs strip */
+main .section.integrations .tabs {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+main .section.integrations .tabs .tabs-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 28px;
+  border-bottom: none;
+}
+
+main .section.integrations .tabs .tabs-tab {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--surface-color);
+  color: var(--text-muted-color);
+  cursor: pointer;
+}
+
+main .section.integrations .tabs .tabs-tab[aria-selected="true"] {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #fff;
+}
+
+main .section.integrations .tabs .tabs-panel[aria-hidden="true"] {
+  display: none;
+}
+
+/* Tabs panel content: render bullet lists as a flat integration grid */
+main .section.integrations .tabs .tabs-panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+main .section.integrations .tabs .tabs-panel ul li {
+  padding: 18px 14px;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-muted-color);
+  text-align: center;
+}
+
+/* Prose section — centered narrow column for long-form copy */
+main .section.prose > div {
+  max-width: 720px;
+}
+
+main .section.prose h2,
+main .section.prose h3 {
+  margin-top: 1.4em;
+}
+
+main .section.prose p {
+  font-size: var(--body-font-size-m);
+  line-height: 1.75;
+  color: var(--text-color);
+}
+
+/* stylelint-enable no-descending-specificity */
 

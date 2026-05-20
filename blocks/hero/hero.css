@@ -115,6 +115,8 @@ main > .section:has(.hero--gradient-) > div {
 .hero.gradient h1 em {
   font-style: normal;
   background: var(--gradient-text);
+
+  /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -162,8 +164,7 @@ main > .section:has(.hero--gradient-) > div {
 }
 
 /* Lead paragraph */
-.hero.gradient p:not(.button-container):not(.hero-eyebrow) {
-  max-width: 100%;
+.hero.gradient p:not(.button-container, .hero-eyebrow) {
   color: var(--text-muted-color, #8b949e);
   font-size: var(--body-font-size-m);
   max-width: 640px;

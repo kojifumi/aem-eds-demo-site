@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integrations — Nexara AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/luminous.css">
+</head>
+<body>
+  <p class="demo-tag"><a href="demo-index.html" style="color:inherit">Demos</a> · Integrations</p>
+  <header class="header">
+    <div class="header__inner">
+      <a class="logo" href="home.html">Nexara<span> AI</span></a>
+      <ul class="nav">
+        <li><a href="products-nexapredict.html">Products</a></li>
+        <li><a href="solutions.html">Solutions</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="customers.html">Customers</a></li>
+        <li><a href="integrations.html" class="is-active">Integrations</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <a class="btn btn--primary" href="#">Get Started</a>
+    </div>
+  </header>
+
+  <section class="hero hero--compact">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="eyebrow">Integrations</p>
+      <h1>既存スタックに<span class="hl">シームレス</span>に接続</h1>
+      <p class="hero__lead">CRM、データウェアハウス、生産性ツール、クラウド — 200+ のネイティブ連携と REST API。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="tabs">
+      <input type="radio" name="int-tab" id="tab-crm" checked>
+      <label class="tabs__label" for="tab-crm">CRM</label>
+      <input type="radio" name="int-tab" id="tab-data">
+      <label class="tabs__label" for="tab-data">Data</label>
+      <input type="radio" name="int-tab" id="tab-productivity">
+      <label class="tabs__label" for="tab-productivity">Productivity</label>
+      <input type="radio" name="int-tab" id="tab-cloud">
+      <label class="tabs__label" for="tab-cloud">Cloud</label>
+      <div class="tabs__panels">
+        <div class="tabs__panel" id="panel-crm">
+          <div class="integration-grid">
+            <div class="integration-item">Salesforce</div>
+            <div class="integration-item">HubSpot</div>
+            <div class="integration-item">Dynamics</div>
+            <div class="integration-item">Zoho</div>
+            <div class="integration-item">Pipedrive</div>
+            <div class="integration-item">Freshsales</div>
+            <div class="integration-item">Copper</div>
+            <div class="integration-item">Close</div>
+          </div>
+        </div>
+        <div class="tabs__panel" id="panel-data">
+          <div class="integration-grid">
+            <div class="integration-item">Snowflake</div>
+            <div class="integration-item">BigQuery</div>
+            <div class="integration-item">Databricks</div>
+            <div class="integration-item">Redshift</div>
+            <div class="integration-item">PostgreSQL</div>
+            <div class="integration-item">MySQL</div>
+            <div class="integration-item">dbt</div>
+            <div class="integration-item">Fivetran</div>
+          </div>
+        </div>
+        <div class="tabs__panel" id="panel-productivity">
+          <div class="integration-grid">
+            <div class="integration-item">Slack</div>
+            <div class="integration-item">Teams</div>
+            <div class="integration-item">Notion</div>
+            <div class="integration-item">Jira</div>
+            <div class="integration-item">Asana</div>
+            <div class="integration-item">Monday</div>
+            <div class="integration-item">Confluence</div>
+            <div class="integration-item">Linear</div>
+          </div>
+        </div>
+        <div class="tabs__panel" id="panel-cloud">
+          <div class="integration-grid">
+            <div class="integration-item">AWS</div>
+            <div class="integration-item">Azure</div>
+            <div class="integration-item">GCP</div>
+            <div class="integration-item">Kubernetes</div>
+            <div class="integration-item">Terraform</div>
+            <div class="integration-item">Datadog</div>
+            <div class="integration-item">Splunk</div>
+            <div class="integration-item">PagerDuty</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="section__head"><span class="section__kicker">API</span><h2>開発者向け API</h2><p>REST と Webhook で予測結果を任意のシステムへ配信。</p></div>
+    <div class="prose" style="margin:0 auto">
+      <p><code>POST /v1/predictions</code> — バッチ予測の投入。OAuth 2.0 と API キーに対応。詳細は開発者ポータルをご覧ください。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__head"><span class="section__kicker">Setup</span><h2>接続まで 3 ステップ</h2></div>
+    <div class="steps">
+      <div class="step"><span class="step__num">01</span><h3>コネクタ選択</h3><p>カタログからツールを選び OAuth で認証。</p></div>
+      <div class="step"><span class="step__num">02</span><h3>データマッピング</h3><p>ビジュアル UI でフィールドを対応付け。</p></div>
+      <div class="step"><span class="step__num">03</span><h3>同期開始</h3><p>リアルタイムまたはスケジュール同期。</p></div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="section__head"><span class="section__kicker">FAQ</span><h2>よくある質問</h2></div>
+    <div class="accordion">
+      <details><summary>カスタム連携は可能ですか？</summary><p>REST API と Webhook で任意のシステムと接続できます。Enterprise プランでは専用コネクタ開発も対応します。</p></details>
+      <details><summary>データはどこに保存されますか？</summary><p>リージョン選択可能な SOC 2 Type II 認証データセンターに暗号化保存されます。</p></details>
+    </div>
+  </section>
+
+  <section class="cta-dark">
+    <h2>連携を今すぐ試す</h2>
+    <p>14 日間の無料トライアルで主要コネクタをお試しください。</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="#">無料で始める</a>
+      <a class="btn btn--outline-light" href="#">営業に相談する</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">© 2026 Nexara AI, Inc.</footer>
+  <p class="footer-note"><a href="demo-index.html">← すべてのデモページ</a></p>
+</body>
+</html>
