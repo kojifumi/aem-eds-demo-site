@@ -101,20 +101,85 @@ main:not(:has(.section)) > div:only-child > div:first-child a.button {
   box-sizing: border-box;
 }
 
-.hero-gradient h1,
-.hero.gradient h1 {
+.hero-gradient:not(.with-image) h1,
+.hero.gradient:not(.with-image) h1 {
   max-width: 100%;
   overflow-wrap: break-word;
   text-align: center;
 }
 
+/* About-style hero (with-image) — match published left column in UE canvas */
+.hero-gradient.with-image,
+.hero-gradient.with-image.block {
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
+  min-height: auto;
+  padding: clamp(48px, 8vw, 80px) 32px;
+}
+
+.hero-gradient.with-image > div,
+.hero-gradient.with-image.block > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+  text-align: left;
+}
+
+.hero-gradient.with-image .hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+  min-width: 0;
+}
+
+.hero-gradient.with-image h1 {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  text-align: left;
+  margin: 0 0 0.5em;
+}
+
+.hero-gradient.with-image .hero-eyebrow {
+  margin: 0 0 28px;
+  align-self: flex-start;
+}
+
+.hero-gradient.with-image .hero-lead,
+.hero-gradient.with-image p:not(.button-container, .hero-eyebrow) {
+  text-align: left;
+  margin: 0 0 1.5em;
+  max-width: 36em;
+}
+
+.hero-gradient.with-image .hero-ctas {
+  justify-content: flex-start;
+}
+
+@media (width >= 900px) {
+  .hero-gradient.with-image > div,
+  .hero-gradient.with-image.block > div {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+}
+
 @media (width < 900px) {
-  .hero-gradient .hero-ctas,
-  .hero.gradient .hero-ctas {
+  .hero-gradient:not(.with-image) .hero-ctas,
+  .hero.gradient:not(.with-image) .hero-ctas {
     flex-direction: column;
     align-items: center;
     width: 100%;
     max-width: 100%;
+  }
+
+  .hero-gradient.with-image .hero-ctas {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 }
 

@@ -66,6 +66,11 @@
   box-sizing: border-box;
 }
 
+.hero-gradient.with-image > div > .hero-content,
+.hero-gradient.with-image > div > .hero-media {
+  align-items: flex-start;
+}
+
 .hero-gradient > div > div:first-child:empty {
   display: none;
 }
@@ -192,9 +197,11 @@
    Image is the first row of the block; remaining rows render on the left. */
 .hero-gradient.with-image {
   align-items: stretch;
+  justify-content: flex-start;
   text-align: left;
-  padding-top: 64px;
-  padding-bottom: 64px;
+  min-height: auto;
+  padding-top: clamp(48px, 8vw, 80px);
+  padding-bottom: clamp(48px, 8vw, 80px);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
