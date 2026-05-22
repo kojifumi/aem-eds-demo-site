@@ -174,7 +174,7 @@ The header and footer blocks load content from **`/nav`** and **`/footer`** frag
 
 Structure: **3 sibling `<div>`s** directly under `<main>` — brand link, nav `<ul>`, CTA.
 
-**Repo layout:** Authoring references for pages live under `mockups/*.plain.html`. **`nav.plain.html` stays at the repo root** — it matches the live fragment at `/nav.plain.html` (not under `/ja/`).
+**Repo layout:** Page authoring references live under `mockups/*.plain.html`. **`nav.plain.html` and `footer.plain.html` stay at the repo root** — they match live fragments at `/nav.plain.html` and `/footer.plain.html` (not under `/ja/`).
 
 **重要（リンクが動かないとき）**
 
@@ -189,7 +189,7 @@ Structure: **3 sibling `<div>`s** directly under `<main>` — brand link, nav `<
 ### Footer page (`…/footer`)
 
 1. Create a page named **`footer`** (title: Footer).
-2. Body content (see `mockups/footer.plain.html`):
+2. Body content (see `footer.plain.html`):
 
 ```html
 <main>

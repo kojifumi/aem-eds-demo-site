@@ -41,8 +41,9 @@ The repository provides the basic structure, blocks, and configuration needed to
     └── delayed.js       # Delayed functionality such as martech loading
 ├── fonts/           # Web fonts
 ├── icons/           # SVG icons
-├── mockups/         # Visual mockups and *.plain.html authoring references (not served as live pages)
-├── nav.plain.html   # Nav fragment reference (live path: /nav.plain.html)
+├── mockups/         # Visual mockups and page *.plain.html authoring references
+├── nav.plain.html     # Nav fragment reference (live: /nav.plain.html)
+├── footer.plain.html  # Footer fragment reference (live: /footer.plain.html)
 ├── head.html        # Global HTML head content
 └── 404.html         # Custom 404 page
 ```
