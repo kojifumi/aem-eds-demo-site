@@ -174,6 +174,8 @@ The header and footer blocks load content from **`/nav`** and **`/footer`** frag
 
 Structure: **3 sibling `<div>`s** directly under `<main>` — brand link, nav `<ul>`, CTA.
 
+**Repo layout:** Authoring references for pages live under `mockups/*.plain.html`. **`nav.plain.html` stays at the repo root** — it matches the live fragment at `/nav.plain.html` (not under `/ja/`).
+
 **重要（リンクが動かないとき）**
 
 - 各メニュー項目は **`<li>` の中に `<a href="...">` を置く**（ラベルだけの `<li>Solutions</li>` ではクリックできません）。
@@ -187,7 +189,7 @@ Structure: **3 sibling `<div>`s** directly under `<main>` — brand link, nav `<
 ### Footer page (`…/footer`)
 
 1. Create a page named **`footer`** (title: Footer).
-2. Body content (see `footer.plain.html`):
+2. Body content (see `mockups/footer.plain.html`):
 
 ```html
 <main>
@@ -214,7 +216,7 @@ Optional: on the homepage **Page metadata**, set `nav` → `/nav` and `footer` �
 ## Step 6c: Product page — NexaPredict (`/products/nexapredict`)
 
 1. Under **AEM EDS Demo Site**, create **`products`** (if missing), then a child page **`nexapredict`** (title: NexaPredict).
-2. Open in **Universal Editor** (or paste HTML). Reference: **`products-nexapredict.plain.html`** in this repo (same pattern as `mockups/index.plain.html` for the homepage).
+2. Open in **Universal Editor** (or paste HTML). Reference: **`mockups/products-nexapredict.plain.html`** (same pattern as `mockups/index.plain.html` for the homepage).
 3. Build the page from **8 sections** (top to bottom):
 
 | # | Section style (metadata) | Blocks / content |
@@ -256,7 +258,7 @@ Visual check against **`mockups/products-nexapredict.html`**.
 ## Step 6d: About page (`/about`)
 
 1. Under **AEM EDS Demo Site**, create a page **`about`** (title: About).
-2. Open in **Universal Editor**. Reference: **`about.plain.html`** · mockup **`mockups/about.html`**.
+2. Open in **Universal Editor**. Reference: **`mockups/about.plain.html`** · mockup **`mockups/about.html`**.
 3. Build **7 sections** (top to bottom):
 
 | # | Section style | Blocks / content |
