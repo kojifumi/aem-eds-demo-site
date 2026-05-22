@@ -139,8 +139,10 @@ main:not(:has(.section)) > div:only-child > div:first-child a.button {
 .hero-gradient.with-image h1 {
   max-width: 100%;
   overflow-wrap: break-word;
+  overflow: visible;
   text-align: left;
   margin: 0 0 0.5em;
+  line-height: 1.32;
 }
 
 .hero-gradient.with-image .hero-eyebrow {
