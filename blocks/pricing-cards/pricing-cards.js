@@ -2,10 +2,10 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 
 /**
  * Pricing Cards — UE row layout (1 row = 1 plan, fixed column order):
- *   name | price | period | description | features | featured | cta link | cta label
+ *   plan | price | period | description | features | featured | cta link | cta label
  *
- * Use model field `name` for plan name. Do not add `"name": ""` to the item template —
- * it collides with template `"name": "Plan"` and breaks publish + Content Tree labels.
+ * Model field `plan` is published in column 1. Model field `name` is Content Tree only
+ * (do not add `"name": ""` to the item template — it collides with `"name": "Plan"`).
  * Period must not start with "/" alone (/月 → link with garbled %E6%9C%88 text).
  */
 

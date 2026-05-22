@@ -489,10 +489,10 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "name",
+        "name": "plan",
         "label": "Plan name",
         "value": "",
-        "description": "Required — e.g. Starter, Growth, Enterprise. Also shown in the Content Tree."
+        "description": "Required — e.g. Starter, Growth, Enterprise. Published as the first column."
       },
       {
         "component": "text",
@@ -570,6 +570,14 @@
         "name": "cta_linkText",
         "label": "CTA label",
         "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "name",
+        "label": "Content Tree label",
+        "value": "",
+        "description": "Optional. Shown in the Universal Editor Content Tree only (not published). Leave empty to match Plan name."
       }
     ]
   },
