@@ -82,7 +82,7 @@
 
 .hero-gradient h1 {
   letter-spacing: -0.03em;
-  line-height: 1.08;
+  line-height: 1.12;
   margin: 0 auto 0.5em;
   color: var(--text-color);
   font-size: var(--heading-font-size-xxl);
@@ -90,8 +90,11 @@
 
 .hero-gradient h1 em {
   font-style: normal;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding-bottom: 0.08em;
   background: var(--gradient-text);
-  background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }

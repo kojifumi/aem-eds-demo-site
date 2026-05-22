@@ -114,6 +114,9 @@ main > .section:has(.hero--gradient-) > div {
 /* Gradient text on the <em> inside h1 */
 .hero.gradient h1 em {
   font-style: normal;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding-bottom: 0.08em;
   background: var(--gradient-text);
 
   /* stylelint-disable-next-line property-no-vendor-prefix */
@@ -124,7 +127,7 @@ main > .section:has(.hero--gradient-) > div {
 
 .hero.gradient h1 {
   letter-spacing: -0.03em;
-  line-height: 1.08;
+  line-height: 1.12;
   margin: 0 auto 0.5em;
   max-width: 100%;
   overflow-wrap: break-word;
