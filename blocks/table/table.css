@@ -50,6 +50,33 @@
   margin-top: 0.25em;
 }
 
+/* Universal Editor — keep row/cell layout visible before publish decoration */
+.table.table-ue {
+  display: grid;
+  gap: 0;
+  border: 1px solid #dadada;
+}
+
+.table.table-ue > div {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 1px solid #dadada;
+}
+
+.table.table-ue > div:first-child {
+  border-top: 2px solid #dadada;
+  font-weight: 700;
+}
+
+.table.table-ue > div > div {
+  padding: 0.5em;
+  border-right: 1px solid #dadada;
+}
+
+.table.table-ue > div > div:last-child {
+  border-right: 0;
+}
+
 /* no header variant */
 .table.no-header table tbody tr {
   border-top: 1px solid #dadada;
