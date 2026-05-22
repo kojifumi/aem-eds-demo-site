@@ -22,7 +22,7 @@
       "quote",
       "accordion",
       "tabs",
-      "table",
+      "data-table",
       "carousel",
       "pricing-cards",
       "timeline",
@@ -69,36 +69,10 @@
     ]
   },
   {
-    "id": "table",
-    "rte": {
-      "toolbar": {
-        "format": [
-          "bold",
-          "italic"
-        ],
-        "blocks": [
-          "paragraph"
-        ],
-        "list": [
-          "bullet_list",
-          "ordered_list"
-        ],
-        "insert": [
-          "link",
-          "table"
-        ],
-        "sections": [
-          "format",
-          "blocks",
-          "list",
-          "insert"
-        ]
-      },
-      "plugins": "link lists table",
-      "icons": "thin",
-      "icons_url": "https://cdn.jsdelivr.net/npm/tinymce@6/icons/default/icons.min.js",
-      "skin_url": "https://cdn.jsdelivr.net/npm/tinymce@6/skins/ui/oxide"
-    }
+    "id": "data-table",
+    "components": [
+      "table-row"
+    ]
   },
   {
     "id": "tabs",

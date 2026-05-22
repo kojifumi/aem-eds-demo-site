@@ -3,7 +3,7 @@
  * Recreate a table
  * https://www.hlx.live/developer/block-collection/table
  *
- * UE: single richtext field (properties panel). Publish: richtext <table> or legacy row/cell divs.
+ * UE: container rows (col1–col4 per Table Row). Publish: row/cell divs → <table>.
  */
 
 function isUniversalEditorCanvas() {
@@ -32,14 +32,11 @@ function buildCell(rowIndex) {
   return cell;
 }
 
-function decorateFromMarkup(block) {
-  const table = block.querySelector(':scope table');
-  if (!table) return false;
-  block.replaceChildren(table.cloneNode(true));
-  return true;
+function rowHasCells(row) {
+  return [...row.children].some((col) => col.textContent.trim());
 }
 
-function decorateFromRows(block) {
+function decorateForPublish(block) {
   restoreRows(block);
 
   const table = document.createElement('table');
@@ -50,13 +47,14 @@ function decorateFromRows(block) {
   if (header) table.append(thead);
   table.append(tbody);
 
-  [...block.children].forEach((child, i) => {
-    if (child.tagName !== 'DIV') return;
+  let rowIndex = 0;
+  [...block.children].forEach((child) => {
+    if (child.tagName !== 'DIV' || !rowHasCells(child)) return;
     const row = document.createElement('tr');
-    if (header && i === 0) thead.append(row);
+    if (header && rowIndex === 0) thead.append(row);
     else tbody.append(row);
     [...child.children].forEach((col) => {
-      const cell = buildCell(header ? i : i + 1);
+      const cell = buildCell(header ? rowIndex : rowIndex + 1);
       const align = col.getAttribute('data-align');
       const valign = col.getAttribute('data-valign');
       if (align) cell.style.textAlign = align;
@@ -64,18 +62,14 @@ function decorateFromRows(block) {
       cell.innerHTML = col.innerHTML;
       row.append(cell);
     });
+    rowIndex += 1;
   });
 
-  if (!table.querySelector('tr')) return false;
+  if (!table.querySelector('tr')) return;
   block.replaceChildren(table);
-  return true;
 }
 
-function decorateForPublish(block) {
-  if (decorateFromMarkup(block)) return;
-  decorateFromRows(block);
-}
-
+/** UE: keep block/item rows so column fields stay editable in the properties rail. */
 function decorateForEditor(block) {
   restoreRows(block);
   block.classList.add('table-ue');

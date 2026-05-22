@@ -2,14 +2,33 @@
   "definitions": [
     {
       "title": "Table",
-      "id": "table",
+      "id": "data-table",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Table",
-              "model": "table"
+              "filter": "data-table"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Table Row",
+      "id": "table-row",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Table Row",
+              "model": "table-row",
+              "col1": "",
+              "col2": "",
+              "col3": "",
+              "col4": ""
             }
           }
         }
@@ -18,48 +37,46 @@
   ],
   "models": [
     {
-      "id": "table",
+      "id": "table-row",
       "fields": [
         {
-          "component": "richtext",
-          "name": "table",
-          "label": "Table content",
+          "component": "text",
           "valueType": "string",
+          "name": "col1",
+          "label": "Column 1",
           "value": "",
-          "filter": "table",
-          "description": "Use the table button in the editor toolbar, or paste a table. First row is treated as the header."
+          "description": "First column (header label in row 1, feature name in other rows)"
         },
         {
-          "component": "select",
-          "name": "classes",
-          "label": "Table style",
-          "value": "",
-          "options": [
-            { "name": "Default", "value": "" },
-            { "name": "No header row", "value": "no-header" },
-            { "name": "Striped rows", "value": "striped" },
-            { "name": "Bordered cells", "value": "bordered" }
-          ]
+          "component": "text",
+          "valueType": "string",
+          "name": "col2",
+          "label": "Column 2",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "col3",
+          "label": "Column 3",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "col4",
+          "label": "Column 4",
+          "value": ""
         }
       ]
     }
   ],
   "filters": [
     {
-      "id": "table",
-      "rte": {
-        "toolbar": {
-          "format": ["bold", "italic"],
-          "blocks": ["paragraph"],
-          "list": ["bullet_list", "ordered_list"],
-          "insert": ["link", "table"],
-          "sections": ["format", "blocks", "list", "insert"]
-        },
-        "plugins": "link lists table",
-        "icons": "thin",
-        "icons_url": "https://cdn.jsdelivr.net/npm/tinymce@6/icons/default/icons.min.js",
-        "skin_url": "https://cdn.jsdelivr.net/npm/tinymce@6/skins/ui/oxide"
-      }
+      "id": "data-table",
+      "components": [
+        "table-row"
+      ]
     }
   ]
 }
