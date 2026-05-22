@@ -21,6 +21,37 @@ function isLeadCopy(text, headingText = '') {
 
 const HIGHLIGHT_MAX_LEN = 40;
 
+/** Matches --gradient-text stops (#0a7c8c → #4f46e5). */
+const GRADIENT_TEXT_START = [10, 124, 140];
+const GRADIENT_TEXT_END = [79, 70, 229];
+
+function gradientTextColorAt(t) {
+  const ratio = Math.min(1, Math.max(0, t));
+  const channel = (start, end) => Math.round(start + (end - start) * ratio);
+  return `rgb(${channel(GRADIENT_TEXT_START[0], GRADIENT_TEXT_END[0])} `
+    + `${channel(GRADIENT_TEXT_START[1], GRADIENT_TEXT_END[1])} `
+    + `${channel(GRADIENT_TEXT_START[2], GRADIENT_TEXT_END[2])})`;
+}
+
+/** Per-character colors avoid background-clip:text descender clipping in WebKit. */
+function paintGradientHighlight(em, phraseText) {
+  const phrase = normalizeText(phraseText ?? em.textContent);
+  if (!phrase || em.querySelector('.hero-highlight-char')) return;
+
+  em.textContent = '';
+  em.classList.add('hero-highlight');
+
+  const chars = [...phrase];
+  const lastIndex = chars.length - 1;
+  chars.forEach((char, index) => {
+    const span = document.createElement('span');
+    span.className = 'hero-highlight-char';
+    span.textContent = char;
+    span.style.color = gradientTextColorAt(lastIndex > 0 ? index / lastIndex : 0);
+    em.append(span);
+  });
+}
+
 function wrapHighlightInHeading(heading, highlightText) {
   const full = normalizeText(heading.textContent);
   const phrase = normalizeText(highlightText);
@@ -32,7 +63,7 @@ function wrapHighlightInHeading(heading, highlightText) {
   heading.textContent = '';
   if (before) heading.append(document.createTextNode(before));
   const em = document.createElement('em');
-  em.textContent = phrase;
+  paintGradientHighlight(em, phrase);
   heading.append(em);
   if (after) heading.append(document.createTextNode(after));
   return true;
@@ -45,7 +76,7 @@ function insertHighlightIntoHeading(heading, highlightText) {
   heading.textContent = '';
 
   const em = document.createElement('em');
-  em.textContent = phrase;
+  paintGradientHighlight(em, phrase);
 
   const trimmed = text.replace(phrase, '').trim();
   if (trimmed) {
@@ -347,7 +378,7 @@ export default function decorate(block) {
 
     if (highlightText === headingText) {
       const em = document.createElement('em');
-      em.textContent = headingText;
+      paintGradientHighlight(em, headingText);
       h1.textContent = '';
       h1.append(em);
       row.remove();
@@ -403,6 +434,11 @@ export default function decorate(block) {
 
   consolidateContent(block, hasImage);
   finalizeHeadlineHighlight(block);
+
+  const highlightEm = h1.querySelector('em');
+  if (highlightEm && !highlightEm.querySelector('.hero-highlight-char')) {
+    paintGradientHighlight(highlightEm);
+  }
 
   if (hasImage) {
     const content = block.querySelector('.hero-content');

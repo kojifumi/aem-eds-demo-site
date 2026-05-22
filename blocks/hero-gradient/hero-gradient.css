@@ -89,10 +89,16 @@
   overflow: visible;
 }
 
-.hero-gradient h1 em {
+.hero-gradient h1 em.hero-highlight {
   font-style: normal;
-  line-height: inherit;
-  vertical-align: baseline;
+}
+
+.hero-gradient h1 .hero-highlight-char {
+  font-style: inherit;
+}
+
+.hero-gradient h1 em:not(.hero-highlight) {
+  font-style: normal;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   background: var(--gradient-text);
