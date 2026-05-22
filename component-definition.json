@@ -328,7 +328,6 @@
                 "template": {
                   "name": "Plan",
                   "model": "pricing-card",
-                  "plan": "",
                   "price": "",
                   "period": "",
                   "description": "",

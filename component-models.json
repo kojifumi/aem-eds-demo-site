@@ -489,10 +489,10 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "plan",
+        "name": "name",
         "label": "Plan name",
         "value": "",
-        "description": "Required — e.g. Starter, Growth, Enterprise"
+        "description": "Required — e.g. Starter, Growth, Enterprise. Also shown in the Content Tree."
       },
       {
         "component": "text",
