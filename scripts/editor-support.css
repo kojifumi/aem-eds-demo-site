@@ -159,6 +159,13 @@ main:not(:has(.section)) > div:only-child > div:first-child a.button {
   justify-content: flex-start;
 }
 
+.hero-gradient.with-image .hero-media picture,
+.hero-gradient.with-image .hero-media img {
+  position: static;
+  inset: unset;
+  z-index: auto;
+}
+
 @media (width >= 900px) {
   .hero-gradient.with-image > div,
   .hero-gradient.with-image.block > div {

@@ -42,7 +42,7 @@ main > .section:has(.hero--gradient-) > div {
   font-size: var(--heading-font-size-xxl);
 }
 
-.hero picture {
+.hero:not(.with-image) picture {
   position: absolute;
   z-index: -1;
   inset: 0;
@@ -50,7 +50,7 @@ main > .section:has(.hero--gradient-) > div {
   box-sizing: border-box;
 }
 
-.hero img {
+.hero:not(.with-image) img {
   object-fit: cover;
   width: 100%;
   height: 100%;

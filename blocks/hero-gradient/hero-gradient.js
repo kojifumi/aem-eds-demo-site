@@ -3,6 +3,8 @@
  * One row per model field; CTA style comes from cta_linkType rows and/or strong/em wrappers.
  */
 
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 function normalizeText(text) {
   return (text ?? '').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
 }
@@ -268,7 +270,9 @@ function consolidateContent(block, keepImage) {
   if (keepImage && picture) {
     const mediaCell = document.createElement('div');
     mediaCell.className = 'hero-media';
+    const imageRow = [...block.children].find((row) => row.contains(picture));
     mediaCell.append(picture);
+    if (imageRow) moveInstrumentation(imageRow, mediaCell);
     wrapper.append(mediaCell);
   }
   block.replaceChildren(wrapper);
