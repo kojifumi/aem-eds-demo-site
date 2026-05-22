@@ -191,6 +191,10 @@
   .hero-gradient.compact h1 {
     font-size: 56px;
   }
+
+  .hero-gradient.compact.with-image h1 {
+    font-size: 56px;
+  }
 }
 
 /* With-image variant — two-column layout for About-style heroes.

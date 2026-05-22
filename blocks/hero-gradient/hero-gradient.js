@@ -90,6 +90,16 @@ function getCell(row) {
   return row?.firstElementChild;
 }
 
+function rowHasImage(row) {
+  const cell = getCell(row);
+  return Boolean(cell?.querySelector('picture, img'));
+}
+
+function blockHasImage(block) {
+  return getRows(block).some((row) => rowHasImage(row))
+    || Boolean(block.querySelector(':scope > div > .hero-media picture, :scope > div > .hero-media img'));
+}
+
 const CTA_LINK_TYPES = new Set(['primary', 'secondary']);
 
 function parseLinkType(text) {
@@ -170,13 +180,22 @@ function prepareForDecorate(block) {
   const rows = getRows(block);
   if (rows.length !== 1) return;
 
-  const cell = getCell(rows[0]);
-  if (!cell?.querySelector('h1, h2, .hero-eyebrow, .hero-ctas')) return;
+  const outer = rows[0];
+  const mediaEl = outer.querySelector(':scope > .hero-media');
+  const content = outer.querySelector(':scope > .hero-content') || getCell(outer);
+  if (!content?.querySelector('h1, h2, .hero-eyebrow, .hero-ctas')) return;
 
-  const items = [...cell.children];
-  block.textContent = '';
+  const newRows = [];
 
-  items.forEach((item) => {
+  if (mediaEl?.firstElementChild) {
+    const imageRow = document.createElement('div');
+    const imageCell = document.createElement('div');
+    imageCell.append(mediaEl.firstElementChild);
+    imageRow.append(imageCell);
+    newRows.push(imageRow);
+  }
+
+  [...content.children].forEach((item) => {
     if (item.classList?.contains('hero-ctas')) {
       item.querySelectorAll('a').forEach((link, index) => {
         const row = document.createElement('div');
@@ -184,10 +203,10 @@ function prepareForDecorate(block) {
         const isPrimary = link.classList.contains('primary')
           || (!link.classList.contains('secondary') && index === 0);
         const wrap = document.createElement(isPrimary ? 'strong' : 'em');
-        wrap.append(link.cloneNode(true));
+        wrap.append(link);
         inner.append(wrap);
         row.append(inner);
-        block.append(row);
+        newRows.push(row);
       });
       return;
     }
@@ -196,8 +215,10 @@ function prepareForDecorate(block) {
     const inner = document.createElement('div');
     inner.append(item);
     row.append(inner);
-    block.append(row);
+    newRows.push(row);
   });
+
+  block.replaceChildren(...newRows);
 }
 
 /** UE emits one block row per field; collapse into a single inner cell for layout/CSS.
@@ -256,6 +277,9 @@ function consolidateContent(block, keepImage) {
 export default function decorate(block) {
   block.classList.add('hero', 'gradient');
   prepareForDecorate(block);
+
+  const hasImage = blockHasImage(block);
+  if (hasImage) block.classList.add('with-image');
 
   const rows = getRows(block);
   const h1 = block.querySelector('h1, h2');
@@ -373,10 +397,10 @@ export default function decorate(block) {
     block.append(row);
   }
 
-  consolidateContent(block, block.classList.contains('with-image'));
+  consolidateContent(block, hasImage);
   finalizeHeadlineHighlight(block);
 
-  if (block.classList.contains('with-image')) {
+  if (hasImage) {
     const content = block.querySelector('.hero-content');
     const highlight = normalizeText(h1.querySelector('em')?.textContent);
     if (content && highlight) {
