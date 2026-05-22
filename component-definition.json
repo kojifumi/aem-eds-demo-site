@@ -326,8 +326,15 @@
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Plan",
-                  "model": "pricing-card"
+                  "name": "",
+                  "model": "pricing-card",
+                  "price": "",
+                  "period": "",
+                  "description": "",
+                  "features": "",
+                  "featured": "",
+                  "cta_link": "",
+                  "cta_linkText": ""
                 }
               }
             }

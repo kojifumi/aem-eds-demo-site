@@ -491,7 +491,8 @@
         "valueType": "string",
         "name": "name",
         "label": "Plan name",
-        "value": ""
+        "value": "",
+        "description": "Required — e.g. Starter, Growth, Enterprise (empty values are omitted from publish)"
       },
       {
         "component": "text",
@@ -499,15 +500,32 @@
         "name": "price",
         "label": "Price",
         "value": "",
-        "description": "e.g. $0, $299, Custom"
+        "description": "e.g. ¥0, $299, Custom"
       },
       {
-        "component": "text",
-        "valueType": "string",
+        "component": "select",
         "name": "period",
         "label": "Period",
         "value": "",
-        "description": "e.g. 月, / mo, / yr — do not start with / alone (e.g. /月 becomes a broken link)"
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "月 (per month)",
+            "value": "月"
+          },
+          {
+            "name": "/ mo",
+            "value": "/ mo"
+          },
+          {
+            "name": "/ yr",
+            "value": "/ yr"
+          }
+        ],
+        "description": "Do not type /月 manually — use this dropdown"
       },
       {
         "component": "text",
@@ -543,7 +561,8 @@
         "component": "aem-content",
         "valueType": "string",
         "name": "cta_link",
-        "label": "CTA URL"
+        "label": "CTA URL",
+        "description": "e.g. /ja/signup"
       },
       {
         "component": "text",
