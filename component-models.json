@@ -611,44 +611,40 @@
     ]
   },
   {
-    "id": "table-row",
+    "id": "table",
     "fields": [
       {
-        "component": "text",
+        "component": "richtext",
+        "name": "table",
+        "label": "Table content",
         "valueType": "string",
-        "name": "col1",
-        "label": "Column 1",
         "value": "",
-        "description": "First column (feature name, or header label in the first row)"
+        "filter": "table",
+        "description": "Use the table button in the editor toolbar, or paste a table. First row is treated as the header."
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "col2",
-        "label": "Column 2",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "col3",
-        "label": "Column 3",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "col4",
-        "label": "Column 4",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "name",
-        "label": "Content Tree label",
+        "component": "select",
+        "name": "classes",
+        "label": "Table style",
         "value": "",
-        "description": "Optional. Shown in the Content Tree only (defaults to Column 1)."
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "No header row",
+            "value": "no-header"
+          },
+          {
+            "name": "Striped rows",
+            "value": "striped"
+          },
+          {
+            "name": "Bordered cells",
+            "value": "bordered"
+          }
+        ]
       }
     ]
   },

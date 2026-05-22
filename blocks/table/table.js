@@ -2,6 +2,8 @@
  * Table Block
  * Recreate a table
  * https://www.hlx.live/developer/block-collection/table
+ *
+ * UE: single richtext field (properties panel). Publish: richtext <table> or legacy row/cell divs.
  */
 
 function isUniversalEditorCanvas() {
@@ -30,7 +32,14 @@ function buildCell(rowIndex) {
   return cell;
 }
 
-function decorateForPublish(block) {
+function decorateFromMarkup(block) {
+  const table = block.querySelector(':scope table');
+  if (!table) return false;
+  block.replaceChildren(table.cloneNode(true));
+  return true;
+}
+
+function decorateFromRows(block) {
   restoreRows(block);
 
   const table = document.createElement('table');
@@ -56,10 +65,17 @@ function decorateForPublish(block) {
       row.append(cell);
     });
   });
+
+  if (!table.querySelector('tr')) return false;
   block.replaceChildren(table);
+  return true;
 }
 
-/** UE: keep block/item rows so column fields stay editable in the properties rail. */
+function decorateForPublish(block) {
+  if (decorateFromMarkup(block)) return;
+  decorateFromRows(block);
+}
+
 function decorateForEditor(block) {
   restoreRows(block);
   block.classList.add('table-ue');
