@@ -50,31 +50,101 @@
   margin-top: 0.25em;
 }
 
-/* Universal Editor — keep row/cell layout visible before publish decoration */
+/* Universal Editor — row/cell grid mirrors published <table> styling */
 .table.table-ue {
-  display: grid;
-  gap: 0;
-  border: 1px solid #dadada;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  font-size: var(--body-font-size-xs);
+}
+
+@media (width >= 600px) {
+  .table.table-ue {
+    font-size: var(--body-font-size-s);
+  }
+}
+
+@media (width >= 900px) {
+  .table.table-ue {
+    font-size: var(--body-font-size-m);
+  }
 }
 
 .table.table-ue > div {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--table-cols, 4), minmax(0, 1fr));
   border-bottom: 1px solid #dadada;
 }
 
 .table.table-ue > div:first-child {
   border-top: 2px solid #dadada;
-  font-weight: 700;
+}
+
+.table.table-ue > div:last-child {
+  border-bottom: 2px solid #dadada;
 }
 
 .table.table-ue > div > div {
   padding: 0.5em;
-  border-right: 1px solid #dadada;
+  text-align: left;
 }
 
-.table.table-ue > div > div:last-child {
-  border-right: 0;
+.table.table-ue > div.table-ue-header > div {
+  font-weight: 700;
+}
+
+.table.table-ue > div > div p {
+  margin: 0;
+}
+
+/* comparison section — match published card frame + column styling */
+main .section.comparison .table.table-ue {
+  max-width: 960px;
+  margin: 0 auto;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  font-size: var(--body-font-size-s);
+}
+
+main .section.comparison .table.table-ue > div {
+  border-bottom: 1px solid var(--border-color);
+}
+
+main .section.comparison .table.table-ue > div:first-child {
+  border-top: none;
+}
+
+main .section.comparison .table.table-ue > div:last-child {
+  border-bottom: none;
+}
+
+main .section.comparison .table.table-ue > div.table-ue-header {
+  background: var(--light-color);
+}
+
+main .section.comparison .table.table-ue > div > div {
+  padding: 14px 18px;
+}
+
+main .section.comparison .table.table-ue > div.table-ue-header > div {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-muted-color);
+}
+
+main .section.comparison .table.table-ue > div:not(.table-ue-header) > div:first-child {
+  font-weight: 500;
+  color: var(--text-color);
+  text-align: left;
+}
+
+main .section.comparison .table.table-ue > div:not(.table-ue-header) > div:not(:first-child) {
+  color: var(--accent-color);
+  font-weight: 700;
+  text-align: center;
 }
 
 /* no header variant */

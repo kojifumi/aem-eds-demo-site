@@ -73,6 +73,23 @@ function decorateForPublish(block) {
 function decorateForEditor(block) {
   restoreRows(block);
   block.classList.add('table-ue');
+
+  let maxCols = 0;
+  let rowIndex = 0;
+  [...block.children].forEach((row) => {
+    if (row.tagName !== 'DIV' || !rowHasCells(row)) return;
+    row.classList.add('table-ue-row');
+    if (rowIndex === 0 && !block.classList.contains('no-header')) {
+      row.classList.add('table-ue-header');
+    }
+    [...row.children].forEach((cell, cellIndex) => {
+      cell.classList.add('table-ue-cell');
+      if (rowIndex > 0 && cellIndex === 0) cell.classList.add('table-ue-cell-feature');
+    });
+    maxCols = Math.max(maxCols, row.children.length);
+    rowIndex += 1;
+  });
+  if (maxCols > 0) block.style.setProperty('--table-cols', String(maxCols));
 }
 
 export default async function decorate(block) {
