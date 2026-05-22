@@ -326,8 +326,9 @@
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "",
+                  "name": "Plan",
                   "model": "pricing-card",
+                  "plan": "",
                   "price": "",
                   "period": "",
                   "description": "",

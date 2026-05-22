@@ -25,7 +25,7 @@
             "template": {
               "name": "Plan",
               "model": "pricing-card",
-              "name": "",
+              "plan": "",
               "price": "",
               "period": "",
               "description": "",
@@ -46,10 +46,10 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "name",
+          "name": "plan",
           "label": "Plan name",
           "value": "",
-          "description": "Required — e.g. Starter, Growth, Enterprise (empty values are omitted from publish)"
+          "description": "Required — e.g. Starter, Growth, Enterprise"
         },
         {
           "component": "text",

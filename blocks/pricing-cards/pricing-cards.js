@@ -2,9 +2,9 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 
 /**
  * Pricing Cards — UE row layout (1 row = 1 plan, fixed column order):
- *   name | price | period | description | features | featured | cta link | cta label
+ *   plan | price | period | description | features | featured | cta link | cta label
  *
- * Empty leading cells (e.g. missing Plan name) are omitted from plain.html — always fill Plan name.
+ * The model field is `plan` (not `name`) — `name` collides with the UE item template key.
  * Period must not start with "/" alone (/月 → link with garbled %E6%9C%88 text).
  */
 
@@ -100,16 +100,24 @@ function getCell(cells, index) {
 }
 
 function findCta(cells, indices) {
-  const linkCell = getCell(cells, indices.ctaLink);
-  const labelCell = getCell(cells, indices.ctaLabel);
-  const anchor = linkCell?.querySelector(':scope a[href]');
-  if (!anchor || isPeriodLink(anchor)) return null;
-
-  const label = textOf(labelCell);
-  return {
-    anchor,
-    label: label || anchor.textContent.trim(),
+  const tryCell = (linkCell, labelCell) => {
+    const anchor = linkCell?.querySelector(':scope a[href]');
+    if (!anchor || isPeriodLink(anchor)) return null;
+    const label = textOf(labelCell) || anchor.textContent.trim();
+    return { anchor, label };
   };
+
+  const mapped = tryCell(getCell(cells, indices.ctaLink), getCell(cells, indices.ctaLabel));
+  if (mapped) return mapped;
+
+  // UE may merge CTA URL + label into one column, or omit an empty label column
+  for (let i = cells.length - 1; i >= 0; i -= 1) {
+    const anchor = cells[i]?.querySelector(':scope a[href]');
+    if (!anchor || isPeriodLink(anchor)) continue;
+    const label = textOf(cells[i + 1]) || anchor.textContent.trim();
+    return { anchor, label };
+  }
+  return null;
 }
 
 function buildPlan(row) {
