@@ -507,7 +507,7 @@
         "name": "period",
         "label": "Period",
         "value": "",
-        "description": "e.g. / mo, / yr (leave empty for Custom plans)"
+        "description": "e.g. 月, / mo, / yr — do not start with / alone (e.g. /月 becomes a broken link)"
       },
       {
         "component": "text",
